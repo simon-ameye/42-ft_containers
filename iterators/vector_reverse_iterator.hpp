@@ -6,19 +6,20 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:30:26 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/24 15:16:20 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/24 19:50:53 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_REVERSE_ITERATOR_HPP
 #define VECTOR_REVERSE_ITERATOR_HPP
 
-#include "vector_iterator.hpp"
+#define ADD 1
+#define SUBSTRACT -1
 
 namespace ft
 {
 	template<typename T>
-	class vector_reverse_iterator : public vector_iterator< T >
+	class vector_reverse_iterator
 	{
 		public:
 			/* *******************ALIASES******************* */
@@ -63,34 +64,40 @@ namespace ft
 		public:
 			reference operator*() const			{ return (*_val); }
 			pointer operator->() const			{ return (_val); }
-			reference operator[](int nb) const	{ return (_val[nb]); }
-			vector_reverse_iterator& operator++()		{ ++_val; return (*this); }
-			vector_reverse_iterator& operator--()		{ --_val; return (*this); }
+			vector_reverse_iterator& operator++()		{ --_val; return (*this); }
+			vector_reverse_iterator& operator--()		{ ++_val; return (*this); }
 
-			vector_reverse_iterator operator++(int)
+			reference operator[](int nb) const
 			{
-				vector_reverse_iterator res(*this);
-				--(*this);
-				return (res);
+				vector_reverse_iterator tmp(*this);
+				move(nb, ADD, tmp);
+				return (*tmp);
 			}
 
-			vector_reverse_iterator operator--(int)
+			vector_reverse_iterator operator++(int)
 			{
 				vector_reverse_iterator res(*this);
 				++(*this);
 				return (res);
 			}
 
+			vector_reverse_iterator operator--(int)
+			{
+				vector_reverse_iterator res(*this);
+				--(*this);
+				return (res);
+			}
+
 			bool operator==(const vector_reverse_iterator& it) const	{ return (it._val == _val); }
 			bool operator!=(const vector_reverse_iterator& it) const	{ return (it._val != _val); }
-			bool operator<(const vector_reverse_iterator& it) const		{ return (it._val < this->_val); }
-			bool operator>(const vector_reverse_iterator& it) const		{ return (it._val > this->_val); }
-			bool operator<=(const vector_reverse_iterator& it) const	{ return (it._val <= this->_val); }
-			bool operator>=(const vector_reverse_iterator& it) const	{ return (it._val >= this->_val); }
+			bool operator<(const vector_reverse_iterator& it) const		{ return (it._val > this->_val); }
+			bool operator>(const vector_reverse_iterator& it) const		{ return (it._val < this->_val); }
+			bool operator<=(const vector_reverse_iterator& it) const	{ return (it._val >= this->_val); }
+			bool operator>=(const vector_reverse_iterator& it) const	{ return (it._val <= this->_val); }
 
 			vector_reverse_iterator& operator+=(int nb)
 			{
-				move(nb, SUBSTRACT);
+				move(nb, ADD, *this);
 				return (*this);
 			}
 
@@ -98,13 +105,13 @@ namespace ft
 			{
 				vector_reverse_iterator it(*this);
 				
-				move(nb, SUBSTRACT);
+				move(nb, ADD, *this);
 				return (it);
 			}
 
 			vector_reverse_iterator& operator-=(int nb)
 			{
-				move(nb, ADD);
+				move(nb, SUBSTRACT, *this);
 				return (*this);
 			}
 
@@ -112,14 +119,14 @@ namespace ft
 			{
 				vector_reverse_iterator it(*this);
 				
-				move(nb, ADD);
+				move(nb, SUBSTRACT, *this);
 				return (it);
 			}
 
 
 			difference_type operator-(vector_reverse_iterator it) const
 			{
-				return (- this->_val + it._val);
+				return (it._val - this->_val);
 			}
 
 			/* *******************NON MEMBER OPPERATOR OVERLOAD******************* */
@@ -138,17 +145,17 @@ namespace ft
 			/* *******************PRIVATE FUNCTIONS******************* */
 		private :
 			/* --------------------useful function-------------------- */
-			void move(long nb, int sign)
+			void move(long nb, int sign, vector_reverse_iterator &iterator) const
 			{
 				long mov = sign * nb;
 				if (mov >= 0)
 				{
 					for (long i = 0; i < mov; i++)
-						++*this;
+						++iterator;
 				}
 				else
 					for (long i = 0; i > mov; i--)
-						--*this;
+						--iterator;
 			}
 	};
 }

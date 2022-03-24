@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/24 14:58:01 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/24 19:50:53 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,15 @@ namespace ft
 		public:
 			reference operator*() const			{ return (*_val); }
 			pointer operator->() const			{ return (_val); }
-			reference operator[](int nb) const	{ return (_val[nb]); }
 			vector_iterator& operator++()		{ ++_val; return (*this); }
 			vector_iterator& operator--()		{ --_val; return (*this); }
+
+			reference operator[](int nb) const
+			{
+				vector_iterator tmp(*this);
+				move(nb, ADD, tmp);
+				return (*tmp);
+			}
 
 			vector_iterator operator++(int)
 			{
@@ -91,7 +97,7 @@ namespace ft
 
 			vector_iterator& operator+=(int nb)
 			{
-				move(nb, ADD);
+				move(nb, ADD, *this);
 				return (*this);
 			}
 
@@ -99,13 +105,13 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				move(nb, ADD);
+				move(nb, ADD, *this);
 				return (it);
 			}
 
 			vector_iterator& operator-=(int nb)
 			{
-				move(nb, SUBSTRACT);
+				move(nb, SUBSTRACT, *this);
 				return (*this);
 			}
 
@@ -113,7 +119,7 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				move(nb, SUBSTRACT);
+				move(nb, SUBSTRACT, *this);
 				return (it);
 			}
 
@@ -139,17 +145,17 @@ namespace ft
 			/* *******************PRIVATE FUNCTIONS******************* */
 		private :
 			/* --------------------useful function-------------------- */
-			void move(long nb, int sign)
+			void move(long nb, int sign, vector_iterator &iterator) const
 			{
 				long mov = sign * nb;
 				if (mov >= 0)
 				{
 					for (long i = 0; i < mov; i++)
-						++*this;
+						++iterator;
 				}
 				else
 					for (long i = 0; i > mov; i--)
-						--*this;
+						--iterator;
 			}
 	};
 }
