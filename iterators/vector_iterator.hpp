@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/21 18:32:20 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/24 14:58:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #define VECTOR_ITERATOR_HPP
 
 #define ADD 1
-#define SUBSTRACT 0
+#define SUBSTRACT -1
 
 namespace ft
 {
-	template<typename T, bool B>
+	template<typename T>
 	class vector_iterator
 	{
 		public:
@@ -27,13 +27,9 @@ namespace ft
 			typedef T												value_type;
 			typedef size_t											size_type;
 			typedef T*												elemPtr;
-
 			typedef T&												reference;
 			typedef T*												pointer;
-
 			typedef std::random_access_iterator_tag					iterator_category;
-//            typedef typename chooseConst<B, T&, const T&>::type     reference;
-//            typedef typename chooseConst<B, T*, const T*>::type     pointer;
 
 			/* *******************ATTRIBUTES******************* */
 		private:
@@ -41,15 +37,16 @@ namespace ft
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
-			vector_iterator(elemPtr val = 0) :
-			_val(val)
-			{}
+			/* --------------------default constructor-------------------- */
+			vector_iterator(elemPtr val = 0) : _val(val) {}
 
-			vector_iterator(const vector_iterator<T, false>& copy)
+			/* --------------------copy constructor-------------------- */
+			vector_iterator(const vector_iterator< T >& copy)
 			{
 				_val = copy.getElemPtr();
 			}
 
+			/* --------------------destructor-------------------- */
 			~vector_iterator() {}
 
 			vector_iterator& operator=(const vector_iterator& assign)
@@ -67,6 +64,7 @@ namespace ft
 		public:
 			reference operator*() const			{ return (*_val); }
 			pointer operator->() const			{ return (_val); }
+			reference operator[](int nb) const	{ return (_val[nb]); }
 			vector_iterator& operator++()		{ ++_val; return (*this); }
 			vector_iterator& operator--()		{ --_val; return (*this); }
 
@@ -93,7 +91,7 @@ namespace ft
 
 			vector_iterator& operator+=(int nb)
 			{
-				movePtr(this->_val, nb, ADD);
+				move(nb, ADD);
 				return (*this);
 			}
 
@@ -101,13 +99,13 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				movePtr(it._val, nb, ADD);
+				move(nb, ADD);
 				return (it);
 			}
 
 			vector_iterator& operator-=(int nb)
 			{
-				movePtr(this->_val, nb, SUBSTRACT);
+				move(nb, SUBSTRACT);
 				return (*this);
 			}
 
@@ -115,18 +113,10 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				movePtr(it._val, nb, SUBSTRACT);
+				move(nb, SUBSTRACT);
 				return (it);
 			}
 
-			reference operator[](int nb) const
-			{
-				value_type* tmp;
-				tmp = this->_val;
-
-				movePtr(tmp, nb, ADD);
-				return (*tmp);
-			}
 
 			difference_type operator-(vector_iterator it) const
 			{
@@ -148,19 +138,18 @@ namespace ft
 
 			/* *******************PRIVATE FUNCTIONS******************* */
 		private :
-			void movePtr(elemPtr& val, long nb, bool sign) const
+			/* --------------------useful function-------------------- */
+			void move(long nb, int sign)
 			{
-				int mov;
-
-				if (sign == ADD)
-					mov = nb > 0 ? mov = 1: mov = -1;
+				long mov = sign * nb;
+				if (mov >= 0)
+				{
+					for (long i = 0; i < mov; i++)
+						++*this;
+				}
 				else
-					mov = nb > 0 ? mov = -1: mov = 1;
-
-				if (nb < 0)
-					nb *= -1;
-				for (; nb > 0; --nb)
-					val += mov;
+					for (long i = 0; i > mov; i--)
+						--*this;
 			}
 	};
 }

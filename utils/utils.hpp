@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/21 20:31:04 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/22 18:06:00 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ namespace ft
 	/* ****************************************** */
 	/*                   ENABLE IF                */
 	/* ****************************************** */
-
-	template <bool B>
+	//enable_if has a public member typedef type, equal to int; otherwise, there is no member typedef.
+	template<bool B>
 	struct enable_if {};
-
-	template <>
+	
+	template<>
 	struct enable_if<true> { typedef int type; };
 
 

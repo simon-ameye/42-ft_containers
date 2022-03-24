@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/22 11:51:00 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/24 13:07:38 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,34 @@
 #include "../utils/utils.hpp"
 #include "../iterators/vector_reverse_iterator.hpp"
 #include "../iterators/vector_iterator.hpp"
-#include <cmath>
+#include <cmath> // for size calculation
 
 namespace ft
 {
-	template < class T, class Alloc = std::allocator <T> >
+	template < class T, class Alloc = std::allocator <T> > // Alloc is optional
 	class vector
 	{
 		public :
 			/* *******************TYPES DEFINITION******************* */
-			typedef T											value_type;
-			typedef Alloc										allocator_type;
-			typedef long int									difference_type;
-			typedef size_t										size_type;
+			typedef T											value_type; //class of elements to store
+			typedef Alloc										allocator_type; //allocator
+			typedef long int									difference_type; //difference between two iterators
+			typedef size_t										size_type; //size
 
-			typedef T&											reference;
-			typedef const T&									const_reference;
-			typedef T*											pointer;
-			typedef const T*									const_pointer;
+			typedef T&											reference; //reference on element (for returned values)
+			typedef const T&									const_reference; //const reference on element (for returned values)
+			typedef T*											pointer; //pointer on element
+			typedef const T*									const_pointer; //const pointer on element
 			
-			typedef typename ft::vector_iterator<T, false>		iterator;
-			typedef typename ft::vector_iterator<T, true>		const_iterator;
+			typedef typename ft::vector_iterator< T >		iterator;
+			typedef typename ft::vector_iterator< T >		const_iterator;
 
-			typedef typename ft::vector_reverse_iterator<T, false>	reverse_iterator;
-			typedef typename ft::vector_reverse_iterator<T, true>	const_reverse_iterator;
+			typedef typename ft::vector_reverse_iterator< T >	reverse_iterator;
+			typedef typename ft::vector_reverse_iterator< T >	const_reverse_iterator;
 
 			/* *******************CONSTRUCTORS******************* */
 			/* --------------------default constructor-------------------- */
+			//when no argument provided, optional allocator
 			explicit
 			vector (const allocator_type& alloc = allocator_type()) :
 			_alloc(alloc), _size(0), _capacity(0)
@@ -52,17 +53,19 @@ namespace ft
 			}
 
 			/* --------------------fill constructor-------------------- */
-			explicit
+			//for construction as vector<int> foo (10) or vector<int> foo (10, 42)
+			//optional allocator
+			explicit //deny implicit conversion when calling constructor
 			vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) :
 			_alloc(alloc), _size(n), _capacity(n)
 			{
-				//std::cout << "Vector constructor call with n=" << n << " val=" << val << std::endl;
 				_vector = _alloc.allocate(_capacity);
 				for (size_type i = 0; i < _size; ++i)
 					_alloc.construct(&_vector[i], val);
 			}
 
 			/* --------------------range constructor-------------------- */
+			//for construction as vector<int> foo (first, last)
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0) :
@@ -78,11 +81,11 @@ namespace ft
 			}
 
 			/* --------------------copy constructor-------------------- */
+			//for construction as vector<int> foo (copy)
 			vector(const vector& x) :
-					_alloc(x._alloc), _size(x._size), _capacity(x._capacity)
+			_alloc(x._alloc), _size(x._size), _capacity(x._capacity)
 			{
 				_vector = _alloc.allocate(_capacity);
-				
 				for (ft::pair<int, const_iterator> i(0, x.begin());
 						i.second != x.end(); ++i.first, ++i.second)
 					_alloc.construct(&_vector[i.first], *i.second);
@@ -90,10 +93,10 @@ namespace ft
 
 		private:
 			/* *******************VARIABLES******************* */
-			Alloc				_alloc;
-			pointer				_vector;
-			size_type			_size;
-			size_type			_capacity;
+			Alloc				_alloc; //copy of allocator
+			pointer				_vector; //pointer on first element
+			size_type			_size; //actual size
+			size_type			_capacity; //capacity, max size available
 
 		public:
 			/* *******************ITERATORS******************* */
@@ -115,13 +118,14 @@ namespace ft
 			size_type		max_size() const				{ return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type)) - 1.0); }
 
 			/* --------------------resize-------------------- */
+			//resize and fill with 0 or specified value
 			void resize (size_type n, value_type val = value_type())
 			{
-				if (n > _capacity)
+				if (n > _capacity) //if capacity is too small, realocate
 					reallocateVec(n);
-				while (n > _size)
+				while (n > _size) //then, fill with val
 					push_back(val);
-				while (n < _size)
+				while (n < _size) //or remove some elements
 					pop_back();
 			}
 
@@ -187,14 +191,16 @@ namespace ft
 			const_reference operator[] (size_type n) const	{ return _vector[n]; }
 
 			/* --------------------at-------------------- */
+			//same as [] but with overflow protection
 			reference at(size_type n)
 			{
-				if (!(n < _size))
+				if (n >= _size)
 					throw std::out_of_range("vector");
 				return _vector[n];
 			}
 
 			/* --------------------const at-------------------- */
+			//same as [] const but with overflow protection
 			const_reference at(size_type n) const
 			{
 				if (!(n < _size))
@@ -209,30 +215,31 @@ namespace ft
 			const_reference back() const					{ return _vector[_size - 1]; }
 
 			/* *******************MODIFIERS******************* */
+			//range assign
+			//Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly.
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last,
-						typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
+			void assign (InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
 			{
 				clear();
-
-				// Reallocating only if new capacity exceeds previous
 				size_type n = static_cast<size_type>(last - first);
-				if (n > _capacity)
+				// Reallocating only if new capacity exceeds previous
+				if (n > _capacity) // if n > capacity, alloc a new capacity
 				{
 					_alloc.deallocate(_vector, _capacity);
 					_vector = _alloc.allocate(n);
 				}
-				
 				size_type i = 0;
-				for (; first != last; ++i, ++first)
+				for (; first != last; first++)
+				{
 					_alloc.construct(&_vector[i], *first);
+					 i++;
+				}
 				_size = i;
 			}
-
+			//fill assign
 			void assign (size_type n, const value_type& val)
 			{
 				clear();
-
 				// Reallocating only if new capacity exceeds previous
 				if (n > _capacity)
 				{
@@ -248,7 +255,7 @@ namespace ft
 			void push_back (const value_type& val)
 			{
 				if (_size + 1 > _capacity)
-					reallocateVec(!_capacity ? 1 : _capacity * 2);
+					reallocateVec(!_capacity ? 1 : _capacity * 2); //if capacity is reached, multiply it by 2
 				_alloc.construct(&_vector[_size++], val);
 			}
 
@@ -260,33 +267,19 @@ namespace ft
 
 			iterator insert (iterator position, const value_type& val)
 			{
-				// In case of a realloc, position will be invalited because _vector
-				// points to another allocated area so we need to save the index array
-				// where position iterator is pointing to create a new one after the reallocation
 				difference_type index = position - begin();
-				
 				insert(position, 1, val);
 				return iterator(&_vector[index]);
 			}
 
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				// In case of a realloc, position will be invalited because _vector
-				// points to another allocated area so we need to save the index array
-				// where position iterator is pointing to create a new one after the reallocation
 				difference_type index = position - begin();
-				
 				if (_size + n > _capacity)
 					reallocateVec(_capacity + n);
-				
-				// Creating a new iterator pointing to the correct allocated are (case a realloc occured previously)
 				iterator newPosition(&_vector[index]);
-				
-				// Moving at newPosition + n all elements after newPosition
 				if (newPosition != end())
 					moveElementsToTheRight(newPosition, n);
-				
-				// Constructing n new elements from val
 				for (size_type i = 0; i < n; ++i)
 					_alloc.construct(&(*newPosition++), val);
 				_size += n;
@@ -296,17 +289,11 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 						typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
 			{
-				// Counting number of elements to add
 				size_type n = 0;
 				InputIterator tmp(first);
 				while (tmp++ != last)
 					++n;
-				
-				// In case of a realloc, position will be invalited because _vector
-				// points to another allocated area so we need to save the index array
-				// where position iterator is pointing to create a new one after the reallocation
 				difference_type index = position - begin();
-				
 				if (_size + n > _capacity)
 					reallocateVec(_capacity + n);
 
