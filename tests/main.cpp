@@ -6,16 +6,16 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/24 19:46:40 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/25 17:24:17 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "../containers/vector.hpp"
 #include <vector>
+#include <list>
 #include "../iterators/vector_iterator.hpp"
 #include <iterator> 
-
 
 template <typename T>
 void	print_size(T const &vct)
@@ -194,8 +194,7 @@ void test5(T vector)
 
 int main (void)
 {
-	{
-		std::cout << "\n################## test 1 ##################" << std::endl;
+	{	std::cout << "\n################## test 1 ##################" << std::endl;
 
 		std::cout << "-----std::vector<int>" << std::endl;
 		std::vector<int> std1;
@@ -205,8 +204,7 @@ int main (void)
 		ft::vector<int> ft1;
 		test1(ft1);
 	}
-	{
-		std::cout << "\n################## test 2 ##################" << std::endl;
+	{	std::cout << "\n################## test 2 ##################" << std::endl;
 
 		std::cout << "-----std::vector<int>" << std::endl;
 		std::vector<int> std1;
@@ -216,8 +214,7 @@ int main (void)
 		ft::vector<int> ft1;
 		test2(ft1);
 	}
-	{
-		std::cout << "\n################## test 3 ##################" << std::endl;
+	{	std::cout << "\n################## test 3 ##################" << std::endl;
 
 		std::cout << "-----std::vector<int>" << std::endl;
 		std::vector<int> std1;
@@ -227,8 +224,7 @@ int main (void)
 		ft::vector<int> ft1;
 		test3(ft1);
 	}
-	{
-		std::cout << "\n################## test 4 ##################" << std::endl;
+	{	std::cout << "\n################## test 4 ##################" << std::endl;
 		std::cout << "-----std::vector<int>" << std::endl;
 		std::vector<int> std1;
 		test4(std1);
@@ -237,8 +233,7 @@ int main (void)
 		ft::vector<int> ft1;
 		test4(ft1);
 	}
-	{
-		std::cout << "\n################## test 5 ##################" << std::endl;
+	{	std::cout << "\n################## test 5 ##################" << std::endl;
 		std::cout << "-----std::vector<int>" << std::endl;
 		std::vector<int> std1;
 		test5(std1);

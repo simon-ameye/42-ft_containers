@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/24 13:07:38 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/28 14:42:30 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,21 @@ namespace ft
 					_alloc.construct(&_vector[i.first], *i.second);
 			}
 
+			~vector()
+			{
+				for (iterator it = begin(); it != end(); ++it)
+					_alloc.destroy(&(*it));
+				_alloc.deallocate(_vector, _capacity);
+			}
+
+			vector& operator= (const vector& x)
+			{
+				vector tmp(x);
+				swap(tmp);
+				//this->_capacity = this->_size;
+				return *this;
+			}
+
 		private:
 			/* *******************VARIABLES******************* */
 			Alloc				_alloc; //copy of allocator
@@ -115,7 +130,7 @@ namespace ft
 			size_type		size() const					{ return _size; }
 
 			/* --------------------get max size-------------------- */
-			size_type		max_size() const				{ return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type)) - 1.0); }
+			size_type		max_size() const				{return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;}
 
 			/* --------------------resize-------------------- */
 			//resize and fill with 0 or specified value
@@ -143,44 +158,6 @@ namespace ft
 				if (n > _capacity)
 					reallocateVec(n);
 			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		public:
 			/* *******************ACCESS ELEMENTS******************* */
@@ -215,7 +192,7 @@ namespace ft
 			const_reference back() const					{ return _vector[_size - 1]; }
 
 			/* *******************MODIFIERS******************* */
-			//range assign
+			/* --------------------range assign-------------------- */
 			//Assigns new contents to the vector, replacing its current contents, and modifying its size accordingly.
 			template <class InputIterator>
 			void assign (InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
@@ -227,6 +204,7 @@ namespace ft
 				{
 					_alloc.deallocate(_vector, _capacity);
 					_vector = _alloc.allocate(n);
+					_capacity = n;
 				}
 				size_type i = 0;
 				for (; first != last; first++)
@@ -236,15 +214,15 @@ namespace ft
 				}
 				_size = i;
 			}
-			//fill assign
+			/* --------------------fill assign-------------------- */
 			void assign (size_type n, const value_type& val)
 			{
 				clear();
-				// Reallocating only if new capacity exceeds previous
 				if (n > _capacity)
 				{
 					_alloc.deallocate(_vector, _capacity);
 					_vector = _alloc.allocate(n);
+					_capacity = n;
 				}
 				
 				for (size_type i = 0; i < n; ++i)
@@ -262,9 +240,13 @@ namespace ft
 			void pop_back()
 			{
 				if (_size)
-					_alloc.destroy(&_vector[_size-- - 1]);
+				{
+					_alloc.destroy(&_vector[_size - 1]);
+					_size--;
+				}
 			}
 
+			/* --------------------val insert-------------------- */
 			iterator insert (iterator position, const value_type& val)
 			{
 				difference_type index = position - begin();
@@ -272,6 +254,7 @@ namespace ft
 				return iterator(&_vector[index]);
 			}
 
+			/* --------------------range insert-------------------- */
 			void insert (iterator position, size_type n, const value_type& val)
 			{
 				difference_type index = position - begin();
@@ -285,6 +268,7 @@ namespace ft
 				_size += n;
 			}
 
+			/* --------------------iterator range insert-------------------- */
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last, 
 						typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
@@ -296,36 +280,26 @@ namespace ft
 				difference_type index = position - begin();
 				if (_size + n > _capacity)
 					reallocateVec(_capacity + n);
-
-				// Creating a new iterator pointing to the correct allocated are (case a realloc occured previously)
 				iterator newPosition(&_vector[index]);
-				
-				// Moving at newPosition + n all elements after newPosition
 				if (newPosition != end())
 					moveElementsToTheRight(newPosition, n);
-
-				// Constructing n new elements from the iterator's range
 				for (size_type i = 0; i < n; ++i)
 					_alloc.construct(&(*newPosition++), *first++);
 				_size += n;
 			}
 
+			/* --------------------erase one element-------------------- */
 			iterator erase (iterator position)
 			{
 				return erase(position, position + 1);
 			}
 
+			/* --------------------erase range-------------------- */
 			iterator erase (iterator first, iterator last)
 			{
 				if (first == end() || first == last)
 					return first;
-				
-				// In case of a realloc, iterators will be invalited because _vector
-				// points to another allocated area so we need to save the index array
-				// where first is pointing to create a new iterator after the reallocation
 				difference_type index = first - begin();
-				
-				// If there is elements after the iterators range, we need to move them at first position
 				if (last < end())
 				{
 					moveElementsToTheLeft(first, last);
@@ -341,6 +315,7 @@ namespace ft
 				return iterator(&_vector[index]);
 			}
 
+			/* --------------------swap vectors content-------------------- */
 			void swap (vector& x)
 			{
 				swap(_alloc, x._alloc);
@@ -355,23 +330,32 @@ namespace ft
 					pop_back();
 			}
 
-
-			/* ----------------------------------------------------------------------------------------- */
-			/* ---------------------- NON-MEMBER FUNCTION OVERLOADS ---------------------- */
-
+			/* *******************NON MEMBER FUNCTIONS OVERLOAD******************* */
 			friend bool operator==(const vector& lhs, const vector& rhs)
 			{
 				if (lhs.size() != rhs.size())
 					return false;
-
+				/*
 				for (ft::pair<const_iterator, const_iterator> it(lhs.begin(), rhs.begin());
 						it.first != lhs.end(); ++it.first, ++it.second)
 					if (*(it.first) != *(it.second))
 						return false;
+				*/
+				iterator lit;
+				iterator rit;
+				lit = lhs.begin();
+				rit = rhs.begin();
+				while (lit != lhs.end())
+				{
+					if (*lit != *rit)
+						return false;
+					++lit;
+					++rit;
+				}
+
+				
 				return true;
 			}
-
-			friend bool operator!=(const vector& lhs, const vector& rhs)    { return !(lhs == rhs); }
 
 			friend bool operator<(const vector& lhs, const vector& rhs)
 			{
@@ -382,20 +366,14 @@ namespace ft
 				return (lhs.size() < rhs.size());
 			}
 
+			friend bool operator!=(const vector& lhs, const vector& rhs)    { return !(lhs == rhs); }
 			friend bool operator>(const vector& lhs, const vector& rhs)     { return rhs < lhs; }
-
 			friend bool operator<=(const vector& lhs, const vector& rhs)    { return !(rhs < lhs); }
-
 			friend bool operator>=(const vector& lhs, const vector& rhs)    { return !(lhs < rhs); }
-
 			friend void swap (vector& x, vector& y)                         { x.swap(y); }
 			
-			
-			/* ----------------------------------------------------------------------------------------- */
-			/* ------------------------- PRIVATE MEMBER FUNCTIONS ------------------------ */
-
 		private:
-
+			/* *******************NON MEMBER FUNCTIONS OVERLOAD******************* */
 			void reallocateVec(size_type newCapacity)
 			{
 				pointer tmp = _alloc.allocate(newCapacity);
@@ -416,7 +394,6 @@ namespace ft
 
 			void moveElementsToTheRight(iterator pos, size_type lenMov)
 			{
-				// Starting from the end, until it meets pos iterator
 				for (ft::pair<iterator, iterator> it(end() - 1, end());
 					it.second != pos; --it.first, --it.second)
 				{
@@ -429,39 +406,11 @@ namespace ft
 			{
 				for (; first != end(); ++first, ++last)
 				{
-					// Destructing the previous element to replace it by a new one.
-					// First will destroy all the element until the end.
 					_alloc.destroy(&(*first));
-					
-					// Moving a new element to the left at first position, only if there is
-					// still element to move
 					if (last < end())
 						_alloc.construct(&(*(first)), *last);
 				}
 			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	};
 }

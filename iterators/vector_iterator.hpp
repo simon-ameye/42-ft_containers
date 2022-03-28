@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/24 19:50:53 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/25 13:58:14 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				move(nb, ADD, *this);
+				move(nb, ADD, it);
 				return (it);
 			}
 
@@ -119,7 +119,7 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				move(nb, SUBSTRACT, *this);
+				move(nb, SUBSTRACT, it);
 				return (it);
 			}
 
