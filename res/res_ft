@@ -1,3 +1,142 @@
+##########################################VECTOR##########################################
+------------------assign------------------
+----- vector vct -----
+size: 7 capacity: OK max_size: 4611686018427387903
+content : 7 6 5 4 3 2 1 
+----- vector vct_two -----
+size: 6 capacity: OK max_size: 4611686018427387903
+content : 7 6 5 4 3 2 
+----- vector vct -----
+size: 6 capacity: OK max_size: 4611686018427387903
+content : 7 6 5 4 3 2 
+----- vector vct_two -----
+size: 2 capacity: OK max_size: 4611686018427387903
+content : 42 42 
+----- vector vct_three -----
+size: 7 capacity: OK max_size: 4611686018427387903
+content : 7 6 5 4 3 2 1 
+----- vector vct_four -----
+size: 4 capacity: OK max_size: 4611686018427387903
+content : 21 21 21 21 
+------------------at------------------
+----- vector vct -----
+size: 7 capacity: OK max_size: 4611686018427387903
+content : 7 6 5 4 3 2 1 
+front(): 7 7
+back(): 1 1
+vct_c.at(): 7
+vct_c.at(): 6
+vct_c.at(): 5
+vct_c.at(): 4
+vct_c.at(): 3
+vct_c.at(): 2
+vct_c.at(): 1
+out_of_range exception!
+----- vector vct_c -----
+size: 7 capacity: OK max_size: 4611686018427387903
+content : 7 6 5 4 3 2 1 
+------------------copy------------------
+len: 5
+----- vector vct -----
+size: 5 capacity: OK max_size: 4611686018427387903
+content : 1 2 3 2 1 
+----- vector vct_range -----
+size: 3 capacity: OK max_size: 4611686018427387903
+content : 5 4 3 
+----- vector vct_copy -----
+size: 7 capacity: OK max_size: 4611686018427387903
+content : 1 2 3 2 1 42 21 
+------------------insert------------------
+----- vector vct -----
+size: 10 capacity: OK max_size: 4611686018427387903
+content : 30 27 24 21 18 15 12 9 6 3 
+----- vector vct2 -----
+size: 3 capacity: OK max_size: 4611686018427387903
+content : 21 21 42 
+----- vector vct2 -----
+size: 4 capacity: OK max_size: 4611686018427387903
+content : 21 42 21 42 
+----- vector vct2 -----
+size: 6 capacity: OK max_size: 4611686018427387903
+content : 21 42 21 42 84 84 
+----- vector vct2 -----
+size: 4 capacity: OK max_size: 4611686018427387903
+content : 21 42 21 42 
+----- vector vct2 -----
+size: 14 capacity: OK max_size: 4611686018427387903
+content : 21 42 30 27 24 21 18 15 12 9 6 3 21 42 
+----- vector vct2 -----
+size: 0 capacity: OK max_size: 4611686018427387903
+content : 
+------------------erase------------------
+----- vector vct -----
+size: 7 capacity: OK max_size: 4611686018427387903
+content : 7 6 5 4 3 2 1 
+----- vector vct -----
+size: 6 capacity: OK max_size: 4611686018427387903
+content : 6 5 4 3 2 1 
+returned value3
+----- vector vct -----
+size: 3 capacity: OK max_size: 4611686018427387903
+content : 3 2 1 
+------------------iterators------------------
+construction
+29
+29
+28
+26
+69
+69
+68
+66
+65
+65
+67
+67
+61
+67
+64
+64
+true
+false
+true
+false
+------------------comparison------------------
+true
+true
+false
+true
+false
+true
+false
+true
+false
+true
+false
+false
+------------------various------------------
+----- vector v2 -----
+size: 0 capacity: OK max_size: 4611686018427387903
+content : 
 ----- vector v1 -----
-size: 10 capacity: 10 max_size: 4611686018427387903
-content : 0 0 0 0 0 0 0 0 0 0 
+size: 70 capacity: OK max_size: 4611686018427387903
+content : 70 69 68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 
+----- vector v2 -----
+size: 70 capacity: OK max_size: 4611686018427387903
+content : 70 69 68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 
+----- vector v1 -----
+size: 70 capacity: OK max_size: 4611686018427387903
+content : 70 69 68 67 66 999 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 
+----- vector v1 -----
+size: 70 capacity: OK max_size: 4611686018427387903
+content : 70 69 68 67 66 999 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 76 
+7076
+false
+----- vector v1 resized -----
+size: 6 capacity: OK max_size: 4611686018427387903
+content : 70 69 68 67 66 999 
+----- vector v1 resized -----
+size: 60 capacity: OK max_size: 4611686018427387903
+content : 70 69 68 67 66 999 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+------------------exec time------------------
+elapsed time : 0.00537s

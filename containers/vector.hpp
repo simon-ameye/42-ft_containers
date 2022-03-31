@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/28 17:33:00 by sameye           ###   ########.fr       */
+/*   Updated: 2022/03/31 17:54:48 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,9 @@ namespace ft
 			{
 				clear();
 				size_type n = static_cast<size_type>(last - first);
-				// Reallocating only if new capacity exceeds previous
-				if (n > _capacity) // if n > capacity, alloc a new capacity
-				{
-					_alloc.deallocate(_vector, _capacity);
-					_vector = _alloc.allocate(n);
-					_capacity = n;
-				}
+				_alloc.deallocate(_vector, _capacity);
+				_capacity = n;
+				_vector = _alloc.allocate(n);
 				size_type i = 0;
 				for (; first != last; first++)
 				{
@@ -218,13 +214,9 @@ namespace ft
 			void assign (size_type n, const value_type& val)
 			{
 				clear();
-				if (n > _capacity)
-				{
-					_alloc.deallocate(_vector, _capacity);
-					_vector = _alloc.allocate(n);
-					_capacity = n;
-				}
-				
+				_alloc.deallocate(_vector, _capacity);
+				_capacity = n;
+				_vector = _alloc.allocate(_capacity);
 				for (size_type i = 0; i < n; ++i)
 					_alloc.construct(&_vector[i], val);
 				_size = n;
@@ -335,12 +327,6 @@ namespace ft
 			{
 				if (lhs.size() != rhs.size())
 					return false;
-				/*
-				for (ft::pair<const_iterator, const_iterator> it(lhs.begin(), rhs.begin());
-						it.first != lhs.end(); ++it.first, ++it.second)
-					if (*(it.first) != *(it.second))
-						return false;
-				*/
 				iterator lit;
 				iterator rit;
 				lit = lhs.begin();
@@ -352,17 +338,22 @@ namespace ft
 					++lit;
 					++rit;
 				}
-
-				
 				return true;
 			}
 
 			friend bool operator<(const vector& lhs, const vector& rhs)
-			{
-				for (ft::pair<const_iterator, const_iterator> it(lhs.begin(), rhs.begin());
-						it.first != lhs.end() && it.second != rhs.end(); ++it.first, ++it.second)
-					if (*(it.first) < *(it.second))
+			{		
+				iterator lit;
+				iterator rit;
+				lit = lhs.begin();
+				rit = rhs.begin();
+				while (lit != lhs.end() && rit != rhs.end())
+				{
+					if (*lit < *rit)
 						return true;
+					++lit;
+					++rit;
+				}
 				return (lhs.size() < rhs.size());
 			}
 
@@ -394,8 +385,7 @@ namespace ft
 
 			void moveElementsToTheRight(iterator pos, size_type lenMov)
 			{
-				for (ft::pair<iterator, iterator> it(end() - 1, end());
-					it.second != pos; --it.first, --it.second)
+				for (ft::pair<iterator, iterator> it(end() - 1, end()); it.second != pos; --it.first, --it.second)
 				{
 					_alloc.construct(&(*(it.first + lenMov)), *it.first);
 					_alloc.destroy(&(*it.first));
@@ -411,7 +401,6 @@ namespace ft
 						_alloc.construct(&(*(first)), *last);
 				}
 			}
-
 	};
 }
 

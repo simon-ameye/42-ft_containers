@@ -6,14 +6,12 @@
 #    By: sameye <sameye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/18 16:53:51 by sameye            #+#    #+#              #
-#    Updated: 2022/03/29 12:03:25 by sameye           ###   ########.fr        #
+#    Updated: 2022/03/31 18:54:48 by sameye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ################	COMPILER		#################
 
-FT_NAMESPACE	=		-D NAMESPACE=ft
-STD_NAMESPACE	=		-D NAMESPACE=std
 CC			=		c++ -Wall -Wextra -Werror -std=c++98
 
 ################	DIRECTORIES		#################
@@ -44,7 +42,7 @@ OBJECTS		=		$(addprefix $(OBJS_DIR)/,$(OBJS))
 
 ################	BINARIES		#################
 
-NAME		=		ft_containers
+NAME		=		ft
 
 ################	TARGETS			#################
 
@@ -52,13 +50,13 @@ all:				$(NAME)
 
 $(NAME):			$(OBJS_DIR) $(OBJECTS)
 					@echo Building ...
-					@$(CC) $(NAMESPACE) $(INCLUDE) $(OBJECTS) -o $(NAME)
+					@$(CC) -DNAMESPACE=$(NAME) $(INCLUDE) $(OBJECTS) -o $(NAME)
 
 $(OBJS_DIR):
 					mkdir -p $@
 
 $(OBJECTS):			$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp
-					@$(CC) $(FT_NAMESPACE) $(INCLUDE) -c $< -o $@
+					@$(CC) -DNAMESPACE=$(NAME) $(INCLUDE) -c $< -o $@
 
 clean:
 					@echo Cleaning minishell objects...
@@ -66,7 +64,7 @@ clean:
 
 fclean:				clean
 					@echo Cleaning binary...
-					@rm -f $(NAME) $(NAME)_ft $(NAME)_std res/res_ft res/res_std res/res_diff
+					@rm -f $(NAME) ft std res/res_ft res/res_std res/res_diff
 
 re:					fclean all
 
@@ -74,23 +72,14 @@ re:					fclean all
 
 ################	TESTS			#################
 
-ft_version:			$(OBJS_DIR) $(OBJECTS)
-					@echo Building ...
-					@$(CC) $(FT_NAMESPACE) $(INCLUDE) $(OBJECTS) -o $(NAME)_ft
-
-std_version:			$(OBJS_DIR) $(OBJECTS)
-					@echo Building ...
-					@$(CC) $(STD_NAMESPACE) $(INCLUDE) $(OBJECTS) -o $(NAME)_std
-
 test:
 					@make fclean
-					make ft_version
+					make all NAME=ft
 					@make clean
-					make std_version
+					make all NAME=std
+					@make clean
 					@mkdir -p res
-					@./ft_containers_ft > res/res_ft
-					@./ft_containers_std > res/res_std
-					@diff res/res_ft res/res_std > res/res_diff
-					@make clean
+					@-./ft > res/res_ft
+					@-./std > res/res_std
+					@-diff res/res_ft res/res_std > res/res_diff
 					@[ -s res/res_diff ] && echo "\033[0;31m=>ERROR! Please check logs" || echo "\033[0;32m=>PERFECT!! No error"
-					
