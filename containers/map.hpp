@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/05 15:28:37 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/20 18:31:37 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,18 @@ namespace ft
 		//typedef ft::map_iterator<T>										const_iterator;
 		//typedef ft::map_reverse_iterator									reverse_iterator;
 		//typedef ft::map_reverse_iterator									const_reverse_iterator;
+
+		//typedef typename ft::CustomTree<value_type, key_compare>::iterator iterator;
+
+
+
+
 		typedef std::ptrdiff_t												difference_type;
 		typedef std::size_t													size_type;
 
 		private:
 		Alloc				_alloc; //copy of allocator
-		pointer				_tree; //pointer on first element
+		//pointer				_tree; //pointer on first element
 		key_compare			_compare;
 
 		private:
@@ -59,7 +65,7 @@ namespace ft
 		};
 
 		typedef CustomCompare												value_compare;
-		typedef CustomTree<value_type, value_compare, allocator_type>		tree_type;
+		typedef CustomTree<key_type, mapped_type, value_compare, allocator_type>		tree_type;
 
 		public:
 			/* *******************CONSTRUCTORS******************* */
@@ -67,11 +73,30 @@ namespace ft
 			//when no argument provided
 			explicit
 			map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-			_alloc(alloc), _tree(NULL), _compare(comp)
+			_alloc(alloc), _compare(comp) {}
+
+
+			//pair<iterator,bool> insert (const value_type& val)
+			//{	return (_tree.insert(val));}
+
+			void insert(const value_type& val)
 			{
-				std::cout << "default constructor called" << std::endl;
+				_tree.insert(val.first, val.second);
 			}
 
+			void erase(Key key)
+			{
+				_tree.erase(key);
+			}
+
+			T &at(Key key)
+			{
+				return (_tree.at(key));
+			}
+
+
+		private:
+			tree_type _tree;
 			/* --------------------copy constructor-------------------- */
 			//for construction as map<int> foo (copy)
 
