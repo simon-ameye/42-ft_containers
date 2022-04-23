@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/20 18:31:37 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/23 19:07:45 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../utils/utils.hpp"
 #include <stdlib.h>
 #include "../utils/CustomTree.hpp"
+#include "../iterators/map_iterator.hpp"
 
 
 namespace ft
@@ -33,8 +34,8 @@ namespace ft
 		typedef typename allocator_type::const_reference					const_reference;
 		typedef typename allocator_type::pointer							pointer;
 		typedef typename allocator_type::const_pointer						const_pointer;
-		//typedef ft::map_iterator<T>										iterator;
-		//typedef ft::map_iterator<T>										const_iterator;
+		typedef ft::map_iterator<Key, T, Compare>											iterator;
+		typedef ft::map_iterator<Key, T, Compare>											const_iterator;
 		//typedef ft::map_reverse_iterator									reverse_iterator;
 		//typedef ft::map_reverse_iterator									const_reverse_iterator;
 
@@ -52,11 +53,11 @@ namespace ft
 		key_compare			_compare;
 
 		private:
-		class CustomCompare
+		class value_compare_class
 		{
 			key_compare _compare;
 			public:
-				CustomCompare(const key_compare & compare) : _compare(compare) {}
+				value_compare_class(const key_compare & compare) : _compare(compare) {}
 
 				bool operator()(const value_type & x, const value_type & y) const
 				{
@@ -64,8 +65,13 @@ namespace ft
 				}
 		};
 
-		typedef CustomCompare												value_compare;
-		typedef CustomTree<key_type, mapped_type, value_compare, allocator_type>		tree_type;
+		public:
+		typedef value_compare_class value_compare;
+
+		//typedef CustomCompare												value_compare;
+		//typedef CustomTree<key_type, mapped_type, value_compare, allocator_type>		tree_type;
+		private:
+		typedef ft::CustomTree<key_type, mapped_type, value_compare>		tree_type;
 
 		public:
 			/* *******************CONSTRUCTORS******************* */
@@ -91,9 +97,19 @@ namespace ft
 
 			T &at(Key key)
 			{
-				return (_tree.at(key));
+				return (_tree.at(key)->_map);
 			}
 
+		public:
+			/* *******************ITERATORS******************* */
+			iterator				begin()					{ return iterator(_tree.minKeyNode()); }
+			const_iterator			begin() const			{ return const_iterator(_tree.minKeyNode()); }
+			iterator				end()					{ return iterator(_tree.maxKeyNode()); }
+			const_iterator			end() const				{ return const_iterator(_tree.maxKeyNode()); }
+			//reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size - 1); }
+			//const_reverse_iterator	rbegin() const			{ return const_reverse_iterator(_vector + _size - 1); }
+			//reverse_iterator		rend()					{ return reverse_iterator(_vector - 1); }
+			//const_reverse_iterator	rend() const			{ return const_reverse_iterator(_vector - 1); }
 
 		private:
 			tree_type _tree;
