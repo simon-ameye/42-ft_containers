@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/23 19:50:23 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/23 21:19:59 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,37 @@
 
 namespace ft
 {
-	template < class Key, class T, class Compare>
+	template < class value_type, class Key, class Compare>
 	class map_iterator
 	{
 		public:
 			/* *******************ALIASES******************* */
-			typedef Key												key_type;
-			typedef T												mapped_type;
+			//typedef value_type.first											key_type;
+			//typedef value_type.second												mapped_type;
 
 		private:
-			typedef ft::Node < key_type, mapped_type >				N;
-			typedef ft::CustomTree<Key, T, Compare>					tree_type;
+			typedef ft::Node < value_type >				N;
+			typedef ft::CustomTree<value_type, Key, Compare>					tree_type;
 
 		public:
-			typedef N*												elemPtr;
-			typedef N&												reference;
-			typedef ft::pair<Key, T>							pair;
+			//typedef N*												elemPtr;
+			//typedef N&												reference;
+			//typedef ft::pair<Key, T>							pair;
 			//typedef T*												pointer;
 
 			/* *******************ATTRIBUTES******************* */
 		private:
-			elemPtr _val;
+			N* _node;
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
 			/* --------------------default constructor-------------------- */
-			map_iterator(elemPtr val = 0) : _val(val) {}
+			map_iterator(N* node = 0) : _node(node) {}
 
 			/* --------------------copy constructor-------------------- */
-			map_iterator(const map_iterator< Key, T , Compare>& copy)
+			map_iterator(const map_iterator< value_type, Key, Compare> & copy)
 			{
-				_val = copy.getElemPtr();
+				_node = copy.getElemPtr();
 			}
 
 			/* --------------------destructor-------------------- */
@@ -59,32 +59,32 @@ namespace ft
 			map_iterator& operator=(const map_iterator& assign)
 			{
 				if (this != &assign)
-					_val = assign._val;
+					_node = assign._node;
 				return (*this);
 			}
 
 			/* *******************GETTER******************* */
 		public:
-			elemPtr getElemPtr() const			{ return _val; }
+			N* getElemPtr() const			{ return _node; }
 
 			/* *******************OPPERATOR OVERLOAD******************* */
 		public:
-			pair& operator*() const
+			value_type& operator*() const
 			{
-				return (ft::make_pair<Key, T>(_val->_key, _val->_map));
+				return (_node->_val);
 			}
-			pair* operator->() const
+			value_type* operator->() const
 			{
-				return &(ft::make_pair<Key, T>(_val->_key, _val->_map)); //obligé de stocker une paire malocee dans node !
+				return &_node->_val; //obligé de stocker une paire malocee dans node !
 			}
 			map_iterator& operator++()
 			{
-				_val = _tree.next(_val);
+				_node = _tree.next(_node);
 				return (*this);
 			}
 			map_iterator& operator--()
 			{
-				_val = _tree.next(_val); //TO CHANGE
+				_node = _tree.next(_node); //TO CHANGE
 				return (*this);
 			}
 
@@ -102,8 +102,8 @@ namespace ft
 				return (res);
 			}
 
-			bool operator==(const map_iterator& it) const	{ return (it._val == _val); }
-			bool operator!=(const map_iterator& it) const	{ return (it._val != _val); }
+			bool operator==(const map_iterator& it) const	{ return (it._node == _node); }
+			bool operator!=(const map_iterator& it) const	{ return (it._node != _node); }
 
 		private:
 			tree_type _tree;

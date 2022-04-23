@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/23 19:42:47 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/23 21:26:39 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void test_map_assign(void)
 	NAMESPACE::map<int, int>::iterator it;
 	NAMESPACE::map<int, int>::iterator itb = map2.begin(), ite = map2.end();
 	std::cout << itb->first << std::endl;
-	//std::cout << *ite.first << std::endl;
+	std::cout << (*ite).first << std::endl;
 
 }

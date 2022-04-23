@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/23 19:15:14 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/23 21:21:21 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@
 namespace ft
 {
 	// An AVL tree node
-	template < class Key, class T >
+	template < class value_type >
 	class Node
 	{
 		public:
-		Key _key;
-		T _map;
+		value_type _val;
+		//Key _key;
+		//T _map;
 		Node *left;
 		Node *right;
 		Node *parent;
 		int height;
 	};
 
-	template < class Key, class T, class Compare, class Alloc = std::allocator < ft::Node < Key, T > > >
+	template < class value_type, class Key, class Compare, class Alloc = std::allocator < ft::Node < value_type > > >
 	class CustomTree
 	{
 		public:
-			typedef ft::Node < Key, T >					N;
+			typedef ft::Node < value_type >					N;
+			//typedef typename value_type::first						Key;
 
 		private:
 			Alloc				_alloc; //copy of allocator
@@ -41,9 +43,9 @@ namespace ft
 		public:
 			CustomTree(void) : _root(NULL) {}
 
-			void insert(Key key, T map)
+			void insert(value_type val)
 			{
-				_root = _insert(_root, key, map);
+				_root = _insert(_root, val);
 			}
 
 			void erase(Key key)
@@ -87,17 +89,19 @@ namespace ft
 				return node->height;
 			}
 
-			T _max(T a, T b)
+			int _max(int a, int b)
 			{
 				return (a > b)? a : b;
 			}
 
-			N* _newNode(Key key, T map)
+			N* _newNode(value_type val)
 			{
 				//std::allocator < N > Alloc;
 				N* node = _alloc.allocate(1);
-				node->_key = key;
-				node->_map = map;
+				//node->_key = key;
+				//node->_map = map;
+				node->_val.first = val.first;
+				node->_val.second = val.second;
 				node->parent = NULL;
 				node->left = NULL;
 				node->right = NULL;
@@ -151,24 +155,24 @@ namespace ft
 			{
 				if (node == NULL)
 					return 0;
-				return _height(node->left) -
-					_height(node->right);
+				return _height(node->left) - _height(node->right);
 			}
 
-			N* _insert(N* node, Key key, T map)
+			N* _insert(N* node, value_type val)
 			{
 				/* 1. Perform the normal BST rotation */
 				if (node == NULL)
-					return(_newNode(key, map));
+					return(_newNode(val));
 
-				if (key < node->_key)
+				//replace _key by val.first
+				if (val.first < node->_val.first)
 				{
-					node->left = _insert(node->left, key, map);
+					node->left = _insert(node->left, val);
 					node->left->parent = node;
 				}
-				else if (key > node->_key)
+				else if (val.first > node->_val.first)
 				{
-					node->right = _insert(node->right, key, map);
+					node->right = _insert(node->right, val);
 					node->right->parent = node;
 				}
 				else // Equal keys not allowed
@@ -186,22 +190,22 @@ namespace ft
 				// then there are 4 cases
 
 				// Left Left Case
-				if (balance > 1 && key < node->left->_key)
+				if (balance > 1 && val.first < node->left->_val.first)
 					return _rightRotate(node);
 
 				// Right Right Case
-				if (balance < -1 && key > node->right->_key)
+				if (balance < -1 && val.first > node->right->_val.first)
 					return _leftRotate(node);
 
 				// Left Right Case
-				if (balance > 1 && key > node->left->_key)
+				if (balance > 1 && val.first > node->left->_val.first)
 				{
 					node->left = _leftRotate(node->left);
 					return _rightRotate(node);
 				}
 
 				// Right Left Case
-				if (balance < -1 && key < node->right->_key)
+				if (balance < -1 && val.first < node->right->_val.first)
 				{
 					node->right = _rightRotate(node->right);
 					return _leftRotate(node);
@@ -243,13 +247,13 @@ namespace ft
 				// If the _key to be deleted is smaller
 				// than the root's _key, then it lies
 				// in left subtree
-				if ( key < root->_key )
+				if ( key < root->_val.first )
 					root->left = _erase(root->left, key);
 
 				// If the _key to be deleted is greater
 				// than the root's _key, then it lies
 				// in right subtree
-				else if( key > root->_key )
+				else if( key > root->_val.first )
 					root->right = _erase(root->right, key);
 
 				// if _key is same as root's _key, then
@@ -281,10 +285,10 @@ namespace ft
 
 						// Copy the inorder successor's
 						// data to this node
-						root->_key = temp->_key;
+						root->_val.first = temp->_val.first;
 
 						// Delete the inorder successor
-						root->right = _erase(root->right, temp->_key);
+						root->right = _erase(root->right, temp->_val.first);
 					}
 				}
 
@@ -335,11 +339,11 @@ namespace ft
 
 			N* _at(N* node, Key key)
 			{
-				if (key < node->_key)
+				if (key < node->_val.first)
 				{
 					return (_at(node->left, key));
 				}
-				else if (key > node->_key)
+				else if (key > node->_val.first)
 				{
 					return (_at(node->right, key));
 				}

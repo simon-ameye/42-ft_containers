@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/23 19:07:45 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/23 21:24:45 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ namespace ft
 		public:
 		typedef Key															key_type;
 		typedef T															mapped_type;
-		typedef ft::pair<const key_type,mapped_type>						value_type;
+		typedef ft::pair<key_type,mapped_type>						value_type;
 		typedef Compare														key_compare;
 		typedef Alloc														allocator_type;
 		typedef typename allocator_type::reference							reference;
 		typedef typename allocator_type::const_reference					const_reference;
 		typedef typename allocator_type::pointer							pointer;
 		typedef typename allocator_type::const_pointer						const_pointer;
-		typedef ft::map_iterator<Key, T, Compare>											iterator;
-		typedef ft::map_iterator<Key, T, Compare>											const_iterator;
+		typedef ft::map_iterator<value_type, Key, Compare>											iterator;
+		typedef ft::map_iterator<value_type, Key, Compare>											const_iterator;
 		//typedef ft::map_reverse_iterator									reverse_iterator;
 		//typedef ft::map_reverse_iterator									const_reverse_iterator;
 
@@ -66,12 +66,12 @@ namespace ft
 		};
 
 		public:
-		typedef value_compare_class value_compare;
+		typedef value_compare_class			value_compare;
 
 		//typedef CustomCompare												value_compare;
 		//typedef CustomTree<key_type, mapped_type, value_compare, allocator_type>		tree_type;
 		private:
-		typedef ft::CustomTree<key_type, mapped_type, value_compare>		tree_type;
+		typedef ft::CustomTree<value_type, Key, value_compare>		tree_type;
 
 		public:
 			/* *******************CONSTRUCTORS******************* */
@@ -87,7 +87,7 @@ namespace ft
 
 			void insert(const value_type& val)
 			{
-				_tree.insert(val.first, val.second);
+				_tree.insert(val);
 			}
 
 			void erase(Key key)
@@ -97,7 +97,7 @@ namespace ft
 
 			T &at(Key key)
 			{
-				return (_tree.at(key)->_map);
+				return (_tree.at(key)->_val.first);
 			}
 
 		public:
