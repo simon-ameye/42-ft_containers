@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/20 18:31:46 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/25 14:41:45 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void test_map(void)
 
 int main (void)
 {
-	test_vector();
+	//test_vector();
 	test_map();
 }
