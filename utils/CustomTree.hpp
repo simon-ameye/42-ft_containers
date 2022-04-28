@@ -6,13 +6,15 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/26 01:41:18 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/28 20:36:19 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef CUSTOMTREE_HPP
 #define CUSTOMTREE_HPP
+
+#include <fstream>
 
 namespace ft
 {
@@ -21,16 +23,18 @@ namespace ft
 	class Node
 	{
 		public:
+
+		Node (int type = 0, Node* left = NULL, Node* right = NULL, Node* parent = NULL, int height = 1) :
+			type(type) , left(left), right(right), parent(parent), height(height) {}
 		value_type _val;
-		//Key _key;
-		//T _map;
+		int type; //0 data, 1 passed the begining, 2, passed the end
 		Node *left;
 		Node *right;
 		Node *parent;
 		int height;
 	};
 
-	template < class value_type, class Key, class Compare, class Alloc = std::allocator < ft::Node < value_type > > >
+	template < class value_type, class Key, typename Compare = std::less<value_type>, class Alloc = std::allocator < ft::Node < value_type > > >
 	class CustomTree
 	{
 		public:
@@ -42,27 +46,46 @@ namespace ft
 
 		public:
 
-			void print_tree(void)
+			void pre0rder(void)
 			{
-				std::cout << "#########DOT GRAPH FOR https://dreampuf.github.io/############" << std::endl;
-				std::cout << "digraph G {" << std::endl;
-				std::cout << "    node [shape=plaintext fontname=\"Sans serif\" fontsize=\"8\"];" << std::endl;
-				_print_tree(_root);
-				std::cout << "}" << std::endl;
-				std::cout << "##############################################################" << std::endl;
+				_preOrder(_root);
 			}
 
-			CustomTree(void) : _root(NULL) {}
+			void print_tree(void)
+			{
+				std::ofstream myfile;
+				myfile.open ("dotgraph.txt");
+				myfile << "#########DOT GRAPH FOR https://dreampuf.github.io/############" << std::endl;
+				myfile << "digraph G {" << std::endl;
+				myfile << "    node [shape=plaintext fontname=\"Sans serif\" fontsize=\"8\"];" << std::endl;
+				myfile.close();
+				_print_tree(_root);
+				myfile.open ("dotgraph.txt", std::ios_base::app);
+				myfile << "}" << std::endl;
+				myfile << "##############################################################" << std::endl;
+				myfile.close();
+			}
+
+			CustomTree(void) : _root(&_passed_begin), _passed_begin(N()), _passed_end(N())
+			{
+				std::cout << "constructor begin" << std::endl << std::flush;
+				_passed_begin.type = 1;
+				_passed_begin.right = &_passed_end;
+				_passed_end.type = 2;
+				_passed_end.parent = &_passed_begin;
+				//_root = &_passed_begin;
+				std::cout << "constructor end" << std::endl << std::flush;
+			}
 
 			void insert(value_type val)
 			{
 				_root = _insert(_root, val);
 			}
 
-			N* get_passed_the_end(void)
-			{
-				return (&_passed_the_end);
-			}
+			//N* get_passed_the_end(void)
+			//{
+			//	return (&_passed_the_end);
+			//}
 
 
 			void erase(Key key)
@@ -74,21 +97,6 @@ namespace ft
 			{
 				//std::cout << "at" << std::endl;
 				return (_at(_root, key));
-			}
-
-			N* next(N *node)
-			{
-				if (node->right)
-					return (_minKeyNode(node->right));
-				else
-					while (node->parent)
-					{
-						if (node->parent->left == node)
-							return (node->parent);
-						node = node->parent;
-						std::cout << std::endl;
-					}
-				return (&_passed_the_end);
 			}
 
 			N* minKeyNode(void)
@@ -126,8 +134,50 @@ namespace ft
 				node->left = NULL;
 				node->right = NULL;
 				node->height = 1; // new node is initially added at leaf
+				node->type = 0;
 				return(node);
 			}
+
+			bool _NALessThanNB(N* A, N* B) //compare = std::less<Key>
+			{
+				if (A->type == 2 || B->type == 1)
+					return (false);
+				if (A->type == 1 || B->type == 2)
+					return (true);
+				return (A->_val.first < B->_val.first);
+			}
+
+			//bool _NAMoreThanNB(N* A, N* B)
+			//{
+			//	return (!_NALessThanNB(A, B));
+			//}
+
+			//bool _ALessThanB(N* A, N* B)
+			//{
+			//	return (_NALessThanNB(A, B));
+			//}
+//
+			//bool _ALessThanB(Key A, Key B)
+			//{
+			//	N tA, tB;
+			//	tA._val.first = A;
+			//	tB._val.first = B;
+			//	return (_NALessThanNB(&tA, &tB));
+			//}
+//
+			//bool _ALessThanB(N* A, Key B)
+			//{
+			//	N tB;
+			//	tB._val.first = B;
+			//	return (_NALessThanNB(A, &tB));
+			//}
+//
+			//bool _ALessThanB(Key A, N* B)
+			//{
+			//	N tA;
+			//	tA._val.first = A;
+			//	return (_NALessThanNB(&tA, B));
+			//}
 
 			N *_rightRotate(N *y)
 			{
@@ -177,12 +227,16 @@ namespace ft
 			{
 				if (node == NULL)
 					return 0;
-				return _height(node->left) - _height(node->right);
+				return (_height(node->left) - _height(node->right));
 			}
 
 			N* _insert(N* node, value_type val)
 			{
 				//std::cout << "Lets insert !" << std::endl;
+				std::cout << "insert begin" << std::endl << std::flush;
+				N nval;
+				nval._val.first = val.first;
+
 				/* 1. Perform the normal BST rotation */
 				if (node == NULL)
 				{
@@ -190,12 +244,14 @@ namespace ft
 					return(_newNode(val));
 				}
 
-				if (val.first < node->_val.first)
+				//if (val.first < node->_val.first);
+				if (_NALessThanNB(&nval, node))
 				{
 					node->left = _insert(node->left, val);
 					node->left->parent = node;
 				}
-				else if (val.first > node->_val.first)
+				//else if (val.first > node->_val.first)
+				else if (_NALessThanNB(node, &nval))
 				{
 					node->right = _insert(node->right, val);
 					node->right->parent = node;
@@ -215,21 +271,24 @@ namespace ft
 				// then there are 4 cases
 
 				// Left Left Case
-				if (balance > 1 && val.first < node->left->_val.first)
+				//if (balance > 1 && val.first < node->left->_val.first)
+				if (balance > 1 && _NALessThanNB(&nval, node->left))
 				{
 					//std::cout << "return left left case" << std::endl;
 					return _rightRotate(node);
 				}
 
 				// Right Right Case
-				if (balance < -1 && val.first > node->right->_val.first)
+				//if (balance < -1 && val.first > node->right->_val.first)
+				if (balance < -1 && _NALessThanNB(node->right, &nval))
 				{
 					//std::cout << "return right right case" << std::endl;
 					return _leftRotate(node);
 				}
 
 				// Left Right Case
-				if (balance > 1 && val.first > node->left->_val.first)
+				//if (balance > 1 && val.first > node->left->_val.first)
+				if (balance > 1 && _NALessThanNB(node->left, &nval))
 				{
 					node->left = _leftRotate(node->left);
 					//std::cout << "return left right case" << std::endl;
@@ -237,7 +296,8 @@ namespace ft
 				}
 
 				// Right Left Case
-				if (balance < -1 && val.first < node->right->_val.first)
+				//if (balance < -1 && val.first < node->right->_val.first)
+				if (balance < -1 && _NALessThanNB(&nval, node->right))
 				{
 					node->right = _rightRotate(node->right);
 					//std::cout << "return right left case" << std::endl;
@@ -264,15 +324,16 @@ namespace ft
 			{
 				N* current = node;
 
-				/* loop down to find the leftmost leaf */
 				while (current->right != NULL)
 					current = current->right;
 
 				return current;
 			}
-
+/*
 			N* _erase(N* root, Key key)
 			{
+				N nval;
+				nval._val.first = key;
 				//std::cout << "erase is evaluating key " << root->_val.first << " val " << root->_val.second << std::endl;
 				// STEP 1: PERFORM STANDARD BST DELETE
 				if (root == NULL)
@@ -281,13 +342,13 @@ namespace ft
 				// If the _key to be deleted is smaller
 				// than the root's _key, then it lies
 				// in left subtree
-				if ( key < root->_val.first )
+				if (_NALessThanNB(&nval, root)) //if ( key < root->_val.first )
 					root->left = _erase(root->left, key);
 
 				// If the _key to be deleted is greater
 				// than the root's _key, then it lies
 				// in right subtree
-				else if( key > root->_val.first )
+				else if (_NALessThanNB(root, &nval)) //else if( key > root->_val.first )
 					root->right = _erase(root->right, key);
 
 				// if _key is same as root's _key, then
@@ -316,13 +377,27 @@ namespace ft
 						// successor (smallest in the right subtree)
 						N* temp = _minKeyNode(root->right);
 
+///////////////////////////////// to replace !!
 						// Copy the inorder successor's
 						// data to this node
 						root->_val.first = temp->_val.first;
 						root->_val.second = temp->_val.second;
+						root->type = temp->type;
 
 						// Delete the inorder successor
 						root->right = _erase(root->right, temp->_val.first);
+
+
+////////////////////////////////////
+
+						//free(root);
+
+
+
+//////////////////////////////////
+
+
+
 					}
 				}
 
@@ -370,15 +445,44 @@ namespace ft
 
 				return root;
 			}
+*/
+			N* _erase(N* root, Key key) // my earse
+			{
+				N nval;
+				nval._val.first = key;
+				if (_NALessThanNB(&nval, root)) //not our guy
+					root->left = _erase(root->left, key);
+				else if (_NALessThanNB(root, &nval)) //not our guy
+					root->right = _erase(root->right, key);
+				else if (!root->left && !root->right) // our guy with no child, delete !
+				{
+					free(root);
+					return (NULL);
+				}
+				else //at least one child (our guy)
+				{
+					if (root->right)
+					{
+						return (_erase(_leftRotate(root), key));
+					}
+					else
+					{
+						return (_erase(_rightRotate(root), key));
+					}
+				}
+				return (root);
+			}
 
 			N* _at(N* node, Key key)
 			{
-				//std::cout << "_at" << std::endl;
-				if (key < node->_val.first)
+				std::cout << "_at call" << std::endl << std::flush;
+				N nval;
+				nval._val.first = key;
+				if (_NALessThanNB(&nval, node)) //if (key < node->_val.first)
 				{
 					return (_at(node->left, key));
 				}
-				else if (key > node->_val.first)
+				else if (_NALessThanNB(node, &nval)) //else if (key > node->_val.first)
 				{
 					return (_at(node->right, key));
 				}
@@ -390,36 +494,57 @@ namespace ft
 
 			void _print_tree(N* root)
 			{
-				std::cout << "    key" << root->_val.first << " [ label=<" << std::endl;
-				std::cout << "        <table border=\"1\" cellborder=\"0\" cellspacing=\"1\">" << std::endl;
-				std::cout << "            <tr><td align=\"left\"><b>" << root->_val.first << "</b></td></tr>" << std::endl;
-				std::cout << "            <tr><td align=\"left\"><b>" << root->_val.second << "</b></td></tr>" << std::endl;
-				std::cout << "            <tr><td align=\"left\"><font color=\"darkgreen\">";
+				std::ofstream myfile;
+				myfile.open ("dotgraph.txt", std::ios_base::app);
+				myfile << "    key" << root->_val.first << root->type << " [ label=<" << std::endl;
+				myfile << "        <table border=\"1\" cellborder=\"0\" cellspacing=\"1\">" << std::endl;
+				myfile << "            <tr><td align=\"left\"><b>" << "key " << root->_val.first << "</b></td></tr>" << std::endl;
+				myfile << "            <tr><td align=\"left\"><b>" << "map \"";
+				if (root->_val.second)
+					myfile << root->_val.second;
+				else
+					myfile << "NULL";
+				myfile << "\"</b></td></tr>" << std::endl;
+				myfile << "            <tr><td align=\"left\"><b>" << "type " << root->type << "</b></td></tr>" << std::endl;
+				myfile << "            <tr><td align=\"left\"><font color=\"darkgreen\">";
+				myfile << "parent ";
 				if (root->parent)
-					std::cout << root->parent->_val.first;
+					myfile << root->parent->_val.first;
 				else
-					std::cout << "NULL";
-				std::cout << "</font></td></tr>" << std::endl;
-				std::cout << "        </table>>];" << std::endl;
+					myfile << "NULL";
+				myfile << "</font></td></tr>" << std::endl;
+				myfile << "        </table>>];" << std::endl;
 				if (root->left)
-					std::cout << "    key" << root->_val.first << "->key" << root->left->_val.first;
+					myfile << "    \"key" << root->_val.first << root->type << "\"->\"key" << root->left->_val.first << root->left->type << "\"";
 				else
-					std::cout << "    key" << root->_val.first << "->LNULL" << root->_val.first;
-				std::cout << " [ label=\"l\" fontsize=\"7\" ];" << std::endl;
+					myfile << "    \"key" << root->_val.first << root->type << "\"->\"LNULL" << root->_val.first << root->type << "\"";
+				myfile << " [ label=\"l\" fontsize=\"7\" ];" << std::endl;
 				if (root->right)
-					std::cout << "    key" << root->_val.first << "->key" << root->right->_val.first;
+					myfile << "    \"key" << root->_val.first << root->type << "\"->\"key" << root->right->_val.first << root->right->type << "\"";
 				else
-					std::cout << "    key" << root->_val.first << "->RNULL" << root->_val.first;
-				std::cout << " [ label=\"r\" fontsize=\"7\" ];" << std::endl;
+					myfile << "    \"key" << root->_val.first << root->type << "\"->\"RNULL" << root->_val.first << root->type << "\"";
+				myfile << " [ label=\"r\" fontsize=\"7\" ];" << std::endl;
 				if (root->left)
 					_print_tree(root->left);
 				if (root->right)
 					_print_tree(root->right);
+				myfile.close();
+			}
+
+			void _preOrder(N* root)
+			{
+				if(root)
+				{
+					std::cout << root->_val.first << " ";
+					_preOrder(root->left);
+					_preOrder(root->right);
+				}
 			}
 
 		private:
 			N *_root;
-			N _passed_the_end;
+			//Compare _compare;
+			N _passed_begin, _passed_end;
 
 	};
 }

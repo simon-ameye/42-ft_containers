@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/26 01:27:34 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/28 17:40:19 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,21 @@ namespace ft
 		private:
 		Alloc				_alloc; //copy of allocator
 		//pointer				_tree; //pointer on first element
-		key_compare			_compare;
+		//key_compare			_compare;
 
 		private:
 		class value_compare_class
 		{
-			key_compare _compare;
+			friend class map<key_type, mapped_type, key_compare, Alloc>;
+
+			protected:
+				Compare comp;
+				value_compare_class (Compare c) : comp(c) {}
 			public:
-				value_compare_class(const key_compare & compare) : _compare(compare) {}
 
 				bool operator()(const value_type & x, const value_type & y) const
 				{
-					return (_compare(x.first, y.first)); //see std::map::value_comp
+					return (comp(x.first, y.first)); //see std::map::value_comp
 				}
 		};
 
@@ -105,12 +108,17 @@ namespace ft
 				_tree.print_tree();
 			}
 
+			void pre0rder(void)
+			{
+				_tree.pre0rder();
+			}
+
 		public:
 			/* *******************ITERATORS******************* */
-			iterator				begin()					{ return iterator(_tree.minKeyNode()); }
-			const_iterator			begin() const			{ return const_iterator(_tree.minKeyNode()); }
-			iterator				end()					{ return iterator(_tree.get_passed_the_end()); }
-			const_iterator			end() const				{ return const_iterator(_tree.get_passed_the_end()); }
+			iterator				begin()					{ return ++iterator(_tree.minKeyNode()); } //++ because of passed the begining
+			const_iterator			begin() const			{ return ++const_iterator(_tree.minKeyNode()); } //++ because of passed the begining
+			iterator				end()					{ return iterator(_tree.maxKeyNode()); }
+			const_iterator			end() const				{ return const_iterator(_tree.maxKeyNode()); }
 			//reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size - 1); }
 			//const_reverse_iterator	rbegin() const			{ return const_reverse_iterator(_vector + _size - 1); }
 			//reverse_iterator		rend()					{ return reverse_iterator(_vector - 1); }
@@ -118,6 +126,7 @@ namespace ft
 
 		private:
 			tree_type _tree;
+			Compare _compare;
 			/* --------------------copy constructor-------------------- */
 			//for construction as map<int> foo (copy)
 

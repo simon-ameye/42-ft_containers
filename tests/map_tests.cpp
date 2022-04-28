@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/26 02:11:09 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/28 20:44:21 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ void test_map_assign(void)
 	m1.insert(NAMESPACE::make_pair(2, 2));
 	m1.insert(NAMESPACE::make_pair(3, 3));
 	m1.insert(NAMESPACE::make_pair(4, 4));
-	std::cout << "res " << m1.at(1) << m1.at(2) << m1.at(3) << m1.at(4) << std::endl;
-
+	m1.erase(3);
+	m1.print_tree();
+	//std::cout << "res " << m1.at(1) << m1.at(2) << m1.at(3) << m1.at(4) << std::endl;
 	std::cout << "insert in disorder" << std::endl;
 	NAMESPACE::map<int, int> m2;
 	m2.insert(NAMESPACE::make_pair(8, 1));
 	m2.insert(NAMESPACE::make_pair(2, 2));
 	m2.insert(NAMESPACE::make_pair(6, 3));
 	m2.insert(NAMESPACE::make_pair(0, 4));
+	m2.print_tree();
 	std::cout << "res " << m2.at(8) << m2.at(2) << m2.at(6) << m2.at(0) << std::endl;
 
 	std::cout << "erase in disorder" << std::endl;
@@ -48,46 +50,50 @@ void test_map_assign(void)
 	m3.insert(NAMESPACE::make_pair(6, 'c'));
 	m3.insert(NAMESPACE::make_pair(0, 'd'));
 	m3.erase(2);
+	m3.print_tree();
 	m3.erase(6);
 	std::cout << "res " << m3.at(8) << m3.at(0) << std::endl;
 
 
-	std::cout << "big tree" << std::endl;
+	std::cout << "big trees" << std::endl;
+	std::cout << "increasing integers" << std::endl;
 	NAMESPACE::map<int, char> m4;
-	m4.insert(NAMESPACE::make_pair(4, 'c'));
-	m4.insert(NAMESPACE::make_pair(6, 'f'));
-	//m4.erase(6);
-	m4.insert(NAMESPACE::make_pair(1, 'a'));
-	m4.insert(NAMESPACE::make_pair(7, 'z'));
-	m4.insert(NAMESPACE::make_pair(2, 'e'));
-	//m4.erase(7);
-	m4.insert(NAMESPACE::make_pair(0, 'r'));
-	m4.insert(NAMESPACE::make_pair(77, 't'));
-	m4.insert(NAMESPACE::make_pair(876, 'y'));
-	//m4.erase(4);
-	m4.insert(NAMESPACE::make_pair(65, 'f'));
-	m4.insert(NAMESPACE::make_pair(55545, 'd'));
-	m4.insert(NAMESPACE::make_pair(978679, 'e'));
-	m4.insert(NAMESPACE::make_pair(87, 't'));
-	m4.insert(NAMESPACE::make_pair(11, 'j'));
-	m4.insert(NAMESPACE::make_pair(12, 'f'));
-	m4.insert(NAMESPACE::make_pair(13, 'd'));
-	m4.insert(NAMESPACE::make_pair(14, 'e'));
-	m4.insert(NAMESPACE::make_pair(15, 't'));
-	m4.insert(NAMESPACE::make_pair(16, 'j'));
-	m4.insert(NAMESPACE::make_pair(17, 't'));
-	m4.insert(NAMESPACE::make_pair(18, 'j'));
+	for (int i = 0; i < 100; i++)
+		m4.insert(NAMESPACE::make_pair(i, 'o'));
+	//m4.print_tree();
+
+	std::cout << "decreasing integers" << std::endl;
+	NAMESPACE::map<int, char> m5;
+	for (int i = 100; i > 0; i--)
+		m5.insert(NAMESPACE::make_pair(i, 'o'));
+	//m5.print_tree();
+
+	std::cout << "random list integers" << std::endl;
+	NAMESPACE::map<int, char> m6;
+//	int foo [] = {71, 87, 33, 50, 8, 55, 34, 27, 34, 82, 22, 99, 81, 25, 50, 78, 14, 51, 81, 59, 1, 0, 100, 89, 64, 60, 36, 2, 47, 21, 38, 74, 54, 40, 90, 93, 12, 16, 15, 47, 69, 61, 38, 78, 60, 53, 18, 76, 68, 37, 34, 48, 47, 54, 72, 37, 27, 87, 44, 17, 78, 23, 48, 66, 21, 94, 31, 97, 56, 14, 30, 89, 82, 34, 46, 7, 44, 84, 15, 52, 48, 47, 39, 82, 9, 80, 49, 8, 97, 30, 17, 16, 89, 3, 66, 16, 10, 45, 32, 36, 98, 33, 56, 85 };
+
+	int foo[] = {8, 22, 15, 76, 69, 63, 72, 17, 24, 53, 91, 2, 28, 97, 5, 38, 98, 79, 78, 99, 9, 11, 52, 88, 71, 21, 70, 87, 37, 92, 7, 48, 50, 84, 90, 94, 82, 35, 65, 36, 43, 31, 1, 23, 39, 27, 32, 45, 74, 58, 40, 67, 57, 51, 13, 61, 64, 25, 89, 95, 16, 73, 26, 0, 49, 86, 10, 6, 46, 62, 34, 93, 30, 47, 54, 41, 85, 75, 18, 33, 77, 80, 55, 56, 83, 44, 60, 59, 68, 42, 4, 20, 81, 96, 19, 66, 12, 3, 29, 14};
+	for (int i = 0; i <= 100; i++)
+		m6.insert(NAMESPACE::make_pair(foo[i], 'a' + i % 26));
+	for (int i = 0; i <= 98; i++)
+		m6.erase(i);
+	m6.print_tree();
+	NAMESPACE::map<int, char>::iterator itb = m6.begin();
+	std::cout << "begin key : " << itb->first << " val : " << itb->second << std::endl;
+	NAMESPACE::map<int, char>::iterator ite = m6.end();
+	std::cout << "end key : " << ite->first << " val : " << ite->second << std::endl;
+
+
+
 
 	//m4.erase(10);
 	//m4.erase(1);
 	//m4.erase(65);
-	m4.insert(NAMESPACE::make_pair(299, 's'));
-	NAMESPACE::map<int, char>::iterator itb = m4.begin();
-	NAMESPACE::map<int, char>::iterator ite = m4.end();
-	std::cout << "key : " << itb->first << " val : " << itb->second << std::endl;
-	std::cout << "key : " << ite->first << " val : " << ite->second << std::endl;
+	//m4.insert(NAMESPACE::make_pair(299, 's'));
+	//NAMESPACE::map<int, char>::iterator itb = m4.begin();
+	//NAMESPACE::map<int, char>::iterator ite = m4.end();
 
-	m4.print_tree();
+	//m4.pre0rder();
 
 	//while (itb != ite)
 	//{

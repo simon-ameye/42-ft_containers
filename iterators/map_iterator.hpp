@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/23 21:19:59 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/26 17:06:13 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ namespace ft
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
 			/* --------------------default constructor-------------------- */
-			map_iterator(N* node = 0) : _node(node) {}
+			map_iterator(N* node = NULL) : _node(node) {}
 
 			/* --------------------copy constructor-------------------- */
 			map_iterator(const map_iterator< value_type, Key, Compare> & copy)
@@ -79,12 +79,12 @@ namespace ft
 			}
 			map_iterator& operator++()
 			{
-				_node = _tree.next(_node);
+				_node = _next(_node);
 				return (*this);
 			}
 			map_iterator& operator--()
 			{
-				_node = _tree.next(_node); //TO CHANGE
+				_node = _next(_node); //TO CHANGE
 				return (*this);
 			}
 
@@ -106,8 +106,43 @@ namespace ft
 			bool operator!=(const map_iterator& it) const	{ return (it._node != _node); }
 
 		private:
-			tree_type _tree;
+			//tree_type _tree;
+			N* _next(N *node)
+			{
+				if (node->right)
+					return (_minKeyNode(node->right));
+				else
+					while (node->parent)
+					{
+						if (node->parent->left == node)
+							return (node->parent);
+						node = node->parent;
+						std::cout << std::endl;
+					}
+				return (NULL); // TO CHANGE
+			}
 
+			N* _minKeyNode(N* node)
+			{
+				N* current = node;
+
+				/* loop down to find the leftmost leaf */
+
+				while (current->left != NULL)
+					current = current->left;
+				return current;
+			}
+
+			N * _maxKeyNode(N* node)
+			{
+				N* current = node;
+
+				/* loop down to find the leftmost leaf */
+				while (current->right != NULL)
+					current = current->right;
+
+				return current;
+			}
 	};
 }
 #endif
