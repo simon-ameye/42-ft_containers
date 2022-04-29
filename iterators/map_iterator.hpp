@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/26 17:06:13 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/29 15:04:47 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ namespace ft
 			}
 			map_iterator& operator--()
 			{
-				_node = _next(_node); //TO CHANGE
+				_node = _previous(_node); //TO CHANGE
 				return (*this);
 			}
 
@@ -117,7 +117,20 @@ namespace ft
 						if (node->parent->left == node)
 							return (node->parent);
 						node = node->parent;
-						std::cout << std::endl;
+					}
+				return (NULL); // TO CHANGE
+			}
+
+			N* _previous(N *node)
+			{
+				if (node->right)
+					return (_maxKeyNode(node->left));
+				else
+					while (node->parent)
+					{
+						if (node->parent->right == node)
+							return (node->parent);
+						node = node->parent;
 					}
 				return (NULL); // TO CHANGE
 			}

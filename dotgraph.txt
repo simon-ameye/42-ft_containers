@@ -1,41 +1,55 @@
 #########DOT GRAPH FOR https://dreampuf.github.io/############
 digraph G {
     node [shape=plaintext fontname="Sans serif" fontsize="8"];
-    key990 [ label=<
+    key80 [ label=<
         <table border="1" cellborder="0" cellspacing="1">
-            <tr><td align="left"><b>key 99</b></td></tr>
-            <tr><td align="left"><b>map "t"</b></td></tr>
+            <tr><td align="left"><b>key 8</b></td></tr>
+            <tr><td align="left"><b>map "a"</b></td></tr>
             <tr><td align="left"><b>type 0</b></td></tr>
+            <tr><td align="left"><b>height 4</b></td></tr>
             <tr><td align="left"><font color="darkgreen">parent NULL</font></td></tr>
         </table>>];
-    "key990"->"key01" [ label="l" fontsize="7" ];
-    "key990"->"key02" [ label="r" fontsize="7" ];
+    "key80"->"key01" [ label="l" fontsize="7" ];
+    "key80"->"key02" [ label="r" fontsize="7" ];
     key01 [ label=<
         <table border="1" cellborder="0" cellspacing="1">
             <tr><td align="left"><b>key 0</b></td></tr>
             <tr><td align="left"><b>map "NULL"</b></td></tr>
             <tr><td align="left"><b>type 1</b></td></tr>
-            <tr><td align="left"><font color="darkgreen">parent 99</font></td></tr>
+            <tr><td align="left"><b>height 3</b></td></tr>
+            <tr><td align="left"><font color="darkgreen">parent 8</font></td></tr>
         </table>>];
     "key01"->"LNULL01" [ label="l" fontsize="7" ];
-    "key01"->"RNULL01" [ label="r" fontsize="7" ];
+    "key01"->"key60" [ label="r" fontsize="7" ];
+    key60 [ label=<
+        <table border="1" cellborder="0" cellspacing="1">
+            <tr><td align="left"><b>key 6</b></td></tr>
+            <tr><td align="left"><b>map "c"</b></td></tr>
+            <tr><td align="left"><b>type 0</b></td></tr>
+            <tr><td align="left"><b>height 2</b></td></tr>
+            <tr><td align="left"><font color="darkgreen">parent 0</font></td></tr>
+        </table>>];
+    "key60"->"key00" [ label="l" fontsize="7" ];
+    "key60"->"RNULL60" [ label="r" fontsize="7" ];
+    key00 [ label=<
+        <table border="1" cellborder="0" cellspacing="1">
+            <tr><td align="left"><b>key 0</b></td></tr>
+            <tr><td align="left"><b>map "d"</b></td></tr>
+            <tr><td align="left"><b>type 0</b></td></tr>
+            <tr><td align="left"><b>height 1</b></td></tr>
+            <tr><td align="left"><font color="darkgreen">parent 6</font></td></tr>
+        </table>>];
+    "key00"->"LNULL00" [ label="l" fontsize="7" ];
+    "key00"->"RNULL00" [ label="r" fontsize="7" ];
     key02 [ label=<
         <table border="1" cellborder="0" cellspacing="1">
             <tr><td align="left"><b>key 0</b></td></tr>
             <tr><td align="left"><b>map "NULL"</b></td></tr>
             <tr><td align="left"><b>type 2</b></td></tr>
-            <tr><td align="left"><font color="darkgreen">parent 99</font></td></tr>
+            <tr><td align="left"><b>height 1</b></td></tr>
+            <tr><td align="left"><font color="darkgreen">parent 8</font></td></tr>
         </table>>];
-    "key02"->"key3650356430" [ label="l" fontsize="7" ];
+    "key02"->"LNULL02" [ label="l" fontsize="7" ];
     "key02"->"RNULL02" [ label="r" fontsize="7" ];
-    key3650356430 [ label=<
-        <table border="1" cellborder="0" cellspacing="1">
-            <tr><td align="left"><b>key 365035643</b></td></tr>
-            <tr><td align="left"><b>map "w"</b></td></tr>
-            <tr><td align="left"><b>type 0</b></td></tr>
-            <tr><td align="left"><font color="darkgreen">parent 0</font></td></tr>
-        </table>>];
-    "key3650356430"->"LNULL3650356430" [ label="l" fontsize="7" ];
-    "key3650356430"->"RNULL3650356430" [ label="r" fontsize="7" ];
 }
 ##############################################################

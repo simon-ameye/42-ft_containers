@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/28 20:36:19 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/29 15:09:41 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,11 @@ namespace ft
 
 			CustomTree(void) : _root(&_passed_begin), _passed_begin(N()), _passed_end(N())
 			{
-				std::cout << "constructor begin" << std::endl << std::flush;
 				_passed_begin.type = 1;
 				_passed_begin.right = &_passed_end;
 				_passed_end.type = 2;
 				_passed_end.parent = &_passed_begin;
 				//_root = &_passed_begin;
-				std::cout << "constructor end" << std::endl << std::flush;
 			}
 
 			void insert(value_type val)
@@ -95,7 +93,6 @@ namespace ft
 
 			N* at(Key key)
 			{
-				//std::cout << "at" << std::endl;
 				return (_at(_root, key));
 			}
 
@@ -232,15 +229,12 @@ namespace ft
 
 			N* _insert(N* node, value_type val)
 			{
-				//std::cout << "Lets insert !" << std::endl;
-				std::cout << "insert begin" << std::endl << std::flush;
 				N nval;
 				nval._val.first = val.first;
 
 				/* 1. Perform the normal BST rotation */
 				if (node == NULL)
 				{
-					//std::cout << "return NULL node" << std::endl;
 					return(_newNode(val));
 				}
 
@@ -329,153 +323,47 @@ namespace ft
 
 				return current;
 			}
-/*
-			N* _erase(N* root, Key key)
-			{
-				N nval;
-				nval._val.first = key;
-				//std::cout << "erase is evaluating key " << root->_val.first << " val " << root->_val.second << std::endl;
-				// STEP 1: PERFORM STANDARD BST DELETE
-				if (root == NULL)
-					return root;
 
-				// If the _key to be deleted is smaller
-				// than the root's _key, then it lies
-				// in left subtree
-				if (_NALessThanNB(&nval, root)) //if ( key < root->_val.first )
-					root->left = _erase(root->left, key);
-
-				// If the _key to be deleted is greater
-				// than the root's _key, then it lies
-				// in right subtree
-				else if (_NALessThanNB(root, &nval)) //else if( key > root->_val.first )
-					root->right = _erase(root->right, key);
-
-				// if _key is same as root's _key, then
-				// This is the node to be deleted
-				else
-				{
-					// node with only one child or no child
-					if( (root->left == NULL) || (root->right == NULL) )
-					{
-						N *temp = root->left ? root->left : root->right;
-
-						// No child case
-						if (temp == NULL)
-						{
-							temp = root;
-							root = NULL;
-						}
-						else // One child case
-							*root = *temp; // Copy the contents of
-									// the non-empty child
-						free(temp);
-					}
-					else
-					{
-						// node with two children: Get the inorder
-						// successor (smallest in the right subtree)
-						N* temp = _minKeyNode(root->right);
-
-///////////////////////////////// to replace !!
-						// Copy the inorder successor's
-						// data to this node
-						root->_val.first = temp->_val.first;
-						root->_val.second = temp->_val.second;
-						root->type = temp->type;
-
-						// Delete the inorder successor
-						root->right = _erase(root->right, temp->_val.first);
-
-
-////////////////////////////////////
-
-						//free(root);
-
-
-
-//////////////////////////////////
-
-
-
-					}
-				}
-
-				// If the tree had only one node
-				// then return
-				if (root == NULL)
-				return root;
-
-				// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-				root->height = 1 + _max(_height(root->left), _height(root->right));
-
-				// STEP 3: GET THE BALANCE FACTOR OF
-				// THIS NODE (to check whether this
-				// node became unbalanced)
-				int balance = _getBalance(root);
-
-				// If this node becomes unbalanced,
-				// then there are 4 cases
-
-				// Left Left Case
-				if (balance > 1 &&
-					_getBalance(root->left) >= 0)
-					return _rightRotate(root);
-
-				// Left Right Case
-				if (balance > 1 &&
-					_getBalance(root->left) < 0)
-				{
-					root->left = _leftRotate(root->left);
-					return _rightRotate(root);
-				}
-
-				// Right Right Case
-				if (balance < -1 &&
-					_getBalance(root->right) <= 0)
-					return _leftRotate(root);
-
-				// Right Left Case
-				if (balance < -1 &&
-					_getBalance(root->right) > 0)
-				{
-					root->right = _rightRotate(root->right);
-					return _leftRotate(root);
-				}
-
-				return root;
-			}
-*/
 			N* _erase(N* root, Key key) // my earse
 			{
 				N nval;
+				N* tmp;
 				nval._val.first = key;
-				if (_NALessThanNB(&nval, root)) //not our guy
+				if (_NALessThanNB(&nval, root)) //not our guy, go left
+				{
+					tmp = root;
 					root->left = _erase(root->left, key);
-				else if (_NALessThanNB(root, &nval)) //not our guy
+				}
+				else if (_NALessThanNB(root, &nval)) //not our guy, go right
+				{
+					tmp = root;
 					root->right = _erase(root->right, key);
+				}
 				else if (!root->left && !root->right) // our guy with no child, delete !
 				{
 					free(root);
 					return (NULL);
 				}
-				else //at least one child (our guy)
+				else //our guy and at least one child
 				{
-					if (root->right)
+					if (root->right && root->left) //two childs, lets decide what rotation to do
 					{
-						return (_erase(_leftRotate(root), key));
+						if (_height(root->left) > _height(root->right))
+							tmp = _erase(_rightRotate(root), key);
+						else 
+							tmp = _erase(_leftRotate(root), key);
 					}
-					else
-					{
-						return (_erase(_rightRotate(root), key));
-					}
+					else if (root->right) //only one chile, rotation imposed
+						tmp = _erase(_leftRotate(root), key);
+					else //only one chile, rotation imposed
+						tmp = _erase(_rightRotate(root), key);
 				}
-				return (root);
+				root->height = 1 + _max(_height(root->left), _height(root->right));
+				return (tmp);
 			}
 
 			N* _at(N* node, Key key)
 			{
-				std::cout << "_at call" << std::endl << std::flush;
 				N nval;
 				nval._val.first = key;
 				if (_NALessThanNB(&nval, node)) //if (key < node->_val.first)
@@ -506,6 +394,7 @@ namespace ft
 					myfile << "NULL";
 				myfile << "\"</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "type " << root->type << "</b></td></tr>" << std::endl;
+				myfile << "            <tr><td align=\"left\"><b>" << "height " << root->height << "</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><font color=\"darkgreen\">";
 				myfile << "parent ";
 				if (root->parent)
