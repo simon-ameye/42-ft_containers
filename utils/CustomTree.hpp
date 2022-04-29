@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/29 15:09:41 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/29 18:41:20 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 namespace ft
 {
-	// An AVL tree node
 	template < class value_type >
 	class Node
 	{
@@ -39,19 +38,18 @@ namespace ft
 	{
 		public:
 			typedef ft::Node < value_type >					N;
-			//typedef typename value_type::first						Key;
 
 		private:
 			Alloc				_alloc; //copy of allocator
 
 		public:
 
-			void pre0rder(void)
+			void pre0rder(void) const
 			{
 				_preOrder(_root);
 			}
 
-			void print_tree(void)
+			void print_tree(void) const
 			{
 				std::ofstream myfile;
 				myfile.open ("dotgraph.txt");
@@ -66,13 +64,17 @@ namespace ft
 				myfile.close();
 			}
 
-			CustomTree(void) : _root(&_passed_begin), _passed_begin(N()), _passed_end(N())
+			CustomTree(void) : _root(&_passed_begin), _passed_begin(N()), _passed_end(N()), _size(0)
 			{
 				_passed_begin.type = 1;
 				_passed_begin.right = &_passed_end;
 				_passed_end.type = 2;
 				_passed_end.parent = &_passed_begin;
-				//_root = &_passed_begin;
+			}
+
+			~CustomTree(void)
+			{
+				_delete(_root);
 			}
 
 			void insert(value_type val)
@@ -80,51 +82,47 @@ namespace ft
 				_root = _insert(_root, val);
 			}
 
-			//N* get_passed_the_end(void)
-			//{
-			//	return (&_passed_the_end);
-			//}
-
-
 			void erase(Key key)
 			{
 				_root = _erase(_root, key);
 			}
 
-			N* at(Key key)
+			N* at(Key key) const //a robust version of at that returns a NULL if not found
 			{
 				return (_at(_root, key));
 			}
 
-			N* minKeyNode(void)
+			N* minKeyNode(void) const
 			{
 				return (_minKeyNode(_root));
 			}
 
-			N* maxKeyNode(void)
+			N* maxKeyNode(void) const
 			{
 				return (_maxKeyNode(_root));
 			}
 
+			size_t getSize(void) const
+			{
+				return (_size);
+			}
+
 		private:
-			int _height(N *node)
+			int _height(N *node) const
 			{
 				if (node == NULL)
 					return 0;
 				return node->height;
 			}
 
-			int _max(int a, int b)
+			int _max(int a, int b) const
 			{
 				return (a > b)? a : b;
 			}
 
 			N* _newNode(value_type val)
 			{
-				//std::allocator < N > Alloc;
 				N* node = _alloc.allocate(1);
-				//node->_key = key;
-				//node->_map = map;
 				node->_val.first = val.first;
 				node->_val.second = val.second;
 				node->parent = NULL;
@@ -132,10 +130,18 @@ namespace ft
 				node->right = NULL;
 				node->height = 1; // new node is initially added at leaf
 				node->type = 0;
+				++_size;
 				return(node);
 			}
 
-			bool _NALessThanNB(N* A, N* B) //compare = std::less<Key>
+
+			void _delNode(N* node)
+			{
+				_alloc.destroy(node);
+				--_size;
+			}
+
+			bool _NALessThanNB(N* A, N* B) const //compare = std::less<Key>
 			{
 				if (A->type == 2 || B->type == 1)
 					return (false);
@@ -143,38 +149,6 @@ namespace ft
 					return (true);
 				return (A->_val.first < B->_val.first);
 			}
-
-			//bool _NAMoreThanNB(N* A, N* B)
-			//{
-			//	return (!_NALessThanNB(A, B));
-			//}
-
-			//bool _ALessThanB(N* A, N* B)
-			//{
-			//	return (_NALessThanNB(A, B));
-			//}
-//
-			//bool _ALessThanB(Key A, Key B)
-			//{
-			//	N tA, tB;
-			//	tA._val.first = A;
-			//	tB._val.first = B;
-			//	return (_NALessThanNB(&tA, &tB));
-			//}
-//
-			//bool _ALessThanB(N* A, Key B)
-			//{
-			//	N tB;
-			//	tB._val.first = B;
-			//	return (_NALessThanNB(A, &tB));
-			//}
-//
-			//bool _ALessThanB(Key A, N* B)
-			//{
-			//	N tA;
-			//	tA._val.first = A;
-			//	return (_NALessThanNB(&tA, B));
-			//}
 
 			N *_rightRotate(N *y)
 			{
@@ -237,14 +211,11 @@ namespace ft
 				{
 					return(_newNode(val));
 				}
-
-				//if (val.first < node->_val.first);
 				if (_NALessThanNB(&nval, node))
 				{
 					node->left = _insert(node->left, val);
 					node->left->parent = node;
 				}
-				//else if (val.first > node->_val.first)
 				else if (_NALessThanNB(node, &nval))
 				{
 					node->right = _insert(node->right, val);
@@ -265,56 +236,46 @@ namespace ft
 				// then there are 4 cases
 
 				// Left Left Case
-				//if (balance > 1 && val.first < node->left->_val.first)
 				if (balance > 1 && _NALessThanNB(&nval, node->left))
 				{
-					//std::cout << "return left left case" << std::endl;
 					return _rightRotate(node);
 				}
 
 				// Right Right Case
-				//if (balance < -1 && val.first > node->right->_val.first)
 				if (balance < -1 && _NALessThanNB(node->right, &nval))
 				{
-					//std::cout << "return right right case" << std::endl;
 					return _leftRotate(node);
 				}
 
 				// Left Right Case
-				//if (balance > 1 && val.first > node->left->_val.first)
 				if (balance > 1 && _NALessThanNB(node->left, &nval))
 				{
 					node->left = _leftRotate(node->left);
-					//std::cout << "return left right case" << std::endl;
 					return _rightRotate(node);
 				}
 
 				// Right Left Case
-				//if (balance < -1 && val.first < node->right->_val.first)
 				if (balance < -1 && _NALessThanNB(&nval, node->right))
 				{
 					node->right = _rightRotate(node->right);
-					//std::cout << "return right left case" << std::endl;
 					return _leftRotate(node);
 				}
 
 				/* return the (unchanged) node pointer */
-				//std::cout << "return unchanged case" << std::endl;
 				return node;
 			}
 
-			N* _minKeyNode(N* node)
+			N* _minKeyNode(N* node) const
 			{
 				N* current = node;
 
 				/* loop down to find the leftmost leaf */
-
 				while (current->left != NULL)
 					current = current->left;
 				return current;
 			}
 
-			N * _maxKeyNode(N* node)
+			N * _maxKeyNode(N* node) const
 			{
 				N* current = node;
 
@@ -324,7 +285,7 @@ namespace ft
 				return current;
 			}
 
-			N* _erase(N* root, Key key) // my earse
+			N* _erase(N* root, Key key)
 			{
 				N nval;
 				N* tmp;
@@ -341,7 +302,7 @@ namespace ft
 				}
 				else if (!root->left && !root->right) // our guy with no child, delete !
 				{
-					free(root);
+					_delNode(root);
 					return (NULL);
 				}
 				else //our guy and at least one child
@@ -362,15 +323,17 @@ namespace ft
 				return (tmp);
 			}
 
-			N* _at(N* node, Key key)
+			N* _at(N* node, Key key) const
 			{
+				if (!node)
+					return (NULL);
 				N nval;
 				nval._val.first = key;
-				if (_NALessThanNB(&nval, node)) //if (key < node->_val.first)
+				if (_NALessThanNB(&nval, node))
 				{
 					return (_at(node->left, key));
 				}
-				else if (_NALessThanNB(node, &nval)) //else if (key > node->_val.first)
+				else if (_NALessThanNB(node, &nval))
 				{
 					return (_at(node->right, key));
 				}
@@ -430,13 +393,20 @@ namespace ft
 				}
 			}
 
+			void _delete(N* root)
+			{
+				if (root->left)
+					_delete(root->left);
+				if (root->right)
+					_delete(root->right);
+				if (root->type == 0)
+					_delNode(root);
+			}
+
 		private:
 			N *_root;
-			//Compare _compare;
 			N _passed_begin, _passed_end;
-
+			size_t _size;
 	};
 }
 #endif
-
-// Thanks to rathbhupendra : https://www.geeksforgeeks.org/avl-tree-set-2-deletion/

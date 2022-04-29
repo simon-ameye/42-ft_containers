@@ -60,3 +60,63 @@ key : 96 val : p
 key : 97 val : n
 key : 98 val : q
 key : 99 val : t
+empty & size
+is empty false
+size 49
+deleting key 51
+deleting key 52
+deleting key 53
+deleting key 54
+deleting key 55
+deleting key 56
+deleting key 57
+deleting key 58
+deleting key 59
+deleting key 60
+deleting key 61
+deleting key 62
+deleting key 63
+deleting key 64
+deleting key 65
+deleting key 66
+deleting key 67
+deleting key 68
+deleting key 69
+deleting key 70
+deleting key 71
+deleting key 72
+deleting key 73
+deleting key 74
+deleting key 75
+deleting key 76
+deleting key 77
+deleting key 78
+deleting key 79
+deleting key 80
+deleting key 81
+deleting key 82
+deleting key 83
+deleting key 84
+deleting key 85
+deleting key 86
+deleting key 87
+deleting key 88
+deleting key 89
+deleting key 90
+deleting key 91
+deleting key 92
+deleting key 93
+deleting key 94
+deleting key 95
+deleting key 96
+deleting key 97
+deleting key 98
+deleting key 99
+is empty true
+size 0
+max_size is not reached false
+add with []
+s
+remove tricks
+deleting unexisting val result : 0
+deleting existing val result : 1

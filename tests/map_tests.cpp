@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/29 15:06:21 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/29 21:16:50 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void test_map_assign(void)
 	m1.insert(NAMESPACE::make_pair(4, 4));
 	m1.erase(3);
 	//m1.print_tree();
-	std::cout << "res " << m1.at(1) << m1.at(2) << m1.at(4) << std::endl;
+	std::cout << "res " << m1[1] << m1[2] << m1[4] << std::endl;
 	std::cout << "insert in disorder" << std::endl;
 	NAMESPACE::map<int, int> m2;
 	m2.insert(NAMESPACE::make_pair(8, 1));
@@ -41,7 +41,7 @@ void test_map_assign(void)
 	m2.insert(NAMESPACE::make_pair(6, 3));
 	m2.insert(NAMESPACE::make_pair(0, 4));
 	//m2.print_tree();
-	std::cout << "res " << m2.at(8) << m2.at(2) << m2.at(6) << m2.at(0) << std::endl;
+	std::cout << "res " << m2[8] << m2[2] << m2[6] << m2[0] << std::endl;
 
 	std::cout << "erase in disorder" << std::endl;
 	NAMESPACE::map<int, char> m3;
@@ -52,7 +52,7 @@ void test_map_assign(void)
 	m3.erase(2);
 	//m3.print_tree();
 	m3.erase(6);
-	std::cout << "res " << m3.at(8) << m3.at(0) << std::endl;
+	std::cout << "res " << m3[8] << m3[0] << std::endl;
 
 
 	std::cout << "big trees" << std::endl;
@@ -82,21 +82,28 @@ void test_map_assign(void)
 	for (;itb != ite; itb++)
 		std::cout << "key : " << itb->first << " val : " << itb->second << std::endl;
 
+	std::cout << "empty & size" << std::endl;
+	std::cout << std::boolalpha;
+	std::cout << "is empty " << m6.empty() << std::endl;
+	std::cout << "size " << m6.size() << std::endl;
+	NAMESPACE::map<int, char>::iterator itb2;
+	itb2 = m6.begin();
+	for (;itb2 != ite;)
+	{
+		std::cout << "deleting key " << itb2->first << std::endl << std::flush;
+		m6.erase(itb2->first);
+		itb2 = m6.begin();
+	}
+	std::cout << "is empty " << m6.empty() << std::endl;
+	std::cout << "size " << m6.size() << std::endl;
+	std::cout << "max_size is not reached " << (m6.max_size() < m6.size()) << std::endl;
 
+	std::cout << "add with []" << std::endl;
+	m6[666] = 's';
+	std::cout << m6[666] << std::endl;
 
+	std::cout << "remove tricks" << std::endl;
+	std::cout << "deleting unexisting val result : " << m6.erase(77) << std::endl;
+	std::cout << "deleting existing val result : " << m6.erase(666) << std::endl;
 
-	//m4.erase(10);
-	//m4.erase(1);
-	//m4.erase(65);
-	//m4.insert(NAMESPACE::make_pair(299, 's'));
-	//NAMESPACE::map<int, char>::iterator itb = m4.begin();
-	//NAMESPACE::map<int, char>::iterator ite = m4.end();
-
-	//m4.pre0rder();
-
-	//while (itb != ite)
-	//{
-	//	std::cout << "key : " << (*itb).first << " val : " << itb->second << std::endl;
-	//	itb++;
-	//}
 }

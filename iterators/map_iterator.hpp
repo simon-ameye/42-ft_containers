@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/29 15:04:47 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/29 17:04:36 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ namespace ft
 
 		private:
 			//tree_type _tree;
-			N* _next(N *node)
+			N* _next(N *node) const
 			{
 				if (node->right)
 					return (_minKeyNode(node->right));
@@ -121,7 +121,7 @@ namespace ft
 				return (NULL); // TO CHANGE
 			}
 
-			N* _previous(N *node)
+			N* _previous(N *node) const
 			{
 				if (node->right)
 					return (_maxKeyNode(node->left));
@@ -135,7 +135,7 @@ namespace ft
 				return (NULL); // TO CHANGE
 			}
 
-			N* _minKeyNode(N* node)
+			N* _minKeyNode(N* node) const
 			{
 				N* current = node;
 
@@ -146,7 +146,7 @@ namespace ft
 				return current;
 			}
 
-			N * _maxKeyNode(N* node)
+			N * _maxKeyNode(N* node) const
 			{
 				N* current = node;
 
