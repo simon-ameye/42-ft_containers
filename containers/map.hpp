@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/29 21:18:08 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/30 02:42:58 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,16 @@ namespace ft
 				}
 			}
 
+			void swap (map& x)
+			{
+				node_type *tmproot = x._get_root();
+				size_t tmpsize = x._get_size();
+				x._set_root(_get_root());
+				x._set_size(_get_size());
+				_set_root(tmproot);
+				_set_size(tmpsize);
+			}
+
 			void print_tree(void) //TO DELETE
 			{
 				_tree.print_tree();
@@ -180,6 +190,11 @@ namespace ft
 			Compare _compare;
 			/* --------------------copy constructor-------------------- */
 			//for construction as map<int> foo (copy)
+
+			void _set_root(node_type* root) {_tree._root = root;}
+			node_type* _get_root(void) {return (_tree._root);}
+			void _set_size(size_t size) {_tree._size = size;}
+			size_t _get_size(void) {return (_tree._size);}
 
 	};
 }

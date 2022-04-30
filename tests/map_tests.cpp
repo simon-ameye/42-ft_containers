@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/29 21:16:50 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/30 02:46:00 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,16 @@ void test_map_assign(void)
 	std::cout << "deleting unexisting val result : " << m6.erase(77) << std::endl;
 	std::cout << "deleting existing val result : " << m6.erase(666) << std::endl;
 
+	std::cout << "swap" << std::endl;
+	NAMESPACE::map<int, char> m7;
+	NAMESPACE::map<int, char> m8;
+	m7.insert(NAMESPACE::make_pair(22, 'o'));
+	m7.insert(NAMESPACE::make_pair(77, 'o'));
+	m7.swap(m8);
+	std::cout << m8[77] << m8[22] << std::endl;
+	std::cout << m7.size() << m7[77] << std::endl;
+	m7.insert(NAMESPACE::make_pair(22, 'o'));
+	m8.insert(NAMESPACE::make_pair(77, 'o'));
+	std::cout << m8[77] << m8[22] << std::endl;
+	std::cout << m7.size() << m7[77] << std::endl;
 }

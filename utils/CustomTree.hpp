@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/29 18:41:20 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/30 02:44:11 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ namespace ft
 				myfile.close();
 			}
 
-			CustomTree(void) : _root(&_passed_begin), _passed_begin(N()), _passed_end(N()), _size(0)
+			CustomTree(void)
 			{
-				_passed_begin.type = 1;
-				_passed_begin.right = &_passed_end;
-				_passed_end.type = 2;
-				_passed_end.parent = &_passed_begin;
+				N* _passed_begin = _newNode(value_type());
+				N* _passed_end = _newNode(value_type());
+				_passed_begin->type = 1;
+				_passed_begin->right = _passed_end;
+				_passed_end->type = 2;
+				_passed_end->parent = _passed_begin;
+				_root = _passed_begin;
+				_size = 0;
 			}
 
 			~CustomTree(void)
@@ -399,13 +403,12 @@ namespace ft
 					_delete(root->left);
 				if (root->right)
 					_delete(root->right);
-				if (root->type == 0)
-					_delNode(root);
+				_delNode(root);
 			}
 
 		private:
+		public:
 			N *_root;
-			N _passed_begin, _passed_end;
 			size_t _size;
 	};
 }
