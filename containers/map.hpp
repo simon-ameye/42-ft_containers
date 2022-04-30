@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/30 02:42:58 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/30 02:50:19 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,11 @@ namespace ft
 				x._set_size(_get_size());
 				_set_root(tmproot);
 				_set_size(tmpsize);
+			}
+
+			void clear(void)
+			{
+				_tree.clear();
 			}
 
 			void print_tree(void) //TO DELETE

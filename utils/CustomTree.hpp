@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/30 02:44:11 by sameye           ###   ########.fr       */
+/*   Updated: 2022/04/30 02:49:40 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ namespace ft
 			~CustomTree(void)
 			{
 				_delete(_root);
+			}
+
+			void clear(void)
+			{
+				_clear(_root);
 			}
 
 			void insert(value_type val)
@@ -404,6 +409,16 @@ namespace ft
 				if (root->right)
 					_delete(root->right);
 				_delNode(root);
+			}
+
+			void _clear(N* root)
+			{
+				if (root->left)
+					_clear(root->left);
+				if (root->right)
+					_clear(root->right);
+				if (root->type == 0)
+					_delNode(root);
 			}
 
 		private:
