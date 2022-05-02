@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/02 16:31:02 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/02 17:34:17 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "../utils/CustomTree.hpp"
 #include "../iterators/map_iterator.hpp"
 #include <math.h>
-
 
 namespace ft
 {
@@ -35,8 +34,8 @@ namespace ft
 		typedef typename allocator_type::const_reference					const_reference;
 		typedef typename allocator_type::pointer							pointer;
 		typedef typename allocator_type::const_pointer						const_pointer;
-		typedef ft::map_iterator<value_type, Key, Compare>											iterator;
-		typedef ft::map_iterator<value_type, Key, Compare>											const_iterator; //TO SET AS CONST
+		typedef ft::map_iterator<value_type, Key, Compare>					iterator;
+		typedef ft::map_iterator<value_type, Key, Compare>					const_iterator; //TO SET AS CONST
 		//typedef ft::map_reverse_iterator									reverse_iterator; //TO DO
 		//typedef ft::map_reverse_iterator									const_reverse_iterator; //TO DO
 		typedef std::ptrdiff_t												difference_type;
@@ -86,7 +85,6 @@ namespace ft
 		public:
 			~map() {}
 
-
 			/* *******************OPERATOR******************* */
 			/* --------------------=-------------------- */
 		public:
@@ -95,7 +93,6 @@ namespace ft
 				clear();
 				insert(rhs.begin(), rhs.end());
 			}
-
 
 			/* *******************ITERATORS******************* */
 		public:
@@ -135,7 +132,6 @@ namespace ft
 				return (tmp->_val.second);
 			}
 
-			
 			/* *******************MODIFIERS******************* */
 		public:
 			ft::pair<iterator,bool> insert (const value_type& val) //single element
@@ -152,7 +148,7 @@ namespace ft
 				(void) position;
 				return (insert(val).first);
 			}
-			
+
 			template <class InputIterator>
 			void insert (InputIterator first, InputIterator last) //range
 			{

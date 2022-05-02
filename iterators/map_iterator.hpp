@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/29 17:04:36 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/02 17:18:23 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,12 @@ namespace ft
 	template < class value_type, class Key, class Compare>
 	class map_iterator
 	{
-		public:
 			/* *******************ALIASES******************* */
-			//typedef value_type.first											key_type;
-			//typedef value_type.second												mapped_type;
-
 		private:
 			typedef ft::Node < value_type >				N;
 			typedef ft::CustomTree<value_type, Key, Compare>					tree_type;
 
-		public:
-			//typedef N*												elemPtr;
-			//typedef N&												reference;
-			//typedef ft::pair<Key, T>							pair;
-			//typedef T*												pointer;
-
-			/* *******************ATTRIBUTES******************* */
+			/* *******************VARIABLES******************* */
 		private:
 			N* _node;
 
@@ -73,15 +63,18 @@ namespace ft
 			{
 				return (_node->_val);
 			}
+
 			value_type* operator->() const
 			{
-				return &_node->_val; //obligé de stocker une paire malocee dans node !
+				return &_node->_val;
 			}
+
 			map_iterator& operator++()
 			{
 				_node = _next(_node);
 				return (*this);
 			}
+
 			map_iterator& operator--()
 			{
 				_node = _previous(_node); //TO CHANGE
@@ -102,11 +95,18 @@ namespace ft
 				return (res);
 			}
 
-			bool operator==(const map_iterator& it) const	{ return (it._node == _node); }
-			bool operator!=(const map_iterator& it) const	{ return (it._node != _node); }
+			bool operator==(const map_iterator& it) const
+			{
+				return (it._node == _node);
+			}
 
+			bool operator!=(const map_iterator& it) const
+			{
+				return (it._node != _node);
+			}
+
+			/* *******************USEFUL FUNCTIONS******************* */
 		private:
-			//tree_type _tree;
 			N* _next(N *node) const
 			{
 				if (node->right)
@@ -138,9 +138,6 @@ namespace ft
 			N* _minKeyNode(N* node) const
 			{
 				N* current = node;
-
-				/* loop down to find the leftmost leaf */
-
 				while (current->left != NULL)
 					current = current->left;
 				return current;
@@ -149,11 +146,8 @@ namespace ft
 			N * _maxKeyNode(N* node) const
 			{
 				N* current = node;
-
-				/* loop down to find the leftmost leaf */
 				while (current->right != NULL)
 					current = current->right;
-
 				return current;
 			}
 	};

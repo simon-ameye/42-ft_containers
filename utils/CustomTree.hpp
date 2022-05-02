@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/02 16:04:12 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/02 17:13:53 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,13 @@ namespace ft
 	template < class value_type, class Key, typename Compare = std::less<value_type>, class Alloc = std::allocator < ft::Node < value_type > > >
 	class CustomTree
 	{
-		public:
+		/* *******************TYPEDEF******************* */
+		private:
 			typedef ft::Node < value_type >					N;
 
-		private:
-			Alloc				_alloc; //copy of allocator
 
+		/* *******************CONSTRUCTORS******************* */
 		public:
-
-			void pre0rder(void) const
-			{
-				_preOrder(_root);
-			}
-
-			void print_tree(void)
-			{
-				std::ofstream myfile;
-				myfile.open ("dotgraph.txt");
-				myfile << "#########DOT GRAPH FOR https://dreampuf.github.io/############" << std::endl;
-				myfile << "digraph G {" << std::endl;
-				myfile << "    node [shape=plaintext fontname=\"Sans serif\" fontsize=\"8\"];" << std::endl;
-				myfile.close();
-				_print_tree(_root);
-				myfile.open ("dotgraph.txt", std::ios_base::app);
-				myfile << "}" << std::endl;
-				myfile << "##############################################################" << std::endl;
-				myfile.close();
-			}
-
 			CustomTree(void)
 			{
 				N *passed_begin = _newNode(value_type());
@@ -81,6 +60,22 @@ namespace ft
 				_delete(_root);
 			}
 
+		/* *******************MAIN FUNCTIONS******************* */
+			void insert(value_type val)
+			{
+				_root = _insert(_root, val);
+			}
+
+			N* at(Key key) const //a robust version of at that returns a NULL if not found
+			{
+				return (_at(_root, key));
+			}
+
+			void erase(Key key)
+			{
+				_root = _erase(_root, key);
+			}
+
 			void clear(void)
 			{
 				N *passed_begin = minKeyNode();
@@ -89,21 +84,6 @@ namespace ft
 				passed_begin->right = passed_end;
 				passed_end->parent = passed_begin;
 				_root = passed_begin;
-			}
-
-			void insert(value_type val)
-			{
-				_root = _insert(_root, val);
-			}
-
-			void erase(Key key)
-			{
-				_root = _erase(_root, key);
-			}
-
-			N* at(Key key) const //a robust version of at that returns a NULL if not found
-			{
-				return (_at(_root, key));
 			}
 
 			N* minKeyNode(void) const
@@ -121,7 +101,27 @@ namespace ft
 				return (_size);
 			}
 
+		/* *******************USEFUL PRIVATE FUNCTIONS******************* */
 		private:
+			void _clear(N* root)
+			{
+				if (root->left)
+					_clear(root->left);
+				if (root->right)
+					_clear(root->right);
+				if (root->type == 0)
+					_delNode(root);
+			}
+
+			void _delete(N* root)
+			{
+				if (root->left)
+					_delete(root->left);
+				if (root->right)
+					_delete(root->right);
+				_delNode(root);
+			}
+
 			int _height(N *node) const
 			{
 				if (node == NULL)
@@ -168,21 +168,14 @@ namespace ft
 			{
 				N *x = y->left;
 				N *T2 = x->right;
-
-				// Perform rotation
 				x->right = y;
 				y->left = T2;
-
 				x->parent = y->parent;
 				y->parent = x;
 				if (T2)
 					T2->parent = y;
-
-				// Update heights
 				y->height = _max(_height(y->left), _height(y->right)) + 1;
 				x->height = _max(_height(x->left), _height(x->right)) + 1;
-
-				// Return new root
 				return x;
 			}
 
@@ -190,21 +183,14 @@ namespace ft
 			{
 				N *y = x->right;
 				N *T2 = y->left;
-
-				// Perform rotation
 				y->left = x;
 				x->right = T2;
-
 				y->parent = x->parent;
 				x->parent = y;
 				if (T2)
 					T2->parent = x;
-
-				// Update heights
 				x->height = _max(_height(x->left), _height(x->right)) + 1;
 				y->height = _max(_height(y->left), _height(y->right)) + 1;
-
-				// Return new root
 				return y;
 			}
 
@@ -219,12 +205,8 @@ namespace ft
 			{
 				N nval;
 				nval._val.first = val.first;
-
-				/* 1. Perform the normal BST rotation */
 				if (node == NULL)
-				{
 					return(_newNode(val));
-				}
 				if (_NALessThanNB(&nval, node))
 				{
 					node->left = _insert(node->left, val);
@@ -235,47 +217,24 @@ namespace ft
 					node->right = _insert(node->right, val);
 					node->right->parent = node;
 				}
-				else // Equal keys not allowed
+				else
 					return node; // DONT FORGET TO RAISE ERROR
-
-				/* 2. Update height of this ancestor node */
 				node->height = 1 + _max(_height(node->left), _height(node->right));
-
-				/* 3. Get the balance factor of this
-					ancestor node to check whether
-					this node became unbalanced */
 				int balance = _getBalance(node);
-
-				// If this node becomes unbalanced,
-				// then there are 4 cases
-
-				// Left Left Case
 				if (balance > 1 && _NALessThanNB(&nval, node->left))
-				{
 					return _rightRotate(node);
-				}
-
-				// Right Right Case
 				if (balance < -1 && _NALessThanNB(node->right, &nval))
-				{
 					return _leftRotate(node);
-				}
-
-				// Left Right Case
 				if (balance > 1 && _NALessThanNB(node->left, &nval))
 				{
 					node->left = _leftRotate(node->left);
 					return _rightRotate(node);
 				}
-
-				// Right Left Case
 				if (balance < -1 && _NALessThanNB(&nval, node->right))
 				{
 					node->right = _rightRotate(node->right);
 					return _leftRotate(node);
 				}
-
-				/* return the (unchanged) node pointer */
 				return node;
 			}
 
@@ -283,7 +242,6 @@ namespace ft
 			{
 				N* current = node;
 
-				/* loop down to find the leftmost leaf */
 				while (current->left != NULL)
 					current = current->left;
 				return current;
@@ -295,7 +253,6 @@ namespace ft
 
 				while (current->right != NULL)
 					current = current->right;
-
 				return current;
 			}
 
@@ -344,19 +301,31 @@ namespace ft
 				N nval;
 				nval._val.first = key;
 				if (_NALessThanNB(&nval, node))
-				{
 					return (_at(node->left, key));
-				}
 				else if (_NALessThanNB(node, &nval))
-				{
 					return (_at(node->right, key));
-				}
 				else
-				{
 					return (node);
-				}
 			}
 
+		/* *******************USEFUL DEV FEATURES******************* */
+		public:
+			void print_tree(void) //TO REMOVE
+			{
+				std::ofstream myfile;
+				myfile.open ("dotgraph.txt");
+				myfile << "#########DOT GRAPH FOR https://dreampuf.github.io/############" << std::endl;
+				myfile << "digraph G {" << std::endl;
+				myfile << "    node [shape=plaintext fontname=\"Sans serif\" fontsize=\"8\"];" << std::endl;
+				myfile.close();
+				_print_tree(_root);
+				myfile.open ("dotgraph.txt", std::ios_base::app);
+				myfile << "}" << std::endl;
+				myfile << "##############################################################" << std::endl;
+				myfile.close();
+			}
+
+		private:
 			void _print_tree(N* root)
 			{
 				std::ofstream myfile;
@@ -397,6 +366,13 @@ namespace ft
 				myfile.close();
 			}
 
+		public:
+			void pre0rder(void) const //TO REMOVE
+			{
+				_preOrder(_root);
+			}
+
+		private:
 			void _preOrder(N* root)
 			{
 				if(root)
@@ -407,29 +383,13 @@ namespace ft
 				}
 			}
 
-			void _delete(N* root)
-			{
-				if (root->left)
-					_delete(root->left);
-				if (root->right)
-					_delete(root->right);
-				_delNode(root);
-			}
-
-			void _clear(N* root)
-			{
-				if (root->left)
-					_clear(root->left);
-				if (root->right)
-					_clear(root->right);
-				if (root->type == 0)
-					_delNode(root);
-			}
-
-		private:
+		/* *******************VARIABLES******************* */
 		public:
 			N *_root;
 			size_t _size;
+
+		private:
+			Alloc				_alloc;
 	};
 }
 #endif

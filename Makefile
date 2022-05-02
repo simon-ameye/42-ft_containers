@@ -6,7 +6,7 @@
 #    By: sameye <sameye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/18 16:53:51 by sameye            #+#    #+#              #
-#    Updated: 2022/04/21 17:43:34 by sameye           ###   ########.fr        #
+#    Updated: 2022/05/02 17:20:23 by sameye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ clean:
 
 fclean:				clean
 					@echo Cleaning binary...
-					@rm -f $(NAME) ft std res/res_ft res/res_std res/res_diff
+					@rm -f $(NAME) ft std res/res_ft res/res_std res/res_diff dotgraph.txt
 
 re:					fclean all
 
