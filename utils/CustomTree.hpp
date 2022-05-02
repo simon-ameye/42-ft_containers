@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/30 02:49:40 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/02 16:04:12 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ namespace ft
 				_preOrder(_root);
 			}
 
-			void print_tree(void) const
+			void print_tree(void)
 			{
 				std::ofstream myfile;
 				myfile.open ("dotgraph.txt");
@@ -66,13 +66,13 @@ namespace ft
 
 			CustomTree(void)
 			{
-				N* _passed_begin = _newNode(value_type());
-				N* _passed_end = _newNode(value_type());
-				_passed_begin->type = 1;
-				_passed_begin->right = _passed_end;
-				_passed_end->type = 2;
-				_passed_end->parent = _passed_begin;
-				_root = _passed_begin;
+				N *passed_begin = _newNode(value_type());
+				N *passed_end = _newNode(value_type());
+				passed_begin->type = 1;
+				passed_begin->right = passed_end;
+				passed_end->type = 2;
+				passed_end->parent = passed_begin;
+				_root = passed_begin;
 				_size = 0;
 			}
 
@@ -83,7 +83,12 @@ namespace ft
 
 			void clear(void)
 			{
+				N *passed_begin = minKeyNode();
+				N *passed_end = maxKeyNode();
 				_clear(_root);
+				passed_begin->right = passed_end;
+				passed_end->parent = passed_begin;
+				_root = passed_begin;
 			}
 
 			void insert(value_type val)

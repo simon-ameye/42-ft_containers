@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/30 02:50:19 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/02 16:31:02 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,42 @@ namespace ft
 
 		public:
 			/* *******************CONSTRUCTORS******************* */
-			/* --------------------default constructor-------------------- */
-			//when no argument provided
+			/* --------------------default-------------------- */
 			explicit
 			map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 			_alloc(alloc), _compare(comp) {}
 
+			/* --------------------copy-------------------- */
+		public:
+			map(const map& copy) : _alloc(copy.alloc), _compare(copy._compare)
+			{
+				insert(copy.begin(), copy.end());
+			}
+
+			/* --------------------destructor-------------------- */
+		public:
+			~map() {}
+
+
+			/* *******************OPERATOR******************* */
+			/* --------------------=-------------------- */
+		public:
+			map& operator= (const map& rhs)
+			{
+				clear();
+				insert(rhs.begin(), rhs.end());
+			}
+
+
+			/* *******************ITERATORS******************* */
+		public:
+			iterator				begin()					{ return ++iterator(_tree.minKeyNode()); } //++ because of passed the begining
+			iterator				end()					{ return iterator(_tree.maxKeyNode()); }
+			//reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size - 1); }
+			//reverse_iterator		rend()					{ return reverse_iterator(_vector - 1); }
+
+			/* *******************CAPACITY******************* */
+		public:
 			bool empty() const
 			{
 				return (++iterator(_tree.minKeyNode()) == iterator(_tree.maxKeyNode()));
@@ -91,6 +121,8 @@ namespace ft
 				return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;
 			}
 
+			/* *******************ELEMENT ACCESS******************* */
+		public:
 			mapped_type& operator[] (const key_type& k)
 			{
 				node_type* tmp;
@@ -104,6 +136,8 @@ namespace ft
 			}
 
 			
+			/* *******************MODIFIERS******************* */
+		public:
 			ft::pair<iterator,bool> insert (const value_type& val) //single element
 			{
 				node_type *tmp = _tree.at(val.first);
@@ -169,6 +203,102 @@ namespace ft
 				_tree.clear();
 			}
 
+			/* *******************OBSERVERS******************* */
+		public:
+			key_compare key_comp() const
+			{
+				return (key_compare());
+			}
+
+			value_compare value_comp() const
+			{
+				return (value_compare(key_compare()));
+			}
+
+			/* *******************OPERATIONS******************* */
+		public:
+			iterator find (const key_type& k)
+			{
+				node_type* tmp;
+				tmp = _tree.at(k);
+				if (tmp)
+					return (iterator(tmp));
+				else
+					return (iterator(_tree.maxKeyNode()));
+			}
+
+			const_iterator find (const key_type& k) const
+			{
+				node_type* tmp;
+				tmp = _tree.at(k);
+				if (tmp)
+					return (iterator(tmp));
+				else
+					return (iterator(_tree.maxKeyNode()));
+			}
+
+			size_type count (const key_type& k) const
+			{
+				return (_tree.at(k) != NULL);
+			}
+
+			iterator lower_bound (const key_type& k)
+			{
+				iterator beg = this->begin();
+				iterator end = this->end();
+
+				while (beg != end)
+				{
+					if (_compare((*beg).first, k) == false)
+						break;
+					beg++;
+				}
+				return (beg);
+			}
+
+			const_iterator lower_bound (const key_type& k) const
+			{
+				return (const_iterator(this->lower_bound(k))); 
+			}
+
+			iterator upper_bound (const key_type& k)
+			{
+				iterator beg = this->begin();
+				iterator end = this->end();
+
+				while (beg != end)
+				{
+					if (_compare(k, (*beg).first))
+						break;
+					beg++;
+				}
+				return (beg);
+			}
+
+			const_iterator upper_bound (const key_type& k) const
+			{
+				return (const_iterator(this->upper_bound(k)));
+			}
+
+			pair<iterator,iterator> equal_range (const key_type& k)
+			{
+				return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
+			}
+
+			pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+			{
+				return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
+			}
+
+			/* *******************ALLOCATOR******************* */
+		public:
+			allocator_type get_allocator() const
+			{
+				return (allocator_type());
+			}
+
+			/* *******************DEV******************* */ //TO REMOVE
+		public:
 			void print_tree(void) //TO DELETE
 			{
 				_tree.print_tree();
@@ -179,23 +309,13 @@ namespace ft
 				_tree.pre0rder();
 			}
 
-		public:
-			/* *******************ITERATORS******************* */
-			iterator				begin()					{ return ++iterator(_tree.minKeyNode()); } //++ because of passed the begining
-			const_iterator			cbegin() const			{ return ++const_iterator(_tree.minKeyNode()); } //++ because of passed the begining
-			iterator				end()					{ return iterator(_tree.maxKeyNode()); }
-			const_iterator			cend() const			{ return const_iterator(_tree.maxKeyNode()); }
-			//reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size - 1); }
-			//const_reverse_iterator	rbegin() const			{ return const_reverse_iterator(_vector + _size - 1); }
-			//reverse_iterator		rend()					{ return reverse_iterator(_vector - 1); }
-			//const_reverse_iterator	rend() const			{ return const_reverse_iterator(_vector - 1); }
-
+			/* *******************PRIVATE VARIABLES******************* */
 		private:
 			tree_type _tree;
 			Compare _compare;
-			/* --------------------copy constructor-------------------- */
-			//for construction as map<int> foo (copy)
 
+			/* *******************PRIVATE FUNCTIONS******************* */
+		private:
 			void _set_root(node_type* root) {_tree._root = root;}
 			node_type* _get_root(void) {return (_tree._root);}
 			void _set_size(size_t size) {_tree._size = size;}
