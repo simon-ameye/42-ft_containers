@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/02 17:34:17 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/04 10:20:18 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,11 @@ namespace ft
 		typedef typename allocator_type::pointer							pointer;
 		typedef typename allocator_type::const_pointer						const_pointer;
 		typedef ft::map_iterator<value_type, Key, Compare>					iterator;
-		typedef ft::map_iterator<value_type, Key, Compare>					const_iterator; //TO SET AS CONST
+		typedef ft::map_iterator<value_type, Key, Compare>			const_iterator; //TO SET AS CONST
 		//typedef ft::map_reverse_iterator									reverse_iterator; //TO DO
 		//typedef ft::map_reverse_iterator									const_reverse_iterator; //TO DO
 		typedef std::ptrdiff_t												difference_type;
 		typedef std::size_t													size_type;
-
-		private:
-		Alloc				_alloc; //copy of allocator
 
 		private:
 		class value_compare_class
@@ -67,18 +64,23 @@ namespace ft
 		typedef ft::CustomTree<value_type, Key, value_compare>		tree_type;
 		typedef ft::Node<value_type>								node_type;
 
-		public:
 			/* *******************CONSTRUCTORS******************* */
+		public:
 			/* --------------------default-------------------- */
 			explicit
 			map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-			_alloc(alloc), _compare(comp) {}
+			_compare(comp), _alloc(alloc) {}
 
 			/* --------------------copy-------------------- */
-		public:
-			map(const map& copy) : _alloc(copy.alloc), _compare(copy._compare)
+			map(const map& copy) : _compare(copy._compare), _alloc(copy._alloc)
 			{
 				insert(copy.begin(), copy.end());
+			}
+
+			/* --------------------range-------------------- */
+			map(iterator first, iterator last)
+			{
+				insert(first, last);
 			}
 
 			/* --------------------destructor-------------------- */
@@ -97,6 +99,7 @@ namespace ft
 			/* *******************ITERATORS******************* */
 		public:
 			iterator				begin()					{ return ++iterator(_tree.minKeyNode()); } //++ because of passed the begining
+			//const_iterator			begin() const			{ return (const_iterator(_bst._last_node->left, _bst._last_node)); } //need to create a const iterator to allow copy construction
 			iterator				end()					{ return iterator(_tree.maxKeyNode()); }
 			//reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size - 1); }
 			//reverse_iterator		rend()					{ return reverse_iterator(_vector - 1); }
@@ -309,6 +312,7 @@ namespace ft
 		private:
 			tree_type _tree;
 			Compare _compare;
+			Alloc _alloc; //copy of allocator
 
 			/* *******************PRIVATE FUNCTIONS******************* */
 		private:

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/02 15:34:56 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/03 17:41:43 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,4 +167,14 @@ void test_map_assign(void)
 	m11['f']=6;
 	std::cout << "lower bound of c : " << m11.lower_bound('c')->first << std::endl;
 	std::cout << "upper bound of c : " << m11.upper_bound('c')->first << std::endl;
+
+	NAMESPACE::map<int, std::string> m12;
+	m12['a']=1;
+	m12['b']=2;
+	m12['c']=3;
+	m12['d']=4;
+	m12['e']=5;
+	m12['f']=6;
+	std::cout << "lower bound of c : " << m12.lower_bound('c')->first << std::endl;
+	std::cout << "upper bound of c : " << m12.upper_bound('c')->first << std::endl;
 }
