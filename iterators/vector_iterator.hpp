@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/25 13:58:14 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/04 21:27:58 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 #define ADD 1
 #define SUBSTRACT -1
 
+#include "../utils/trueafalseb.hpp"
+
 namespace ft
 {
-	template<typename T>
+	template<typename T, bool Const>
 	class vector_iterator
 	{
 		public:
@@ -27,8 +29,8 @@ namespace ft
 			typedef T												value_type;
 			typedef size_t											size_type;
 			typedef T*												elemPtr;
-			typedef T&												reference;
-			typedef T*												pointer;
+			typedef typename TrueAFalseB<Const, const T&, T&>::type				reference;
+			typedef typename TrueAFalseB<Const, const T*, T*>::type				pointer;
 			typedef std::random_access_iterator_tag					iterator_category;
 
 			/* *******************ATTRIBUTES******************* */
@@ -41,7 +43,12 @@ namespace ft
 			vector_iterator(elemPtr val = 0) : _val(val) {}
 
 			/* --------------------copy constructor-------------------- */
-			vector_iterator(const vector_iterator< T >& copy)
+			vector_iterator(const vector_iterator< T, true>& copy)
+			{
+				_val = copy.getElemPtr();
+			}
+
+			vector_iterator(const vector_iterator< T, false>& copy)
 			{
 				_val = copy.getElemPtr();
 			}

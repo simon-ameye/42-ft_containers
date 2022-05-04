@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/31 19:18:13 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/04 11:46:38 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void test_vector_assign(void)
 	NAMESPACE::vector<int> vct_three;
 	NAMESPACE::vector<int> vct_four;
 
-	for (unsigned long int i = 0; i < vct.size(); ++i)
+	for (size_t i = 0; i < vct.size(); ++i)
 		vct[i] = (vct.size() - i);
 	print_vector(vct, "vct");
 	vct_two = vct;

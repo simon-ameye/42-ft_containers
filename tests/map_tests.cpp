@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/03 17:41:43 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/04 21:29:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void test_map_assign(void)
 	int foo[] = {8, 22, 15, 76, 69, 63, 72, 17, 24, 53, 91, 2, 28, 97, 5, 38, 98, 79, 78, 99, 9, 11, 52, 88, 71, 21, 70, 87, 37, 92, 7, 48, 50, 84, 90, 94, 82, 35, 65, 36, 43, 31, 1, 23, 39, 27, 32, 45, 74, 58, 40, 67, 57, 51, 13, 61, 64, 25, 89, 95, 16, 73, 26, 0, 49, 86, 10, 6, 46, 62, 34, 93, 30, 47, 54, 41, 85, 75, 18, 33, 77, 80, 55, 56, 83, 44, 60, 59, 68, 42, 4, 20, 81, 96, 19, 66, 12, 3, 29, 14};
 	for (int i = 0; i < 100; i++)
 		m6.insert(NAMESPACE::make_pair(foo[i], 'a' + i % 26));
-	//m6.print_tree();
 	for (int i = 0; i <= 50; i++)
 		m6.erase(i);
+	//m6.print_tree();
 	NAMESPACE::map<int, char>::iterator itb = m6.begin();
 	std::cout << "begin key : " << itb->first << " val : " << itb->second << std::endl;
 	NAMESPACE::map<int, char>::iterator ite = m6.end();
@@ -168,13 +168,4 @@ void test_map_assign(void)
 	std::cout << "lower bound of c : " << m11.lower_bound('c')->first << std::endl;
 	std::cout << "upper bound of c : " << m11.upper_bound('c')->first << std::endl;
 
-	NAMESPACE::map<int, std::string> m12;
-	m12['a']=1;
-	m12['b']=2;
-	m12['c']=3;
-	m12['d']=4;
-	m12['e']=5;
-	m12['f']=6;
-	std::cout << "lower bound of c : " << m12.lower_bound('c')->first << std::endl;
-	std::cout << "upper bound of c : " << m12.upper_bound('c')->first << std::endl;
 }

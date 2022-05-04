@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 10:20:18 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/04 18:55:08 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ namespace ft
 		typedef typename allocator_type::const_reference					const_reference;
 		typedef typename allocator_type::pointer							pointer;
 		typedef typename allocator_type::const_pointer						const_pointer;
-		typedef ft::map_iterator<value_type, Key, Compare>					iterator;
-		typedef ft::map_iterator<value_type, Key, Compare>			const_iterator; //TO SET AS CONST
+		typedef ft::map_iterator<value_type, Key, Compare, false>					iterator;
+		typedef ft::map_iterator<value_type, Key, Compare, true>					const_iterator; //TO SET AS CONST
 		//typedef ft::map_reverse_iterator									reverse_iterator; //TO DO
 		//typedef ft::map_reverse_iterator									const_reverse_iterator; //TO DO
 		typedef std::ptrdiff_t												difference_type;

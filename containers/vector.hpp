@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/31 17:54:48 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/04 20:29:57 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,21 @@ namespace ft
 	{
 		public :
 			/* *******************TYPES DEFINITION******************* */
-			typedef T											value_type; //class of elements to store
-			typedef Alloc										allocator_type; //allocator
-			typedef long int									difference_type; //difference between two iterators
-			typedef size_t										size_type; //size
-
-			typedef T&											reference; //reference on element (for returned values)
-			typedef const T&									const_reference; //const reference on element (for returned values)
-			typedef T*											pointer; //pointer on element
-			typedef const T*									const_pointer; //const pointer on element
+			typedef T												value_type; //class of elements to store
+			typedef Alloc											allocator_type; //allocator
+			typedef long int										difference_type; //difference between two iterators
+			typedef size_t											size_type; //size
+	
+			typedef T&												reference; //reference on element (for returned values)
+			typedef const T&										const_reference; //const reference on element (for returned values)
+			typedef T*												pointer; //pointer on element
+			typedef const T*										const_pointer; //const pointer on element
 			
-			typedef typename ft::vector_iterator< T >		iterator;
-			typedef typename ft::vector_iterator< T >		const_iterator;
+			typedef typename ft::vector_iterator< T, false>			iterator;
+			typedef typename ft::vector_iterator< T, true >			const_iterator;
 
-			typedef typename ft::vector_reverse_iterator< T >	reverse_iterator;
-			typedef typename ft::vector_reverse_iterator< T >	const_reverse_iterator;
+			typedef typename ft::vector_reverse_iterator< T >		reverse_iterator;
+			typedef typename ft::vector_reverse_iterator< T >		const_reverse_iterator;
 
 			/* *******************CONSTRUCTORS******************* */
 			/* --------------------default constructor-------------------- */

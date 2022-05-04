@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/02 17:18:23 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/04 21:28:22 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 #define MAP_ITERATOR_HPP
 
 #include "../utils/CustomTree.hpp"
+#include "../utils/trueafalseb.hpp"
 
 #define ADD 1
 #define SUBSTRACT -1
 
 namespace ft
 {
-	template < class value_type, class Key, class Compare>
+	template < class value_type, class Key, class Compare, bool Const>
 	class map_iterator
 	{
 			/* *******************ALIASES******************* */
 		private:
-			typedef ft::Node < value_type >				N;
-			typedef ft::CustomTree<value_type, Key, Compare>					tree_type;
+			typedef ft::Node < value_type >													N;
+			typedef ft::CustomTree<value_type, Key, Compare>								tree_type;
+			typedef typename TrueAFalseB<Const, const value_type&, value_type&>::type			reference;
+			typedef typename TrueAFalseB<Const, const value_type*, value_type*>::type			pointer;
 
 			/* *******************VARIABLES******************* */
 		private:
@@ -38,7 +41,7 @@ namespace ft
 			map_iterator(N* node = NULL) : _node(node) {}
 
 			/* --------------------copy constructor-------------------- */
-			map_iterator(const map_iterator< value_type, Key, Compare> & copy)
+			map_iterator(const map_iterator< value_type, Key, Compare, false> & copy)
 			{
 				_node = copy.getElemPtr();
 			}
@@ -59,12 +62,12 @@ namespace ft
 
 			/* *******************OPPERATOR OVERLOAD******************* */
 		public:
-			value_type& operator*() const
+			reference operator*() const
 			{
 				return (_node->_val);
 			}
 
-			value_type* operator->() const
+			pointer operator->() const
 			{
 				return &_node->_val;
 			}
@@ -143,7 +146,7 @@ namespace ft
 				return current;
 			}
 
-			N * _maxKeyNode(N* node) const
+			N* _maxKeyNode(N* node) const
 			{
 				N* current = node;
 				while (current->right != NULL)
