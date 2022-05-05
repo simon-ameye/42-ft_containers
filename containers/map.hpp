@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 16:18:17 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:11:11 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,9 @@ namespace ft
 			/* *******************ITERATORS******************* */
 		public:
 			iterator				begin()					{ return ++iterator				(_tree.minKeyNode()); } //++ because of passed the begining
-			reverse_iterator		rbegin()				{ return ++reverse_iterator		(_tree.maxKeyNode()); }
 			iterator				end()					{ return iterator				(_tree.maxKeyNode()); }
+			reverse_iterator		rbegin()				{ return ++reverse_iterator		(_tree.maxKeyNode()); }
 			reverse_iterator		rend()					{ return reverse_iterator		(_tree.minKeyNode()); }
-			//const_iterator			begin() const			{ return (const_iterator(_bst._last_node->left, _bst._last_node)); } //need to create a const iterator to allow copy construction
 
 			/* *******************CAPACITY******************* */
 		public:

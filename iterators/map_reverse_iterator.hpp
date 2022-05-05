@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:06:03 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 16:17:08 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 18:39:37 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 namespace ft
 {
 	template < class value_type, class Key, class Compare, bool Const>
-	class map_reverse_iterator : map_iterator<value_type, Key, Compare, Const>
+	class map_reverse_iterator : public map_iterator<value_type, Key, Compare, Const>
 	{
 			/* *******************ALIASES******************* */
 		private:
@@ -37,7 +37,12 @@ namespace ft
 			}
 
 			/* --------------------copy constructor-------------------- */
-			map_reverse_iterator(const map_reverse_iterator< value_type, Key, Compare, false> & copy)
+			map_reverse_iterator(const map_iterator< value_type, Key, Compare, false> & copy)
+			{
+				this->_node = copy.getElemPtr();
+			}
+
+			map_reverse_iterator(const map_iterator< value_type, Key, Compare, true> & copy)
 			{
 				this->_node = copy.getElemPtr();
 			}

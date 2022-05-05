@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:30:26 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 17:04:00 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 18:38:46 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 namespace ft
 {
 	template<typename T, bool Const>
-	class vector_reverse_iterator : vector_iterator<T, Const>
+	class vector_reverse_iterator : public vector_iterator<T, Const>
 	{
 		public:
 			/* *******************ALIASES******************* */
@@ -44,7 +44,12 @@ namespace ft
 			}
 
 			/* --------------------copy constructor-------------------- */
-			vector_reverse_iterator(const vector_reverse_iterator< T, Const >& copy)
+			vector_reverse_iterator(const vector_iterator< T, true >& copy)
+			{
+				this->_val = copy.getElemPtr();
+			}
+
+			vector_reverse_iterator(const vector_iterator< T, false >& copy)
 			{
 				this->_val = copy.getElemPtr();
 			}
@@ -128,22 +133,6 @@ namespace ft
 			{
 				vector_reverse_iterator newIt(it);
 				return (newIt -= nb);
-			}
-
-			/* *******************PRIVATE FUNCTIONS******************* */
-		private :
-			/* --------------------useful function-------------------- */
-			void move(long nb, int sign, vector_reverse_iterator &iterator) const
-			{
-				long mov = sign * nb;
-				if (mov >= 0)
-				{
-					for (long i = 0; i < mov; i++)
-						++iterator;
-				}
-				else
-					for (long i = 0; i > mov; i--)
-						--iterator;
 			}
 	};
 }

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 16:24:39 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 18:35:16 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define SUBSTRACT -1
 
 #include "../utils/trueafalseb.hpp"
+#include "vector_reverse_iterator.hpp"
 
 namespace ft
 {

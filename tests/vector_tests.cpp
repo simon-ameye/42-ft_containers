@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 15:17:50 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 18:36:57 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,37 @@ void test_vector_various(void)
 	NAMESPACE::vector<int>::const_iterator ittestconst(ittest);
 	(void)ittest;
 	(void)ittestconst;
-	
+
+
+
+	NAMESPACE::vector<int> lst;
+	NAMESPACE::vector<int>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+
+	NAMESPACE::vector<int> vct(lst.begin(), lst.end());
+	std::cout << vct.size() << std::endl;
+
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	std::cout << vct.size() << std::endl;
+
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	std::cout << vct.size() << std::endl;
+
+	{
+	NAMESPACE::vector<int> vct;
+	NAMESPACE::vector<int>::iterator it = vct.begin();
+	NAMESPACE::vector<int>::const_iterator cit = vct.begin();
+
+	NAMESPACE::vector<int>::reverse_iterator rit(it);
+
+	NAMESPACE::vector<int>::const_reverse_iterator crit(rit);
+	NAMESPACE::vector<int>::const_reverse_iterator crit_(it);
+	NAMESPACE::vector<int>::const_reverse_iterator crit_2(cit);
+	}
 }
 
 #ifdef TIME_COMPARISON

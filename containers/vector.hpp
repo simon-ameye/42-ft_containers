@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 17:02:13 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 19:07:16 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../iterators/vector_reverse_iterator.hpp"
 #include "../iterators/vector_iterator.hpp"
 #include <cmath> // for size calculation
+# include <limits>
 
 namespace ft
 {
@@ -130,7 +131,8 @@ namespace ft
 			size_type		size() const					{ return _size; }
 
 			/* --------------------get max size-------------------- */
-			size_type		max_size() const				{return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;}
+			//size_type		max_size() const				{return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;}
+			size_type		max_size() const				{return std::numeric_limits<difference_type>::max() / 2 / (sizeof(value_type) / 2 ?: 1);}
 
 			/* --------------------resize-------------------- */
 			//resize and fill with 0 or specified value
@@ -341,27 +343,13 @@ namespace ft
 				return true;
 			}
 
-			friend bool operator<(const vector& lhs, const vector& rhs)
-			{		
-				iterator lit;
-				iterator rit;
-				lit = lhs.begin();
-				rit = rhs.begin();
-				while (lit != lhs.end() && rit != rhs.end())
-				{
-					if (*lit < *rit)
-						return true;
-					++lit;
-					++rit;
-				}
-				return (lhs.size() < rhs.size());
-			}
+			friend bool operator<(const vector& lhs, const vector& rhs)		{return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());}
 
-			friend bool operator!=(const vector& lhs, const vector& rhs)    { return !(lhs == rhs); }
-			friend bool operator>(const vector& lhs, const vector& rhs)     { return rhs < lhs; }
-			friend bool operator<=(const vector& lhs, const vector& rhs)    { return !(rhs < lhs); }
-			friend bool operator>=(const vector& lhs, const vector& rhs)    { return !(lhs < rhs); }
-			friend void swap (vector& x, vector& y)                         { x.swap(y); }
+			friend bool operator!=(const vector& lhs, const vector& rhs)	{ return !(lhs == rhs); }
+			friend bool operator>(const vector& lhs, const vector& rhs)		{ return rhs < lhs; }
+			friend bool operator<=(const vector& lhs, const vector& rhs)	{ return !(rhs < lhs); }
+			friend bool operator>=(const vector& lhs, const vector& rhs)	{ return !(lhs < rhs); }
+			friend void swap (vector& x, vector& y)							{ x.swap(y); }
 			
 		private:
 			/* *******************NON MEMBER FUNCTIONS OVERLOAD******************* */

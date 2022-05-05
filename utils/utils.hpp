@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/04/04 14:10:54 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 19:03:08 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ namespace ft
 	struct is_integral<unsigned long long> { static const bool value = true; };
 
 	template<class T, class U>
-	bool lexicographical_compare(T first1, T last1, U first2, U last2) {
+	bool lexicographical_compare(T first1, T last1, U first2, U last2)
+	{
 		while (first1 != last1) {
 
 			if (first2 == last2 || *first2 < *first1) return false;
@@ -133,7 +134,8 @@ namespace ft
 	}
 
 	template <class U, class X>
-	bool equal(U lit, U lend, X rit, X rend) {
+	bool equal(U lit, U lend, X rit, X rend)
+	{
 		while (lit != lend) {
 			if (rit == rend || *rit != *lit)
 				return (false);
