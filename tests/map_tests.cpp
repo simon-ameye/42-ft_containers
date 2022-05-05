@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 21:29:01 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 13:52:06 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,9 @@ void test_map_assign(void)
 	m11['f']=6;
 	std::cout << "lower bound of c : " << m11.lower_bound('c')->first << std::endl;
 	std::cout << "upper bound of c : " << m11.upper_bound('c')->first << std::endl;
+
+	std::cout << "reverse iterator";
+	NAMESPACE::map<int, int> m12;
+	
 
 }

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 21:28:22 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 12:16:50 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ namespace ft
 	{
 			/* *******************ALIASES******************* */
 		private:
-			typedef ft::Node < value_type >													N;
-			typedef ft::CustomTree<value_type, Key, Compare>								tree_type;
+			typedef ft::Node < value_type >														N;
+			typedef ft::CustomTree<value_type, Key, Compare>									tree_type;
 			typedef typename TrueAFalseB<Const, const value_type&, value_type&>::type			reference;
 			typedef typename TrueAFalseB<Const, const value_type*, value_type*>::type			pointer;
 

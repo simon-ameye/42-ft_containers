@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 16:17:47 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 14:17:38 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ namespace ft
 		Node *right;
 		Node *parent;
 		int height;
+
+		bool operator<(const Node& rhs) const
+		{
+			if (type == 2 || rhs.type == 1)
+				return (false);
+			if (type == 1 || rhs.type == 2)
+				return (true);
+			return (_val.first < rhs._val.first); //MAYBE USE COMPARE
+		}
 	};
 
 	template < class value_type, class Key, typename Compare = std::less<value_type>, class Alloc = std::allocator < ft::Node < value_type > > >
@@ -148,20 +157,10 @@ namespace ft
 				return(node);
 			}
 
-
 			void _delNode(N* node)
 			{
 				_alloc.destroy(node);
 				--_size;
-			}
-
-			bool _NALessThanNB(N* A, N* B) const //compare = std::less<Key>
-			{
-				if (A->type == 2 || B->type == 1)
-					return (false);
-				if (A->type == 1 || B->type == 2)
-					return (true);
-				return (A->_val.first < B->_val.first);
 			}
 
 			N *_rightRotate(N *y)
@@ -207,12 +206,12 @@ namespace ft
 				nval._val.first = val.first;
 				if (node == NULL)
 					return(_newNode(val));
-				if (_NALessThanNB(&nval, node))
+				if (nval < *node)
 				{
 					node->left = _insert(node->left, val);
 					node->left->parent = node;
 				}
-				else if (_NALessThanNB(node, &nval))
+				else if (*node < nval)
 				{
 					node->right = _insert(node->right, val);
 					node->right->parent = node;
@@ -221,16 +220,16 @@ namespace ft
 					return node; // DONT FORGET TO RAISE ERROR
 				node->height = 1 + _max(_height(node->left), _height(node->right));
 				int balance = _getBalance(node);
-				if (balance > 1 && _NALessThanNB(&nval, node->left))
+				if (balance > 1 && nval < *node->left)
 					return _rightRotate(node);
-				if (balance < -1 && _NALessThanNB(node->right, &nval))
+				if (balance < -1 && *node->right < nval)
 					return _leftRotate(node);
-				if (balance > 1 && _NALessThanNB(node->left, &nval))
+				if (balance > 1 && *node->left < nval)
 				{
 					node->left = _leftRotate(node->left);
 					return _rightRotate(node);
 				}
-				if (balance < -1 && _NALessThanNB(&nval, node->right))
+				if (balance < -1 && nval < *node->right)
 				{
 					node->right = _rightRotate(node->right);
 					return _leftRotate(node);
@@ -261,12 +260,12 @@ namespace ft
 				N nval;
 				N* tmp;
 				nval._val.first = key;
-				if (_NALessThanNB(&nval, root)) //not our guy, go left
+				if (nval < *root)
 				{
 					tmp = root;
 					root->left = _erase(root->left, key);
 				}
-				else if (_NALessThanNB(root, &nval)) //not our guy, go right
+				else if (*root < nval) //not our guy, go right
 				{
 					tmp = root;
 					root->right = _erase(root->right, key);
@@ -300,9 +299,9 @@ namespace ft
 					return (NULL);
 				N nval;
 				nval._val.first = key;
-				if (_NALessThanNB(&nval, node))
+				if (nval < *node)
 					return (_at(node->left, key));
-				else if (_NALessThanNB(node, &nval))
+				else if (*node < nval)
 					return (_at(node->right, key));
 				else
 					return (node);
