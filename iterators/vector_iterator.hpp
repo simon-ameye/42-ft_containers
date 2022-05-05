@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 21:27:58 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:24:39 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ namespace ft
 			typedef std::random_access_iterator_tag					iterator_category;
 
 			/* *******************ATTRIBUTES******************* */
-		private:
+		protected:
 			elemPtr _val;
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
@@ -150,7 +150,7 @@ namespace ft
 			}
 
 			/* *******************PRIVATE FUNCTIONS******************* */
-		private :
+		protected :
 			/* --------------------useful function-------------------- */
 			void move(long nb, int sign, vector_iterator &iterator) const
 			{

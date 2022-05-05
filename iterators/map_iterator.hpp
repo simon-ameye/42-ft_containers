@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 12:16:50 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:09:28 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ namespace ft
 			typedef typename TrueAFalseB<Const, const value_type&, value_type&>::type			reference;
 			typedef typename TrueAFalseB<Const, const value_type*, value_type*>::type			pointer;
 
-			/* *******************VARIABLES******************* */
-		private:
-			N* _node;
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
@@ -109,7 +106,7 @@ namespace ft
 			}
 
 			/* *******************USEFUL FUNCTIONS******************* */
-		private:
+		protected:
 			N* _next(N *node) const
 			{
 				if (node->right)
@@ -153,6 +150,10 @@ namespace ft
 					current = current->right;
 				return current;
 			}
+
+			/* *******************VARIABLES******************* */
+		protected:
+			N* _node;
 	};
 }
 #endif

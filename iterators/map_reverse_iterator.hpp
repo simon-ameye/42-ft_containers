@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:06:03 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 14:47:27 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:17:08 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,65 @@
 #define MAP_REVERSE_ITERATOR_HPP
 
 #include "map_iterator.hpp"
+#include "../utils/CustomTree.hpp"
+#include "../utils/trueafalseb.hpp"
 
 namespace ft
 {
 	template < class value_type, class Key, class Compare, bool Const>
 	class map_reverse_iterator : map_iterator<value_type, Key, Compare, Const>
 	{
-		//using vector<T>::vector; 
+			/* *******************ALIASES******************* */
+		private:
+			typedef ft::Node < value_type >														N;
+			typedef ft::CustomTree<value_type, Key, Compare>									tree_type;
+			typedef typename TrueAFalseB<Const, const value_type&, value_type&>::type			reference;
+			typedef typename TrueAFalseB<Const, const value_type*, value_type*>::type			pointer;
+
+		public:
+			/* --------------------default constructor-------------------- */
+			map_reverse_iterator(N* node = NULL)
+			{
+				this->_node = node;
+			}
+
+			/* --------------------copy constructor-------------------- */
+			map_reverse_iterator(const map_reverse_iterator< value_type, Key, Compare, false> & copy)
+			{
+				this->_node = copy.getElemPtr();
+			}
+
+			/* --------------------destructor-------------------- */
+			~map_reverse_iterator() {}
+
+			/* *******************OPPERATOR OVERLOAD******************* */
+		public:
+
+			map_reverse_iterator& operator++()
+			{
+				this->_node = this->_previous(this->_node);
+				return (*this);
+			}
+
+			map_reverse_iterator& operator--()
+			{
+				this->_node = this->_next(this->_node); //TO CHANGE
+				return (*this);
+			}
+
+			map_reverse_iterator operator++(int)
+			{
+				map_reverse_iterator res(*this);
+				--(*this);
+				return (res);
+			}
+
+			map_reverse_iterator operator--(int)
+			{
+				map_reverse_iterator res(*this);
+				++(*this);
+				return (res);
+			}
 	};
 	
 }

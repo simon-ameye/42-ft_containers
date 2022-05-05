@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 20:29:57 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:02:13 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ namespace ft
 			typedef typename ft::vector_iterator< T, false>			iterator;
 			typedef typename ft::vector_iterator< T, true >			const_iterator;
 
-			typedef typename ft::vector_reverse_iterator< T >		reverse_iterator;
-			typedef typename ft::vector_reverse_iterator< T >		const_reverse_iterator;
+			typedef typename ft::vector_reverse_iterator< T, false>		reverse_iterator;
+			typedef typename ft::vector_reverse_iterator< T, true >		const_reverse_iterator;
 
 			/* *******************CONSTRUCTORS******************* */
 			/* --------------------default constructor-------------------- */

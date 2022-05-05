@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:30:26 by sameye            #+#    #+#             */
-/*   Updated: 2022/03/25 13:58:14 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:04:00 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 #define ADD 1
 #define SUBSTRACT -1
 
+#include "vector_iterator.hpp"
+
 namespace ft
 {
-	template<typename T>
-	class vector_reverse_iterator
+	template<typename T, bool Const>
+	class vector_reverse_iterator : vector_iterator<T, Const>
 	{
 		public:
 			/* *******************ALIASES******************* */
@@ -32,45 +34,33 @@ namespace ft
 			typedef std::random_access_iterator_tag					iterator_category;
 
 			/* *******************ATTRIBUTES******************* */
-		private:
-			elemPtr _val;
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
 			/* --------------------default constructor-------------------- */
-			vector_reverse_iterator(elemPtr val = 0) : _val(val) {}
+			vector_reverse_iterator(elemPtr val = 0)
+			{
+				this->_val = val;
+			}
 
 			/* --------------------copy constructor-------------------- */
-			vector_reverse_iterator(const vector_reverse_iterator< T >& copy)
+			vector_reverse_iterator(const vector_reverse_iterator< T, Const >& copy)
 			{
-				_val = copy.getElemPtr();
+				this->_val = copy.getElemPtr();
 			}
 
 			/* --------------------destructor-------------------- */
 			~vector_reverse_iterator() {}
 
-			vector_reverse_iterator& operator=(const vector_reverse_iterator& assign)
-			{
-				if (this != &assign)
-					_val = assign._val;
-				return (*this);
-			}
-
-			/* *******************GETTER******************* */
-		public:
-			elemPtr getElemPtr() const			{ return _val; }
-
 			/* *******************OPPERATOR OVERLOAD******************* */
 		public:
-			reference operator*() const			{ return (*_val); }
-			pointer operator->() const			{ return (_val); }
-			vector_reverse_iterator& operator++()		{ --_val; return (*this); }
-			vector_reverse_iterator& operator--()		{ ++_val; return (*this); }
+			vector_reverse_iterator& operator++()		{ --this->_val; return (*this); }
+			vector_reverse_iterator& operator--()		{ ++this->_val; return (*this); }
 
 			reference operator[](int nb) const
 			{
 				vector_reverse_iterator tmp(*this);
-				move(nb, ADD, tmp);
+				move(nb, SUBSTRACT, tmp);
 				return (*tmp);
 			}
 
@@ -88,8 +78,6 @@ namespace ft
 				return (res);
 			}
 
-			bool operator==(const vector_reverse_iterator& it) const	{ return (it._val == _val); }
-			bool operator!=(const vector_reverse_iterator& it) const	{ return (it._val != _val); }
 			bool operator<(const vector_reverse_iterator& it) const		{ return (it._val > this->_val); }
 			bool operator>(const vector_reverse_iterator& it) const		{ return (it._val < this->_val); }
 			bool operator<=(const vector_reverse_iterator& it) const	{ return (it._val >= this->_val); }
@@ -97,7 +85,7 @@ namespace ft
 
 			vector_reverse_iterator& operator+=(int nb)
 			{
-				move(nb, ADD, *this);
+				move(nb, SUBSTRACT, *this);
 				return (*this);
 			}
 
@@ -105,13 +93,13 @@ namespace ft
 			{
 				vector_reverse_iterator it(*this);
 				
-				move(nb, ADD, it);
+				move(nb, SUBSTRACT, it);
 				return (it);
 			}
 
 			vector_reverse_iterator& operator-=(int nb)
 			{
-				move(nb, SUBSTRACT, *this);
+				move(nb, ADD, *this);
 				return (*this);
 			}
 
@@ -119,7 +107,7 @@ namespace ft
 			{
 				vector_reverse_iterator it(*this);
 				
-				move(nb, SUBSTRACT, it);
+				move(nb, ADD, it);
 				return (it);
 			}
 
