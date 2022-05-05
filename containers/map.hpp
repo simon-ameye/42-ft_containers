@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 13:51:41 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 14:34:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include "../utils/CustomTree.hpp"
 #include "../iterators/map_iterator.hpp"
+#include "../iterators/map_reverse_iterator.hpp"
 #include <math.h>
 
 namespace ft
@@ -35,9 +36,11 @@ namespace ft
 		typedef typename allocator_type::pointer							pointer;
 		typedef typename allocator_type::const_pointer						const_pointer;
 		typedef ft::map_iterator<value_type, Key, Compare, false>					iterator;
-		typedef ft::map_iterator<value_type, Key, Compare, true>					const_iterator; //TO SET AS CONST
-		//typedef ft::map_reverse_iterator									reverse_iterator; //TO DO
-		//typedef ft::map_reverse_iterator									const_reverse_iterator; //TO DO
+		typedef ft::map_iterator<value_type, Key, Compare, true>					const_iterator;
+
+		typedef ft::map_reverse_iterator<value_type, Key, Compare, false>					reverse_iterator;
+		typedef ft::map_reverse_iterator<value_type, Key, Compare, true>					const_reverse_iterator;
+
 		typedef std::ptrdiff_t												difference_type;
 		typedef std::size_t													size_type;
 
@@ -101,8 +104,8 @@ namespace ft
 			iterator				begin()					{ return ++iterator(_tree.minKeyNode()); } //++ because of passed the begining
 			//const_iterator			begin() const			{ return (const_iterator(_bst._last_node->left, _bst._last_node)); } //need to create a const iterator to allow copy construction
 			iterator				end()					{ return iterator(_tree.maxKeyNode()); }
-			//reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size - 1); }
-			//reverse_iterator		rend()					{ return reverse_iterator(_vector - 1); }
+			reverse_iterator		rbegin()				{ return ++reverse_iterator(_tree.minKeyNode()); }
+			reverse_iterator		rend()					{ return reverse_iterator(_tree.maxKeyNode()); }
 
 			/* *******************CAPACITY******************* */
 		public:

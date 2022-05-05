@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 13:52:06 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 14:47:55 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 #include "../containers/map.hpp"
 #include "../iterators/map_iterator.hpp"
+#include "../iterators/map_reverse_iterator.hpp"
 #include "test_utils/test_utils.hpp"
 
 #include "test_utils/test_utils.hpp"
@@ -170,6 +171,8 @@ void test_map_assign(void)
 
 	std::cout << "reverse iterator";
 	NAMESPACE::map<int, int> m12;
-	
-
+	//int foo[] = {8, 22, 15, 76, 69, 63, 72, 17, 24, 53, 91, 2, 28, 97, 5, 38, 98, 79, 78, 99, 9, 11, 52, 88, 71, 21, 70, 87, 37, 92, 7, 48, 50, 84, 90, 94, 82, 35, 65, 36, 43, 31, 1, 23, 39, 27, 32, 45, 74, 58, 40, 67, 57, 51, 13, 61, 64, 25, 89, 95, 16, 73, 26, 0, 49, 86, 10, 6, 46, 62, 34, 93, 30, 47, 54, 41, 85, 75, 18, 33, 77, 80, 55, 56, 83, 44, 60, 59, 68, 42, 4, 20, 81, 96, 19, 66, 12, 3, 29, 14};
+	//NAMESPACE::map<int,int>::reverse_iterator itb12 = m12.begin();
+	//for (int i = 0; i < 100; i++)
+	//
 }

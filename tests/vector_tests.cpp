@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 11:46:38 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/05 14:51:55 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,15 @@ void test_vector_various(void)
 	print_vector(v1, "v1 resized");
 	v1.resize(60);
 	print_vector(v1, "v1 resized");
+
+	NAMESPACE::vector<int> vtest(70);
+	for (unsigned long int i = 0; i < vtest.size(); ++i)
+		vtest[i] = (vtest.size() - i);
+	NAMESPACE::vector<int>::const_iterator ittest = vtest.begin() + 5;
+	NAMESPACE::vector<int>::iterator ittestconst(ittest);
+	(void)ittest;
+	(void)ittestconst;
+	
 }
 
 #ifdef TIME_COMPARISON
