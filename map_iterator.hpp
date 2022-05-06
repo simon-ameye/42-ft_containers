@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 19:51:38 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 22:04:43 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define MAP_ITERATOR_HPP
 
 #include "CustomTree.hpp"
-#include "trueafalseb.hpp"
 
 #define ADD 1
 #define SUBSTRACT -1
