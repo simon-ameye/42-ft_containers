@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:30:26 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 16:51:52 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 17:56:10 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ namespace ft
 			typedef size_t											size_type;
 			typedef T*												elemPtr;
 			typedef T&												reference;
-			typedef T*												pointer;
+				typedef T*												pointer;
 			typedef std::random_access_iterator_tag					iterator_category;
 
 			/* *******************ATTRIBUTES******************* */
