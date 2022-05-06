@@ -6,15 +6,15 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 18:39:56 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 19:51:38 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_ITERATOR_HPP
 #define MAP_ITERATOR_HPP
 
-#include "../utils/CustomTree.hpp"
-#include "../utils/trueafalseb.hpp"
+#include "CustomTree.hpp"
+#include "trueafalseb.hpp"
 
 #define ADD 1
 #define SUBSTRACT -1

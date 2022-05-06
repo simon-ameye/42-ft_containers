@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:06:03 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 18:39:37 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 19:51:53 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #define MAP_REVERSE_ITERATOR_HPP
 
 #include "map_iterator.hpp"
-#include "../utils/CustomTree.hpp"
-#include "../utils/trueafalseb.hpp"
+#include "CustomTree.hpp"
+#include "trueafalseb.hpp"
 
 namespace ft
 {

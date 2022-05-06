@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 18:04:56 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 20:02:43 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <list>
 #include <iterator> 
 
-#include "../containers/map.hpp"
-#include "../iterators/map_iterator.hpp"
-#include "../iterators/map_reverse_iterator.hpp"
+#include "../map.hpp"
+#include "../map_iterator.hpp"
+#include "../map_reverse_iterator.hpp"
 #include "test_utils/test_utils.hpp"
 
 #include "test_utils/test_utils.hpp"

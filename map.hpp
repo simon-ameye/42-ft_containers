@@ -6,18 +6,18 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 17:11:11 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 19:51:14 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include "../utils/utils.hpp"
+#include "utils.hpp"
 #include <stdlib.h>
-#include "../utils/CustomTree.hpp"
-#include "../iterators/map_iterator.hpp"
-#include "../iterators/map_reverse_iterator.hpp"
+#include "CustomTree.hpp"
+#include "map_iterator.hpp"
+#include "map_reverse_iterator.hpp"
 #include <math.h>
 
 namespace ft

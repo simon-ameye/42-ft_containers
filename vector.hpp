@@ -6,16 +6,16 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 15:11:48 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 19:50:45 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include "../utils/utils.hpp"
-#include "../iterators/vector_reverse_iterator.hpp"
-#include "../iterators/vector_iterator.hpp"
+#include "utils.hpp"
+#include "vector_reverse_iterator.hpp"
+#include "vector_iterator.hpp"
 #include <cmath> // for size calculation
 # include <limits>
 
@@ -152,6 +152,9 @@ namespace ft
 			/* --------------------get is empty-------------------- */
 			bool			empty() const					{ return _size == 0; }
 
+			/* --------------------get is allocator-------------------- */
+			allocator_type	get_allocator() const			{ return _alloc; }
+
 			/* --------------------reserve-------------------- */
 			void			reserve (size_type n)
 			{
@@ -160,7 +163,7 @@ namespace ft
 				if (n > _capacity)
 					reallocateVec(n);
 			}
-
+			//assign ne marche : assign (0, 21) => la size doit repasser a 0, avec un range d'iterator aussi
 		public:
 			/* *******************ACCESS ELEMENTS******************* */
 			/* --------------------access-------------------- */

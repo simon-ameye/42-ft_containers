@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 16:33:30 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 20:02:14 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <list>
 #include <iterator> 
 
-#include "../containers/vector.hpp"
-#include "../iterators/vector_iterator.hpp"
+#include "../vector.hpp"
+#include "../vector_iterator.hpp"
 #include "test_utils/test_utils.hpp"
 
 #include "test_utils/test_utils.hpp"
@@ -298,6 +298,8 @@ void test_vector_various(void)
 		std::cout << "(const_ite - it): " << (ite - it) << std::endl;
 		std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
 	}
+
+
 
 	{
 		std::cout << "TEST DE REVERSE ITERATOR" << std::endl;

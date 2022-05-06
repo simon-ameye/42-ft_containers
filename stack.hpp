@@ -6,16 +6,16 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:29:51 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/02 18:09:17 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 19:50:55 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_HPP
 #define STACK_HPP
 
-#include "../utils/utils.hpp"
-#include "../iterators/vector_reverse_iterator.hpp"
-#include "../iterators/vector_iterator.hpp"
+#include "utils.hpp"
+#include "vector_reverse_iterator.hpp"
+#include "vector_iterator.hpp"
 #include "vector.hpp"
 
 namespace ft
