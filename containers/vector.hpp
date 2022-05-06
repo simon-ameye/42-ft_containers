@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 19:07:16 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 15:11:48 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,7 +344,6 @@ namespace ft
 			}
 
 			friend bool operator<(const vector& lhs, const vector& rhs)		{return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());}
-
 			friend bool operator!=(const vector& lhs, const vector& rhs)	{ return !(lhs == rhs); }
 			friend bool operator>(const vector& lhs, const vector& rhs)		{ return rhs < lhs; }
 			friend bool operator<=(const vector& lhs, const vector& rhs)	{ return !(rhs < lhs); }

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 18:36:57 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 16:33:30 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,16 +263,60 @@ void test_vector_various(void)
 	std::cout << vct.size() << std::endl;
 
 	{
-	NAMESPACE::vector<int> vct;
-	NAMESPACE::vector<int>::iterator it = vct.begin();
-	NAMESPACE::vector<int>::const_iterator cit = vct.begin();
+		NAMESPACE::vector<int> vct;
+		NAMESPACE::vector<int>::iterator it = vct.begin();
+		NAMESPACE::vector<int>::const_iterator cit = vct.begin();
 
-	NAMESPACE::vector<int>::reverse_iterator rit(it);
+		NAMESPACE::vector<int>::reverse_iterator rit(it);
 
-	NAMESPACE::vector<int>::const_reverse_iterator crit(rit);
-	NAMESPACE::vector<int>::const_reverse_iterator crit_(it);
-	NAMESPACE::vector<int>::const_reverse_iterator crit_2(cit);
+		NAMESPACE::vector<int>::const_reverse_iterator crit(rit);
+		NAMESPACE::vector<int>::const_reverse_iterator crit_(it);
+		NAMESPACE::vector<int>::const_reverse_iterator crit_2(cit);
 	}
+
+	{
+		const int size = 5;
+		NAMESPACE::vector<int> vct(size);
+		NAMESPACE::vector<int>::reverse_iterator it = vct.rbegin();
+		NAMESPACE::vector<int>::const_reverse_iterator ite = vct.rbegin();
+
+		for (int i = 0; i < size; ++i)
+			it[i] = (size - i) * 5;
+
+		it = it + 5;
+		it = 1 + it;
+		it = it - 4;
+		std::cout << *(it += 2) << std::endl;
+		std::cout << *(it -= 1) << std::endl;
+
+		*(it -= 2) = 42;
+		*(it += 2) = 21;
+
+		std::cout << "const_ite +=/-=: " << *(ite += 2) << " | " << *(ite -= 2) << std::endl;
+
+		std::cout << "(it == const_it): " << (ite == it) << std::endl;
+		std::cout << "(const_ite - it): " << (ite - it) << std::endl;
+		std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
+	}
+
+	{
+		std::cout << "TEST DE REVERSE ITERATOR" << std::endl;
+		NAMESPACE::vector<int> v(10);
+		std::cout << "TEST DE REVERSE ITERATOR1" << std::endl << std::flush;
+		v[0] = 0;
+		v[1] = 1;
+		v[2] = 2;
+		v[3] = 3;
+		std::cout << "TEST DE REVERSE ITERATOR2" << std::endl << std::flush;
+		NAMESPACE::vector<int>::iterator it = v.begin()++;
+		std::cout << "*it" << *it << std::endl << std::flush;
+		NAMESPACE::vector<int>::reverse_iterator rit(it);
+		std::cout << "*rit" << *rit << std::endl;
+		std::cout << std::endl;
+		
+	}
+
+	
 }
 
 #ifdef TIME_COMPARISON

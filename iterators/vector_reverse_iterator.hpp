@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:30:26 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 18:38:46 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 16:51:52 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft
 			reference operator[](int nb) const
 			{
 				vector_reverse_iterator tmp(*this);
-				move(nb, SUBSTRACT, tmp);
+				this->move(nb, SUBSTRACT, tmp);
 				return (*tmp);
 			}
 
@@ -83,14 +83,14 @@ namespace ft
 				return (res);
 			}
 
-			bool operator<(const vector_reverse_iterator& it) const		{ return (it._val > this->_val); }
-			bool operator>(const vector_reverse_iterator& it) const		{ return (it._val < this->_val); }
-			bool operator<=(const vector_reverse_iterator& it) const	{ return (it._val >= this->_val); }
-			bool operator>=(const vector_reverse_iterator& it) const	{ return (it._val <= this->_val); }
+			bool operator<(const vector_reverse_iterator& it) const		{ return (it._val < this->_val); }
+			bool operator>(const vector_reverse_iterator& it) const		{ return (it._val > this->_val); }
+			bool operator<=(const vector_reverse_iterator& it) const	{ return (it._val <= this->_val); }
+			bool operator>=(const vector_reverse_iterator& it) const	{ return (it._val >= this->_val); }
 
 			vector_reverse_iterator& operator+=(int nb)
 			{
-				move(nb, SUBSTRACT, *this);
+				this->move(nb, SUBSTRACT, *this);
 				return (*this);
 			}
 
@@ -98,13 +98,13 @@ namespace ft
 			{
 				vector_reverse_iterator it(*this);
 				
-				move(nb, SUBSTRACT, it);
+				this->move(nb, SUBSTRACT, it);
 				return (it);
 			}
 
 			vector_reverse_iterator& operator-=(int nb)
 			{
-				move(nb, ADD, *this);
+				this->move(nb, ADD, *this);
 				return (*this);
 			}
 
@@ -112,7 +112,7 @@ namespace ft
 			{
 				vector_reverse_iterator it(*this);
 				
-				move(nb, ADD, it);
+				this->move(nb, ADD, it);
 				return (it);
 			}
 
