@@ -6,12 +6,13 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/04 11:47:01 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 21:22:54 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector_tests.hpp"
 #include "map_tests.hpp"
+#include "map_tests2.hpp"
 #include <iostream>
 
 void test_vector(void)
@@ -45,6 +46,8 @@ void test_map(void)
 	std::cout << "##########################################MAP##########################################" << std::endl;
 	std::cout << "------------------assign------------------" << std::endl;
 	test_map_assign();
+	map_custom_2();
+	
 }
 
 int main (void)

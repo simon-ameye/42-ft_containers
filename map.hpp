@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 19:51:14 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 21:42:54 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,19 @@ namespace ft
 				insert(first, last);
 			}
 
+
+
+			/* --------------------list range-------------------- */
+			map(typename std::list<value_type>::iterator first, typename std::list<value_type>::iterator last)
+			{
+				while (first != last)
+				{
+					insert(*first);
+					++first;
+				}
+			}
+
+
 			/* --------------------destructor-------------------- */
 		public:
 			~map() {}
@@ -101,10 +114,10 @@ namespace ft
 
 			/* *******************ITERATORS******************* */
 		public:
-			iterator				begin()					{ return ++iterator				(_tree.minKeyNode()); } //++ because of passed the begining
-			iterator				end()					{ return iterator				(_tree.maxKeyNode()); }
-			reverse_iterator		rbegin()				{ return ++reverse_iterator		(_tree.maxKeyNode()); }
-			reverse_iterator		rend()					{ return reverse_iterator		(_tree.minKeyNode()); }
+			iterator				begin() const			{ return ++iterator				(_tree.minKeyNode()); } //++ because of passed the begining
+			iterator				end() const				{ return iterator				(_tree.maxKeyNode()); }
+			reverse_iterator		rbegin() const			{ return ++reverse_iterator		(_tree.maxKeyNode()); }
+			reverse_iterator		rend() const			{ return reverse_iterator		(_tree.minKeyNode()); }
 
 			/* *******************CAPACITY******************* */
 		public:
@@ -259,7 +272,16 @@ namespace ft
 
 			const_iterator lower_bound (const key_type& k) const
 			{
-				return (const_iterator(this->lower_bound(k))); 
+				iterator beg = this->begin();
+				iterator end = this->end();
+
+				while (beg != end)
+				{
+					if (_compare((*beg).first, k) == false)
+						break;
+					beg++;
+				}
+				return (const_iterator(beg));
 			}
 
 			iterator upper_bound (const key_type& k)
@@ -278,7 +300,16 @@ namespace ft
 
 			const_iterator upper_bound (const key_type& k) const
 			{
-				return (const_iterator(this->upper_bound(k)));
+				iterator beg = this->begin();
+				iterator end = this->end();
+
+				while (beg != end)
+				{
+					if (_compare(k, (*beg).first))
+						break;
+					beg++;
+				}
+				return (const_iterator(beg));
 			}
 
 			pair<iterator,iterator> equal_range (const key_type& k)

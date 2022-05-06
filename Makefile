@@ -6,7 +6,7 @@
 #    By: sameye <sameye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/18 16:53:51 by sameye            #+#    #+#              #
-#    Updated: 2022/05/06 15:55:47 by sameye           ###   ########.fr        #
+#    Updated: 2022/05/06 21:27:00 by sameye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ INCLUDE		=		-I iterators \
 
 SRCS		=		main.cpp \
 					vector_tests.cpp \
-					map_tests.cpp
+					map_tests.cpp \
+					map_tests2.cpp
 
 
 SOURCES		=		$(addprefix $(SRCS_DIR)/,$(SRCS))
