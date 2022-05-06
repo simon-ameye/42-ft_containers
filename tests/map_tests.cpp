@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 21:05:26 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/06 22:23:24 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void test_map_assign(void)
 	itb2 = m6.begin();
 	for (;itb2 != ite;)
 	{
-		std::cout << "deleting key " << itb2->first << std::endl << std::flush;
+		//std::cout << "deleting key " << itb2->first << std::endl << std::flush;
 		m6.erase(itb2->first);
 		itb2 = m6.begin();
 	}
@@ -169,13 +169,28 @@ void test_map_assign(void)
 	std::cout << "lower bound of c : " << m11.lower_bound('c')->first << std::endl;
 	std::cout << "upper bound of c : " << m11.upper_bound('c')->first << std::endl;
 
-	std::cout << "reverse iterator";
+	std::cout << "reverse iterator" << std::endl;
 	NAMESPACE::map<int, int> m12;
 	int foo2[] = {8, 22, 15, 76, 69, 63, 72, 17, 24, 53, 91, 2, 28, 97, 5, 38, 98, 79, 78, 99, 9, 11, 52, 88, 71, 21, 70, 87, 37, 92, 7, 48, 50, 84, 90, 94, 82, 35, 65, 36, 43, 31, 1, 23, 39, 27, 32, 45, 74, 58, 40, 67, 57, 51, 13, 61, 64, 25, 89, 95, 16, 73, 26, 0, 49, 86, 10, 6, 46, 62, 34, 93, 30, 47, 54, 41, 85, 75, 18, 33, 77, 80, 55, 56, 83, 44, 60, 59, 68, 42, 4, 20, 81, 96, 19, 66, 12, 3, 29, 14};
 	NAMESPACE::map<int,int>::reverse_iterator itb12;
 	itb12 = m12.rbegin();
 	(void) itb12;
 	(void) foo2;
+
+	{
+		std::cout << "const iterator key comp" << std::endl;
+		bool res[2];
+		NAMESPACE::map<int, int> m;
+		m11[1]=1;
+		m11[2]=2;
+		m11[3]=3;
+		m11[4]=4;
+		m11[5]=5;
+		NAMESPACE::map<int,int>::const_iterator ite = m.end();
+		NAMESPACE::map<int,int>::const_iterator itb = m.begin();
+		res[0] = m.key_comp()(itb->first, ite->first);
+		std::cout << res[0] << std::endl;
+	}
 
 	
 }

@@ -82,6 +82,8 @@ void	ft_const_bound(const maptype &mp, const T1 &param)
 
 int		map_custom_2(void)
 {
+	std::cout << "######################################################" << std::endl;
+	std::cout << "map_custom_2" << std::endl;
 	std::list<T3> lst;
 	unsigned int lst_size = 10;
 	for (unsigned int i = 0; i < lst_size; ++i)
