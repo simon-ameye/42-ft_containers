@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 21:42:54 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/09 14:48:23 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "map_iterator.hpp"
 #include "map_reverse_iterator.hpp"
 #include <math.h>
+#include <list>
 
 namespace ft
 {
@@ -89,12 +90,13 @@ namespace ft
 
 
 			/* --------------------list range-------------------- */
-			map(typename std::list<value_type>::iterator first, typename std::list<value_type>::iterator last)
+			map(typename std::list<value_type>::iterator const first, typename std::list<value_type>::iterator const last)
 			{
-				while (first != last)
+				typename std::list<value_type>::iterator tmp = first;
+				while (tmp != last)
 				{
-					insert(*first);
-					++first;
+					insert(*tmp);
+					++tmp;
 				}
 			}
 

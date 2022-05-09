@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 22:04:43 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/09 17:03:21 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ namespace ft
 		private:
 			typedef ft::Node < value_type >														N;
 			typedef ft::CustomTree<value_type, Key, Compare>									tree_type;
-			typedef typename TrueAFalseB<Const, const value_type&, value_type&>::type			reference;
-			typedef typename TrueAFalseB<Const, const value_type*, value_type*>::type			pointer;
+			typedef typename MakeConst<Const, value_type&>::type								reference;
+			typedef typename MakeConst<Const, value_type*>::type								pointer;
 
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */

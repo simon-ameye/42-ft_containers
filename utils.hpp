@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 22:04:04 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/09 17:05:40 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,19 +153,19 @@ namespace ft
 	}
 
 	/* ****************************************** */
-	/*                 TrueAFalseB                */
+	/*                 MakeConst                  */
 	/* ****************************************** */
 
-	template <bool Const, typename A, typename B>
-	struct TrueAFalseB {};
+	template <bool Const, typename T>
+	struct MakeConst {};
 
-	template <typename A, typename B>
-	struct TrueAFalseB<true, A, B>
-	{ typedef A type; };
+	template <typename T>
+	struct MakeConst<true, T>
+	{ typedef const T type; };
 
-	template <typename A, typename B>
-	struct TrueAFalseB<false, A, B>
-	{ typedef B type; };
+	template <typename T>
+	struct MakeConst<false, T>
+	{ typedef T type; };
 
 }
 #endif
