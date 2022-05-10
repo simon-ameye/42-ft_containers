@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 21:16:08 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/10 21:22:42 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,8 @@ namespace ft
 
 
 				//Alloc	data_alloc(_alloc);
-				N* node = _alloc.allocate(1);
-				_alloc.construct(&(node->_val), val);
+				//N* node = _alloc.allocate(1);
+				//_alloc.construct(&(node->_val), val);
 
 
 
@@ -179,9 +179,9 @@ namespace ft
 
 
 				
-				//N* node = _alloc.allocate(1);
-				//node->_val.first = val.first;
-				//node->_val.second = val.second;
+				N* node = _alloc.allocate(1);
+				node->_val.first = val.first;
+				node->_val.second = val.second;
 				node->parent = NULL;
 				node->left = NULL;
 				node->right = NULL;
