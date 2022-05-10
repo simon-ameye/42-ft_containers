@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/09 17:27:21 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/10 17:23:39 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,156 +42,56 @@ namespace ft
 			typedef typename ft::vector_reverse_iterator< T, false>		reverse_iterator;
 			typedef typename ft::vector_reverse_iterator< T, true >		const_reverse_iterator;
 
-//			/* *******************CONSTRUCTORS******************* */
-//			
-//			/* --------------------default constructor-------------------- */
-//			//when no argument provided, optional allocator
-//			explicit
-//			vector (const allocator_type& alloc = allocator_type()) :
-//			_alloc(alloc), _size(0), _capacity(0)
-//			{
-//				_vector = _alloc.allocate(_capacity);
-//				//std::cout << "Vector default constructor call" << std::endl;
-//			}
-//
-//			/* --------------------fill constructor-------------------- */
-//			//for construction as vector<int> foo (10) or vector<int> foo (10, 42)
-//			//optional allocator
-//			explicit //deny implicit conversion when calling constructor
-//			vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) :
-//			_alloc(alloc), _size(n), _capacity(n)
-//			{
-//				_vector = _alloc.allocate(_capacity);
-//				for (size_type i = 0; i < _size; ++i)
-//					_alloc.construct(&_vector[i], val);
-//			}
-//
-//			/* --------------------range constructor-------------------- */
-//			//for construction as vector<int> foo (first, last)
-//			template <class InputIterator>
-//			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-//			typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0) :
-//			_alloc(alloc), _size(0)
-//			{
-//				InputIterator tmp(first);
-//				while (tmp++ != last)
-//					_size++;
-//				_capacity = _size;
-//				_vector = _alloc.allocate(_capacity);
-//				for (int i = 0; first != last; ++first, ++i)
-//					_alloc.construct(&_vector[i], *first);
-//			}
-//
-//			/* --------------------copy constructor-------------------- */
-//			//for construction as vector<int> foo (copy)
-//			vector(const vector& x) :
-//			_alloc(x._alloc), _size(x._size), _capacity(x._capacity)
-//			{
-//				_vector = _alloc.allocate(_capacity);
-//				for (ft::pair<int, const_iterator> i(0, x.begin());
-//						i.second != x.end(); ++i.first, ++i.second)
-//					_alloc.construct(&_vector[i.first], *i.second);
-//			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			/* *******************CONSTRUCTORS******************* */
+			
 			/* --------------------default constructor-------------------- */
-		explicit vector (const allocator_type& alloc = allocator_type()) : _array(0), _size(0), _capacity(0), _alloc(alloc) {}
-		
+			//when no argument provided, optional allocator
+			explicit
+			vector (const allocator_type& alloc = allocator_type()) :
+			_alloc(alloc), _size(0), _capacity(0)
+			{
+				_vector = _alloc.allocate(_capacity);
+				//std::cout << "Vector default constructor call" << std::endl;
+			}
+
 			/* --------------------fill constructor-------------------- */
-		explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _alloc(alloc)
-		{
-			this->_array = new value_type[n]();
-			for (size_type i = 0; i < n; i++)
-				this->_array[i] = val;
-		}
+			//for construction as vector<int> foo (10) or vector<int> foo (10, 42)
+			//optional allocator
+			explicit //deny implicit conversion when calling constructor
+			vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) :
+			_alloc(alloc), _size(n), _capacity(n)
+			{
+				_vector = _alloc.allocate(_capacity);
+				for (size_type i = 0; i < _size; ++i)
+					_alloc.construct(&_vector[i], val);
+			}
 
 			/* --------------------range constructor-------------------- */
-		template <class InputIterator>
-		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-				typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) : _array(0), _size(0), _capacity(0), _alloc(alloc)
-				{
-			this->_capacity = ft::distance(first, last);
-			this->_size = _capacity;
-			this->_array = new value_type[this->_capacity];
-			this->assign(first, last);
-		}
+			//for construction as vector<int> foo (first, last)
+			template <class InputIterator>
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0) :
+			_alloc(alloc), _size(0)
+			{
+				InputIterator tmp(first);
+				while (tmp++ != last)
+					_size++;
+				_capacity = _size;
+				_vector = _alloc.allocate(_capacity);
+				for (int i = 0; first != last; ++first, ++i)
+					_alloc.construct(&_vector[i], *first);
+			}
 
 			/* --------------------copy constructor-------------------- */
-		vector (const vector& x) : _array(0), _size(0), _capacity(0), _alloc(x._alloc)
-		{
-			*this = x;
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			//for construction as vector<int> foo (copy)
+			vector(const vector& x) :
+			_alloc(x._alloc), _size(x._size), _capacity(x._capacity)
+			{
+				_vector = _alloc.allocate(_capacity);
+				for (ft::pair<int, const_iterator> i(0, x.begin());
+						i.second != x.end(); ++i.first, ++i.second)
+					_alloc.construct(&_vector[i.first], *i.second);
+			}
 
 			~vector()
 			{
@@ -304,7 +204,11 @@ namespace ft
 			void assign (InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
 			{
 				clear();
-				size_type n = static_cast<size_type>(last - first);
+				//size_type n = static_cast<size_type>(last - first);
+				InputIterator tmp = first;
+				size_type n = 0;
+				while (tmp++ != last) //VERY LOOOOONG
+					n++;
 				_alloc.deallocate(_vector, _capacity);
 				_capacity = n;
 				_vector = _alloc.allocate(n);

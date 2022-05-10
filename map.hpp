@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/09 14:48:23 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/10 19:53:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,24 @@ namespace ft
 	class map
 	{
 		public:
-		typedef Key															key_type;
-		typedef T															mapped_type;
-		typedef ft::pair<key_type,mapped_type>								value_type; //UNABLE TO MAKE IT CONST AS REQUIRED
-		typedef Compare														key_compare;
-		typedef Alloc														allocator_type;
-		typedef typename allocator_type::reference							reference;
-		typedef typename allocator_type::const_reference					const_reference;
-		typedef typename allocator_type::pointer							pointer;
-		typedef typename allocator_type::const_pointer						const_pointer;
-		typedef ft::map_iterator<value_type, Key, Compare, false>					iterator;
-		typedef ft::map_iterator<value_type, Key, Compare, true>					const_iterator;
-
-		typedef ft::map_reverse_iterator<value_type, Key, Compare, false>					reverse_iterator;
-		typedef ft::map_reverse_iterator<value_type, Key, Compare, true>					const_reverse_iterator;
-
-		typedef std::ptrdiff_t												difference_type;
-		typedef std::size_t													size_type;
+		typedef Key																		key_type;
+		typedef T																		mapped_type;
+		typedef ft::pair<key_type,mapped_type>											value_type; //UNABLE TO MAKE IT CONST AS REQUIRED
+		typedef Compare																	key_compare;
+		typedef Alloc																	allocator_type;
+		typedef typename allocator_type::reference										reference;
+		typedef typename allocator_type::const_reference								const_reference;
+		typedef typename allocator_type::pointer										pointer;
+		typedef typename allocator_type::const_pointer									const_pointer;
+		typedef ft::map_iterator<value_type, Key, Compare, false>						iterator;
+		typedef ft::map_iterator<value_type, Key, Compare, true>						const_iterator;
+		typedef ft::map_reverse_iterator<value_type, Key, Compare, false>				reverse_iterator;
+		typedef ft::map_reverse_iterator<value_type, Key, Compare, true>				const_reverse_iterator;
+		typedef std::ptrdiff_t															difference_type;
+		typedef std::size_t																size_type;
 
 		private:
+		
 		class value_compare_class
 		{
 			friend class map<key_type, mapped_type, key_compare, Alloc>;
@@ -60,7 +59,7 @@ namespace ft
 					return (comp(x.first, y.first)); //see std::map::value_comp
 				}
 		};
-
+	
 		public:
 		typedef value_compare_class			value_compare;
 
@@ -73,7 +72,9 @@ namespace ft
 			/* --------------------default-------------------- */
 			explicit
 			map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-			_compare(comp), _alloc(alloc) {}
+			_compare(comp), _alloc(alloc)
+			{
+			}
 
 			/* --------------------copy-------------------- */
 			map(const map& copy) : _compare(copy._compare), _alloc(copy._alloc)
@@ -82,24 +83,11 @@ namespace ft
 			}
 
 			/* --------------------range-------------------- */
-			map(iterator first, iterator last)
+			template <class InputIterator>
+			map(InputIterator first, InputIterator last)
 			{
 				insert(first, last);
 			}
-
-
-
-			/* --------------------list range-------------------- */
-			map(typename std::list<value_type>::iterator const first, typename std::list<value_type>::iterator const last)
-			{
-				typename std::list<value_type>::iterator tmp = first;
-				while (tmp != last)
-				{
-					insert(*tmp);
-					++tmp;
-				}
-			}
-
 
 			/* --------------------destructor-------------------- */
 		public:
@@ -110,8 +98,11 @@ namespace ft
 		public:
 			map& operator= (const map& rhs)
 			{
+				if (this == &rhs)
+					return (*this);
 				clear();
 				insert(rhs.begin(), rhs.end());
+				return (*this);
 			}
 
 			/* *******************ITERATORS******************* */

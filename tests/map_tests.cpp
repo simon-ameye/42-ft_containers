@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 22:23:24 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/10 20:01:06 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <iterator> 
 
 #include "../map.hpp"
+#include "../vector.hpp"
+
 #include "../map_iterator.hpp"
 #include "../map_reverse_iterator.hpp"
 #include "test_utils/test_utils.hpp"
@@ -192,5 +194,14 @@ void test_map_assign(void)
 		std::cout << res[0] << std::endl;
 	}
 
-	
+	{
+			std::cout << "string map" << std::endl<<std::flush;
+			NAMESPACE::map<int, std::string> mp;
+			mp[-1] = "Hello";
+			std::cout << "s1" << std::endl<<std::flush;
+			std::cout << mp[1] << std::endl;
+			std::cout << "s2" << std::endl<<std::flush;
+			std::cout << mp[-1] << std::endl;
+			std::cout << "finished" << std::endl<<std::flush;
+	}
 }

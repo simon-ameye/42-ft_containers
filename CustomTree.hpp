@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/05 14:17:38 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/10 21:16:08 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 
 namespace ft
 {
+
+	
 	template < class value_type >
 	class Node
 	{
 		public:
-
+		//typedef value_type					;
+		
 		Node (int type = 0, Node* left = NULL, Node* right = NULL, Node* parent = NULL, int height = 1) :
 			type(type) , left(left), right(right), parent(parent), height(height) {}
 		value_type _val;
@@ -48,14 +51,16 @@ namespace ft
 		/* *******************TYPEDEF******************* */
 		private:
 			typedef ft::Node < value_type >					N;
+			
+			//typedef N::value_type							N_value_type;
 
 
 		/* *******************CONSTRUCTORS******************* */
 		public:
 			CustomTree(void)
 			{
-				N *passed_begin = _newNode(value_type());
-				N *passed_end = _newNode(value_type());
+				N *passed_begin = _newNodeEmpty();
+				N *passed_end = _newNodeEmpty();
 				passed_begin->type = 1;
 				passed_begin->right = passed_end;
 				passed_end->type = 2;
@@ -143,11 +148,52 @@ namespace ft
 				return (a > b)? a : b;
 			}
 
-			N* _newNode(value_type val)
+			N* _newNode(const value_type & val)
+			{
+
+
+
+
+
+
+
+
+				//Alloc	data_alloc(_alloc);
+				N* node = _alloc.allocate(1);
+				_alloc.construct(&(node->_val), val);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				
+				//N* node = _alloc.allocate(1);
+				//node->_val.first = val.first;
+				//node->_val.second = val.second;
+				node->parent = NULL;
+				node->left = NULL;
+				node->right = NULL;
+				node->height = 1; // new node is initially added at leaf
+				node->type = 0;
+				++_size;
+				return(node);
+			}
+
+			N* _newNodeEmpty(void)
 			{
 				N* node = _alloc.allocate(1);
-				node->_val.first = val.first;
-				node->_val.second = val.second;
 				node->parent = NULL;
 				node->left = NULL;
 				node->right = NULL;
@@ -160,6 +206,7 @@ namespace ft
 			void _delNode(N* node)
 			{
 				_alloc.destroy(node);
+				_alloc.deallocate(node, 1);
 				--_size;
 			}
 
