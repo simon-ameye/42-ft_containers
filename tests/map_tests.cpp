@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/11 15:32:53 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/11 16:46:24 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,13 +212,31 @@ void test_map_assign(void)
 	}
 
 	{
-			std::cout << "string map" << std::endl<<std::flush;
-			NAMESPACE::map<int, std::string> mp;
-			mp[-1] = "Hello";
-			std::cout << "s1" << std::endl<<std::flush;
-			std::cout << mp[1] << std::endl;
-			std::cout << "s2" << std::endl<<std::flush;
-			std::cout << mp[-1] << std::endl;
-			std::cout << "finished" << std::endl<<std::flush;
+		std::cout << "string map" << std::endl<<std::flush;
+		NAMESPACE::map<int, std::string> mp;
+		mp[-1] = "Hello";
+		std::cout << "s1" << std::endl<<std::flush;
+		std::cout << mp[1] << std::endl;
+		std::cout << "s2" << std::endl<<std::flush;
+		std::cout << mp[-1] << std::endl;
+		std::cout << "finished" << std::endl<<std::flush;
+	}
+
+	{
+		std::cout << "iterator map and list range constructor" << std::endl<<std::flush;
+		std::list<NAMESPACE::pair <int, int> > lst;
+		for (unsigned int i = 0; i < 10; ++i)
+			lst.push_back(NAMESPACE::pair<int, int>(i, 8));
+		NAMESPACE::map<int, int> mp (lst.begin(), lst.end());
+		NAMESPACE::map<int, int>::iterator itb = mp.begin();
+		NAMESPACE::map<int, int>::iterator ite = mp.end();
+		std::cout << "content" << std::endl;
+		while (itb != ite)
+		{
+			std::cout << itb->first << " ";
+			itb++;
+		}
+		std::cout << "/content" << std::endl;
+		std::cout << (--mp.end())->first << std::endl;
 	}
 }

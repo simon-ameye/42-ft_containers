@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/11 13:56:56 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/11 17:14:41 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,25 +125,21 @@ namespace ft
 
 			size_type		max_size() const
 			{
-				return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;
+				//return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;
+				return (this->_alloc.max_size());
 			}
 
 			/* *******************ELEMENT ACCESS******************* */
 		public:
 			mapped_type& operator[] (const key_type& k)
 			{
-				//std::cout << "marker5" << std::endl << std::flush;
 				node_type* tmp;
-				//std::cout << "marker before at " << k << std::endl << std::flush;
 				tmp = _tree.at(k);
-				//std::cout << "marker5" << std::endl << std::flush;
 				if (!tmp)
 				{
-					//std::cout << "marker7" << std::endl << std::flush;
 					_tree.insert(ft::make_pair(k, mapped_type()));
 					tmp = _tree.at(k);
 				}
-				//std::cout << "marker6" << std::endl << std::flush;
 				return (tmp->_val.second);
 			}
 
@@ -155,7 +151,7 @@ namespace ft
 				if (tmp)
 					return (ft::pair<iterator, bool>(iterator(tmp), false));
 				_tree.insert(val);
-				return (ft::pair<iterator, bool>(iterator(_tree.at(val.first)), false));
+				return (ft::pair<iterator, bool>(iterator(_tree.at(val.first)), true));
 			}
 			
 			iterator insert (iterator position, const value_type& val) //with hint
@@ -192,10 +188,11 @@ namespace ft
 
 			void erase (iterator first, iterator last)
 			{
+				iterator	tmp;
 				while (first != last)
 				{
-					erase(first);
-					++first;
+					tmp = first++;
+					erase(tmp);
 				}
 			}
 

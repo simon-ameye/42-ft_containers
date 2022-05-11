@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 22:12:05 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/11 16:49:20 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ namespace ft
 
 			map_iterator& operator--()
 			{
-				_node = _previous(_node); //TO CHANGE
+				_node = _previous(_node);
 				return (*this);
 			}
 
@@ -131,7 +131,7 @@ namespace ft
 
 			N* _previous(N *node) const
 			{
-				if (node->right)
+				if (node->left)
 					return (_maxKeyNode(node->left));
 				else
 					while (node->parent)
