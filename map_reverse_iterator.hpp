@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:06:03 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/09 17:03:41 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/10 21:49:46 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ namespace ft
 	{
 			/* *******************ALIASES******************* */
 		private:
-			typedef ft::Node < value_type >														N;
+			//typedef ft::Node < value_type >														N;
 			typedef ft::CustomTree<value_type, Key, Compare>									tree_type;
+			typedef typename tree_type::Node													N;
+
+			
 			typedef typename MakeConst<Const, value_type&>::type								reference;
 			typedef typename MakeConst<Const, value_type*>::type								pointer;
 		public:

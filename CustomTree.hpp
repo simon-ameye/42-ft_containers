@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 21:22:42 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:34:28 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 namespace ft
 {
 
-	
+/*
 	template < class value_type >
 	class Node
 	{
@@ -44,23 +44,51 @@ namespace ft
 			return (_val.first < rhs._val.first); //MAYBE USE COMPARE
 		}
 	};
+*/
 
-	template < class value_type, class Key, typename Compare = std::less<value_type>, class Alloc = std::allocator < ft::Node < value_type > > >
+	template < class value_type, class Key, typename Compare = std::less<value_type> >
 	class CustomTree
 	{
 		/* *******************TYPEDEF******************* */
 		private:
-			typedef ft::Node < value_type >					N;
+			//typedef ft::Node < value_type >					N;
 			
 			//typedef N::value_type							N_value_type;
+
+		public:
+			class Node
+			{
+				public:
+				Node (int type = 0, Node* left = NULL, Node* right = NULL, Node* parent = NULL, int height = 1) :
+					type(type) , left(left), right(right), parent(parent), height(height) {}
+				value_type _val;
+				int type; //0 data, 1 passed the begining, 2, passed the end
+				Node *left;
+				Node *right;
+				Node *parent;
+				int height;
+
+				bool operator<(const Node& rhs) const
+				{
+					if (type == 2 || rhs.type == 1)
+						return (false);
+					if (type == 1 || rhs.type == 2)
+						return (true);
+					return (_val.first < rhs._val.first); //MAYBE USE COMPARE
+				}
+			};
+
+		typedef std::allocator < Node >					Alloc;
+		typedef std::allocator < value_type >			Allocval;
+		typedef Node									N;
 
 
 		/* *******************CONSTRUCTORS******************* */
 		public:
 			CustomTree(void)
 			{
-				N *passed_begin = _newNodeEmpty();
-				N *passed_end = _newNodeEmpty();
+				N *passed_begin = _newNode(value_type());
+				N *passed_end = _newNode(value_type());
 				passed_begin->type = 1;
 				passed_begin->right = passed_end;
 				passed_end->type = 2;
@@ -77,6 +105,8 @@ namespace ft
 		/* *******************MAIN FUNCTIONS******************* */
 			void insert(value_type val)
 			{
+				//std::cout << "inserting val " << std::flush;
+				//std::cout << val.first << std::endl << std::flush;
 				_root = _insert(_root, val);
 			}
 
@@ -150,50 +180,8 @@ namespace ft
 
 			N* _newNode(const value_type & val)
 			{
-
-
-
-
-
-
-
-
-				//Alloc	data_alloc(_alloc);
-				//N* node = _alloc.allocate(1);
-				//_alloc.construct(&(node->_val), val);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				
 				N* node = _alloc.allocate(1);
-				node->_val.first = val.first;
-				node->_val.second = val.second;
-				node->parent = NULL;
-				node->left = NULL;
-				node->right = NULL;
-				node->height = 1; // new node is initially added at leaf
-				node->type = 0;
-				++_size;
-				return(node);
-			}
-
-			N* _newNodeEmpty(void)
-			{
-				N* node = _alloc.allocate(1);
+				_allocval.construct(&(node->_val), val);
 				node->parent = NULL;
 				node->left = NULL;
 				node->right = NULL;
@@ -205,7 +193,7 @@ namespace ft
 
 			void _delNode(N* node)
 			{
-				_alloc.destroy(node);
+				_allocval.destroy(&(node->_val));
 				_alloc.deallocate(node, 1);
 				--_size;
 			}
@@ -227,6 +215,7 @@ namespace ft
 
 			N *_leftRotate(N *x)
 			{
+				//std::cout << "left rotate 1" << std::endl << std::flush;
 				N *y = x->right;
 				N *T2 = y->left;
 				y->left = x;
@@ -252,7 +241,14 @@ namespace ft
 				N nval;
 				nval._val.first = val.first;
 				if (node == NULL)
+				{
+					//std::cout << "    lets create node" << std::endl << std::flush;
 					return(_newNode(val));
+				}
+				//std::cout << "\n    node not NULL" << std::endl << std::flush;
+				//std::cout << "    inserting val " << std::flush;
+				//std::cout << val.first << std::flush;
+				//std::cout << " in node " << node->_val.first << std::endl << std::flush;
 				if (nval < *node)
 				{
 					node->left = _insert(node->left, val);
@@ -264,20 +260,31 @@ namespace ft
 					node->right->parent = node;
 				}
 				else
+				{
+					//std::cout << "ERROR SAME VALUE" << std::endl << std::flush;
 					return node; // DONT FORGET TO RAISE ERROR
+				}
 				node->height = 1 + _max(_height(node->left), _height(node->right));
 				int balance = _getBalance(node);
 				if (balance > 1 && nval < *node->left)
+				{
+					//std::cout << "balancing 1" << std::endl << std::flush;
 					return _rightRotate(node);
+				}
 				if (balance < -1 && *node->right < nval)
+				{
+					//std::cout << "balancing 2" << std::endl << std::flush;
 					return _leftRotate(node);
+				}
 				if (balance > 1 && *node->left < nval)
 				{
+					//std::cout << "balancing 3" << std::endl << std::flush;
 					node->left = _leftRotate(node->left);
 					return _rightRotate(node);
 				}
 				if (balance < -1 && nval < *node->right)
 				{
+					//std::cout << "balancing 4" << std::endl << std::flush;
 					node->right = _rightRotate(node->right);
 					return _leftRotate(node);
 				}
@@ -423,7 +430,7 @@ namespace ft
 			{
 				if(root)
 				{
-					std::cout << root->_val.first << " ";
+					//std::cout << root->_val.first << " ";
 					_preOrder(root->left);
 					_preOrder(root->right);
 				}
@@ -436,6 +443,7 @@ namespace ft
 
 		private:
 			Alloc				_alloc;
+			Allocval			_allocval;
 	};
 }
 #endif

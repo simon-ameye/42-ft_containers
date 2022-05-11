@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 21:22:52 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:32:53 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,35 @@ void test_map_assign(void)
 	m1.insert(NAMESPACE::make_pair(2, 2));
 	m1.insert(NAMESPACE::make_pair(3, 3));
 	m1.insert(NAMESPACE::make_pair(4, 4));
+	m1.insert(NAMESPACE::make_pair(-1, 4));
+	m1.insert(NAMESPACE::make_pair(-2, 4));
+	m1.insert(NAMESPACE::make_pair(-3, 4));
 	m1.erase(3);
 	//m1.print_tree();
-	std::cout << "res " << m1[1] << m1[2] << m1[4] << std::endl;
+
+	std::cout << "res " << m1[1] << m1[2] << m1[4] << m1[-1] << m1[-2] << m1[-3] << std::endl;
+
 	std::cout << "insert in disorder" << std::endl;
+	std::cout << "marker1" << std::endl << std::flush;
 	NAMESPACE::map<int, int> m2;
+	std::cout << "marker2" << std::endl << std::flush;
 	m2.insert(NAMESPACE::make_pair(8, 1));
+	std::cout << "marker3" << std::endl << std::flush;
 	m2.insert(NAMESPACE::make_pair(2, 2));
 	m2.insert(NAMESPACE::make_pair(6, 3));
-	m2.insert(NAMESPACE::make_pair(0, 4));
+	
 	//m2.print_tree();
-	std::cout << "res " << m2[8] << m2[2] << m2[6] << m2[0] << std::endl;
 
+	m2.insert(NAMESPACE::make_pair(0, 4));
+	std::cout << "marker4" << std::endl << std::flush;
+	std::cout << "res " << m2[8] << m2[2] << m2[6] << m2[0] << std::endl;
+	std::cout << "marker5" << std::endl << std::flush;
+
+
+
+
+
+	
 	std::cout << "erase in disorder" << std::endl;
 	NAMESPACE::map<int, char> m3;
 	m3.insert(NAMESPACE::make_pair(8, 'a'));
@@ -195,13 +212,13 @@ void test_map_assign(void)
 	}
 
 	{
-			//std::cout << "string map" << std::endl<<std::flush;
-			//NAMESPACE::map<int, std::string> mp;
-			//mp[-1] = "Hello";
-			//std::cout << "s1" << std::endl<<std::flush;
-			//std::cout << mp[1] << std::endl;
-			//std::cout << "s2" << std::endl<<std::flush;
-			//std::cout << mp[-1] << std::endl;
-			//std::cout << "finished" << std::endl<<std::flush;
+			std::cout << "string map" << std::endl<<std::flush;
+			NAMESPACE::map<int, std::string> mp;
+			mp[-1] = "Hello";
+			std::cout << "s1" << std::endl<<std::flush;
+			std::cout << mp[1] << std::endl;
+			std::cout << "s2" << std::endl<<std::flush;
+			std::cout << mp[-1] << std::endl;
+			std::cout << "finished" << std::endl<<std::flush;
 	}
 }

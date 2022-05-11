@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 19:53:01 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/11 13:56:56 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ namespace ft
 		public:
 		typedef value_compare_class			value_compare;
 
-		private:
-		typedef ft::CustomTree<value_type, Key, value_compare>		tree_type;
-		typedef ft::Node<value_type>								node_type;
+		public:
+		typedef ft::CustomTree<value_type, Key, Compare>		tree_type;
+		typedef typename tree_type::Node							node_type;
 
 			/* *******************CONSTRUCTORS******************* */
 		public:
@@ -73,8 +73,7 @@ namespace ft
 			explicit
 			map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 			_compare(comp), _alloc(alloc)
-			{
-			}
+			{}
 
 			/* --------------------copy-------------------- */
 			map(const map& copy) : _compare(copy._compare), _alloc(copy._alloc)
@@ -133,13 +132,18 @@ namespace ft
 		public:
 			mapped_type& operator[] (const key_type& k)
 			{
+				//std::cout << "marker5" << std::endl << std::flush;
 				node_type* tmp;
+				//std::cout << "marker before at " << k << std::endl << std::flush;
 				tmp = _tree.at(k);
+				//std::cout << "marker5" << std::endl << std::flush;
 				if (!tmp)
 				{
+					//std::cout << "marker7" << std::endl << std::flush;
 					_tree.insert(ft::make_pair(k, mapped_type()));
 					tmp = _tree.at(k);
 				}
+				//std::cout << "marker6" << std::endl << std::flush;
 				return (tmp->_val.second);
 			}
 
