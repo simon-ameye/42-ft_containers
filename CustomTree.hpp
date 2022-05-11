@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/11 15:34:28 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:39:55 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ namespace ft
 						return (false);
 					if (type == 1 || rhs.type == 2)
 						return (true);
-					return (_val.first < rhs._val.first); //MAYBE USE COMPARE
+					return (_compare(_val.first, rhs._val.first));
 				}
+
+				Compare _compare;
 			};
 
 		typedef std::allocator < Node >					Alloc;
