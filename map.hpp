@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 13:18:24 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:38:45 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ namespace ft
 		public:
 		typedef Key																		key_type;
 		typedef T																		mapped_type;
-		typedef ft::pair<key_type,mapped_type>											value_type; //UNABLE TO MAKE IT CONST AS REQUIRED
+		typedef ft::pair<key_type, mapped_type>											value_type; //UNABLE TO MAKE IT CONST AS REQUIRED
 		typedef Compare																	key_compare;
 		typedef Alloc																	allocator_type;
 		typedef typename allocator_type::reference										reference;
 		typedef typename allocator_type::const_reference								const_reference;
 		typedef typename allocator_type::pointer										pointer;
 		typedef typename allocator_type::const_pointer									const_pointer;
-		typedef std::ptrdiff_t															difference_type;
+		typedef typename allocator_type::difference_type								difference_type;
 		typedef std::size_t																size_type;
 
-		typedef ft::map_iterator			<value_type, Key, Compare, false>			iterator;
-		typedef ft::map_reverse_iterator	<value_type, Key, Compare, false>			reverse_iterator;
-		typedef ft::map_iterator			<value_type, Key, Compare, true>			const_iterator;
-		typedef ft::map_reverse_iterator	<value_type, Key, Compare, true>			const_reverse_iterator;
+		typedef ft::map_iterator			< value_type, Key, Compare, Alloc, false>			iterator;
+		typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, false>			reverse_iterator;
+		typedef ft::map_iterator			< value_type, Key, Compare, Alloc, true>			const_iterator;
+		typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, true>			const_reverse_iterator;
 
 		private:
 		
@@ -340,6 +340,8 @@ namespace ft
 				_tree.pre0rder();
 			}
 
+
+
 			/* *******************PRIVATE VARIABLES******************* */
 		private:
 			tree_type _tree;
@@ -352,8 +354,43 @@ namespace ft
 			node_type* _get_root(void) {return (_tree._root);}
 			void _set_size(size_t size) {_tree._size = size;}
 			size_t _get_size(void) {return (_tree._size);}
-
 	};
+
+		/* *******************RELATIONAL OPERATORS******************* */
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator== ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		return (!(lhs < rhs) && !(rhs < lhs));
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator!= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{	return (!(lhs == rhs));	}
+
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{	return (!(rhs < lhs));	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{	return (rhs < lhs);	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{	return (!(rhs < lhs));	}
+
 }
+
+
+
 
 #endif

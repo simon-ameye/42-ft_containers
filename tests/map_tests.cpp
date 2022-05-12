@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/11 16:46:24 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 14:55:50 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,5 +238,10 @@ void test_map_assign(void)
 		}
 		std::cout << "/content" << std::endl;
 		std::cout << (--mp.end())->first << std::endl;
+	}
+	
+	{
+		NAMESPACE::map<int, int> const mp;
+		NAMESPACE::map<int, int>::iterator it = mp.begin(); // <-- error expected
 	}
 }

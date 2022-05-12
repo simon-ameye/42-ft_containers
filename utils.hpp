@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 14:07:19 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 16:53:43 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,71 @@
 #define UTILS_HPP
 
 #include <typeinfo>
+#include <iterator>
 
 namespace ft
 {
+
+	/* ****************************************** */
+	/*                 Iterator traits            */
+	/* ****************************************** */
+
+	/*	adapted type traits to fix fill/range constuctors	*/
+	struct type_false	{};
+	struct type_true	{};
+	template <class T>
+				struct type_is_integer                     : public type_false {};
+	template <>	struct type_is_integer<bool>               : public type_true {};
+	template <>	struct type_is_integer<char>               : public type_true {};
+	template <>	struct type_is_integer<signed char>        : public type_true {};
+	template <>	struct type_is_integer<unsigned char>      : public type_true {};
+	template <>	struct type_is_integer<wchar_t>            : public type_true {};
+	template <>	struct type_is_integer<short>              : public type_true {};
+	template <>	struct type_is_integer<unsigned short>     : public type_true {};
+	template <>	struct type_is_integer<int>                : public type_true {};
+	template <>	struct type_is_integer<unsigned int>       : public type_true {};
+	template <>	struct type_is_integer<long>               : public type_true {};
+	template <>	struct type_is_integer<unsigned long>      : public type_true {};
+	template <>	struct type_is_integer<long long>          : public type_true {};
+	template <>	struct type_is_integer<unsigned long long> : public type_true {};
+
+	/*	simplified type check to fix random access iterator conversion	*/
+	template <class, class>
+	struct type_check_if_same	{};
+	template <class Same>
+	struct type_check_if_same<Same, Same>	{ typedef Same _type; };
+
+	/*	adapted iterator traits in case someone says it's use of stl	*/
+	template <class Iterator>
+	class iterator_traits {
+	public:
+		typedef typename Iterator::difference_type		difference_type;
+		typedef typename Iterator::value_type			value_type;
+		typedef typename Iterator::pointer				pointer;
+		typedef typename Iterator::reference			reference;
+		typedef typename Iterator::iterator_category	iterator_category;
+	};
+
+	template <class T>
+	class iterator_traits<T*> {
+	public:
+		typedef std::ptrdiff_t	difference_type;
+		typedef T				value_type;
+		typedef T*				pointer;
+		typedef T&				reference;
+		typedef std::random_access_iterator_tag	iterator_category;
+	};
+
+	template <class T>
+	class iterator_traits<const T*> {
+	public:
+		typedef std::ptrdiff_t	difference_type;
+		typedef T				value_type;
+		typedef const T*		pointer;
+		typedef const T&		reference;
+		typedef std::random_access_iterator_tag	iterator_category;
+	};
+
 	/* ****************************************** */
 	/*                    PAIR                    */
 	/* ****************************************** */
@@ -57,6 +119,34 @@ namespace ft
 			T2 second;
 			
 	};
+
+	/* *******************relational operators for pairs******************* */
+	template <class T1, class T2>
+	bool		operator==(const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2>& rhs)
+	{	return (lhs.first == rhs.first && lhs.second == rhs.second);	}
+
+	template <class T1, class T2>
+	bool		operator!=(const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2>& rhs)
+	{	return (!(lhs == rhs));	}
+
+	template <class T1, class T2>
+	bool		operator<(const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2>& rhs)
+	{
+		return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
+	}
+
+	template <class T1, class T2>
+	bool		operator<=(const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2>& rhs)
+	{	return (!(rhs < lhs));	}
+
+	template <class T1, class T2>
+	bool		operator>(const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2>& rhs)
+	{	return (rhs < lhs);		}
+
+	template <class T1, class T2>
+	bool		operator>=(const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2>& rhs)
+	{	return (!(lhs < rhs));	}
+	
 
 	/* ****************************************** */
 	/*               MAKE PAIR                    */
@@ -121,7 +211,7 @@ namespace ft
 	/* ****************************************** */
 	/*     lexicographical_compare                */
 	/* ****************************************** */
-
+/*
 	template<class T, class U>
 	bool lexicographical_compare(T first1, T last1, U first2, U last2)
 	{
@@ -135,6 +225,37 @@ namespace ft
 
 		}
 		return first2 != last2;
+	}
+*/
+
+	template <class T1, class T2>
+	struct _less_twotypes	: std::binary_function<T1, T2, bool> {
+		bool	operator()(const T1& x, const T2& y) const
+		{	return (x < y);		}
+	};
+
+	template <class InputIterator1, class InputIterator2, class Compare>
+	bool	lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, Compare comp)
+	{
+		while (first1 != last1)
+		{
+			if (first2 == last2 || comp(*first2, *first1))
+				return (false);
+			else if (comp(*first1, *first2))
+				return (true);
+			++first1;	++first2;
+		}
+		return (first2 != last2);
+	}
+
+
+	template <class InputIterator1, class InputIterator2>
+	bool	lexicographical_compare(InputIterator1 first1, InputIterator1 last1,
+									InputIterator2 first2, InputIterator2 last2)
+	{
+		typedef typename ft::iterator_traits<InputIterator1>::value_type	type1;
+		typedef typename ft::iterator_traits<InputIterator2>::value_type	type2;
+		return (ft::lexicographical_compare(first1, last1, first2, last2, _less_twotypes<type1, type2>()));
 	}
 
 	/* ****************************************** */
@@ -166,6 +287,7 @@ namespace ft
 	template <class X, class Y>
 	struct FalseXTrueY<true, X, Y>
 	{ typedef Y type; };
+
 
 
 }

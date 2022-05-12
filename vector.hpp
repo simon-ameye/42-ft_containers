@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 17:23:39 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 16:06:45 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +357,7 @@ namespace ft
 			friend bool operator<=(const vector& lhs, const vector& rhs)	{ return !(rhs < lhs); }
 			friend bool operator>=(const vector& lhs, const vector& rhs)	{ return !(lhs < rhs); }
 			friend void swap (vector& x, vector& y)							{ x.swap(y); }
-			
+
 		private:
 			/* *******************NON MEMBER FUNCTIONS OVERLOAD******************* */
 			void reallocateVec(size_type newCapacity)

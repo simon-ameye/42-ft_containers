@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 13:58:43 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:32:53 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,38 @@
 
 namespace ft
 {
-	template < class value_type, class Key, class Compare, bool Const>
+	template < class Value_type, class Key, class Compare, class Alloc, bool Const>
 	class map_iterator
 	{
 			/* *******************ALIASES******************* */
+		public:
+			typedef typename Alloc::difference_type		difference_type;
+			typedef Value_type			value_type;
+			//typedef typename Alloc::pointer				pointer;
+			//typedef typename Alloc::reference			reference;
+
 		private:
-			//typedef ft::CustomTree < value_type >														N;
-			
 			typedef ft::CustomTree<value_type, Key, Compare>									tree_type;
-			
 			typedef typename tree_type::Node													N;
-			
+
+		public:
+			typedef std::bidirectional_iterator_tag		iterator_category;
 			typedef typename FalseXTrueY<Const, value_type&, const value_type&>::type								reference;
 			typedef typename FalseXTrueY<Const, value_type*, const value_type*>::type								pointer;
-
-
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
+
+		
 			/* --------------------default constructor-------------------- */
 			map_iterator(N* node = NULL) : _node(node) {}
 
 			/* --------------------copy constructor-------------------- */
-			map_iterator(const map_iterator< value_type, Key, Compare, false> & copy)
+			map_iterator(const map_iterator< value_type, Key, Compare, Alloc, false> & copy)
 			{
 				_node = copy.getElemPtr();
 			}
 
-			map_iterator(const map_iterator< value_type, Key, Compare, true> & copy)
+			map_iterator(const map_iterator< value_type, Key, Compare, Alloc, true> & copy)
 			{
 				_node = copy.getElemPtr();
 			}
