@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:06:03 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 17:32:57 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 20:59:59 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ namespace ft
 			map_reverse_iterator operator++(int)
 			{
 				map_reverse_iterator res(*this);
-				--(*this);
+				++(*this);
 				return (res);
 			}
 
 			map_reverse_iterator operator--(int)
 			{
 				map_reverse_iterator res(*this);
-				++(*this);
+				--(*this);
 				return (res);
 			}
 	};

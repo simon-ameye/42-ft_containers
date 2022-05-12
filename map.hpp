@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 17:38:45 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 20:51:20 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,10 +350,10 @@ namespace ft
 
 			/* *******************PRIVATE FUNCTIONS******************* */
 		private:
-			void _set_root(node_type* root) {_tree._root = root;}
-			node_type* _get_root(void) {return (_tree._root);}
-			void _set_size(size_t size) {_tree._size = size;}
-			size_t _get_size(void) {return (_tree._size);}
+			void		_set_root(node_type* root)	{_tree._root = root;}
+			void		_set_size(size_t size)		{_tree._size = size;}
+			node_type*	_get_root(void)				{return (_tree._root);}
+			size_t		_get_size(void)				{return (_tree._size);}
 	};
 
 		/* *******************RELATIONAL OPERATORS******************* */
@@ -386,7 +386,7 @@ namespace ft
 
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator>= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
-	{	return (!(rhs < lhs));	}
+	{	return (!(lhs < rhs));	}
 
 }
 
