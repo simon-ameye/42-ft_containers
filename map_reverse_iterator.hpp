@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:06:03 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 21:49:46 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 13:58:57 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ namespace ft
 			typedef typename tree_type::Node													N;
 
 			
-			typedef typename MakeConst<Const, value_type&>::type								reference;
-			typedef typename MakeConst<Const, value_type*>::type								pointer;
+			typedef typename FalseXTrueY<Const, value_type&, const value_type&>::type								reference;
+			typedef typename FalseXTrueY<Const, value_type*, const value_type*>::type								pointer;
 		public:
 			/* --------------------default constructor-------------------- */
 			map_reverse_iterator(N* node = NULL)

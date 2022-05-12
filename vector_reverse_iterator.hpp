@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:30:26 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/09 17:03:28 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 14:10:06 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ namespace ft
 			typedef T												value_type;
 			typedef size_t											size_type;
 			typedef T*												elemPtr;
-			typedef typename MakeConst<Const, T&>::type				reference;
-			typedef typename MakeConst<Const, T*>::type				pointer;
+			typedef typename FalseXTrueY<Const, T&, const T&>::type				reference;
+			typedef typename FalseXTrueY<Const, T*, const T*>::type				pointer;
 			typedef std::random_access_iterator_tag					iterator_category;
 
 			/* *******************ATTRIBUTES******************* */

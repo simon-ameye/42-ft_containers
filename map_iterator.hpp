@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/11 16:49:20 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 13:58:43 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ namespace ft
 			
 			typedef typename tree_type::Node													N;
 			
-			typedef typename MakeConst<Const, value_type&>::type								reference;
-			typedef typename MakeConst<Const, value_type*>::type								pointer;
+			typedef typename FalseXTrueY<Const, value_type&, const value_type&>::type								reference;
+			typedef typename FalseXTrueY<Const, value_type*, const value_type*>::type								pointer;
 
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */

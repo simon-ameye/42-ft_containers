@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/09 17:05:40 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/12 14:07:19 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,20 +152,21 @@ namespace ft
 		return (rit == rend);
 	}
 
+
 	/* ****************************************** */
-	/*                 MakeConst                  */
+	/*                 FalseXTrueY                */
 	/* ****************************************** */
+	template <bool Const, class X, class Y>
+	struct FalseXTrueY {};
 
-	template <bool Const, typename T>
-	struct MakeConst {};
+	template <class X, class Y>
+	struct FalseXTrueY<false, X, Y>
+	{ typedef X type; };
 
-	template <typename T>
-	struct MakeConst<true, T>
-	{ typedef const T type; };
+	template <class X, class Y>
+	struct FalseXTrueY<true, X, Y>
+	{ typedef Y type; };
 
-	template <typename T>
-	struct MakeConst<false, T>
-	{ typedef T type; };
 
 }
 #endif
