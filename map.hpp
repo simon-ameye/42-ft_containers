@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 15:11:46 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:45:46 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "CustomTree.hpp"
 #include "map_iterator.hpp"
-#include "map_reverse_iterator.hpp"
+#include "reverse_iterator.hpp"
 #include <math.h>
 #include <list>
 
@@ -40,9 +40,12 @@ namespace ft
 		typedef std::size_t																size_type;
 
 		typedef ft::map_iterator			< value_type, Key, Compare, Alloc, false>			iterator;
-		typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, false>			reverse_iterator;
+		//typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, false>			reverse_iterator;
 		typedef ft::map_iterator			< value_type, Key, Compare, Alloc, true>			const_iterator;
-		typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, true>			const_reverse_iterator;
+		//typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, true>			const_reverse_iterator;
+
+		typedef ft::reverse_iterator<iterator>											reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>									const_reverse_iterator;
 
 		private:
 		

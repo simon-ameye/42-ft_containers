@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 15:24:58 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 19:42:13 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 #define ADD 1
 #define SUBSTRACT -1
 
-#include "vector_reverse_iterator.hpp"
 #include "utils.hpp"
+#include "reverse_iterator.hpp"
+
 
 
 namespace ft
@@ -169,6 +170,14 @@ namespace ft
 		protected:
 			elemPtr _val;
 	};
+
+	///* For iterator - const_iterator */
+	//template <class Iterator_L, class Iterator_R>
+	//int operator- (const Iterator_L & lhs, const Iterator_R & rhs)
+	//{
+	//	return (rhs.getElemPtr() - lhs.getElemPtr());
+	//}
+
 }
 
 #endif

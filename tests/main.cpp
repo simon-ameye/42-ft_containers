@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/10 19:59:35 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:59:18 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 void test_vector(void)
 {
 	std::cout << "##########################################VECTOR##########################################" << std::endl;
+	/*
 	std::cout << "------------------assign------------------" << std::endl;
 	test_vector_assign();
 	std::cout << "------------------at------------------" << std::endl;
@@ -38,7 +39,9 @@ void test_vector(void)
 	std::cout << "------------------exec time------------------" << std::endl;
 	test_vector_exec_time();
 	#endif
-
+	*/
+	std::cout << "------------------sandbox------------------" << std::endl;
+	test_vector_sandbox();
 }
 
 void test_map(void)
@@ -53,5 +56,5 @@ void test_map(void)
 int main (void)
 {
 	test_vector();
-	test_map();
+	//test_map();
 }

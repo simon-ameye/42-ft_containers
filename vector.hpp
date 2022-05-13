@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 14:17:01 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 18:27:39 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define VECTOR_HPP
 
 #include "utils.hpp"
-#include "vector_reverse_iterator.hpp"
+#include "reverse_iterator.hpp"
 #include "vector_iterator.hpp"
 #include <cmath> // for size calculation
 # include <limits>
@@ -39,8 +39,10 @@ namespace ft
 			typedef typename ft::vector_iterator< T, false>			iterator;
 			typedef typename ft::vector_iterator< T, true >			const_iterator;
 
-			typedef typename ft::vector_reverse_iterator< T, false>		reverse_iterator;
-			typedef typename ft::vector_reverse_iterator< T, true >		const_reverse_iterator;
+			//typedef typename ft::vector_reverse_iterator< T, false>		reverse_iterator;
+			//typedef typename ft::vector_reverse_iterator< T, true >		const_reverse_iterator;
+			typedef ft::reverse_iterator<iterator>					reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
 			/* *******************CONSTRUCTORS******************* */
 			
@@ -122,10 +124,10 @@ namespace ft
 			const_iterator			begin() const			{ return const_iterator(_vector); }
 			iterator				end()					{ return iterator(_vector + _size); }
 			const_iterator			end() const				{ return const_iterator(_vector + _size); }
-			reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size - 1); }
-			const_reverse_iterator	rbegin() const			{ return const_reverse_iterator(_vector + _size - 1); }
-			reverse_iterator		rend()					{ return reverse_iterator(_vector - 1); }
-			const_reverse_iterator	rend() const			{ return const_reverse_iterator(_vector - 1); }
+			reverse_iterator		rbegin()				{ return reverse_iterator(_vector + _size); }
+			const_reverse_iterator	rbegin() const			{ return const_reverse_iterator(_vector + _size); }
+			reverse_iterator		rend()					{ return reverse_iterator(_vector); }
+			const_reverse_iterator	rend() const			{ return const_reverse_iterator(_vector); }
 
 		public:
 			/* *******************CAPACITY******************* */

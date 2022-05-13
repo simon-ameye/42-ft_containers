@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 20:02:14 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 18:24:53 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,10 +315,20 @@ void test_vector_various(void)
 		NAMESPACE::vector<int>::reverse_iterator rit(it);
 		std::cout << "*rit" << *rit << std::endl;
 		std::cout << std::endl;
-		
 	}
+}
 
-	
+void test_vector_sandbox(void)
+{
+	NAMESPACE::vector<int> v(10);
+	for (NAMESPACE::vector<int>::iterator it = v.begin(); it != v.end(); it++)
+		*it = v.end() - it;
+	for (NAMESPACE::vector<int>::iterator it = v.begin(); it != v.end(); it++)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+	for (NAMESPACE::vector<int>::reverse_iterator rit = v.rbegin(); rit != v.rend(); rit++)
+		std::cout << *rit << " ";
+	std::cout << std::endl;
 }
 
 #ifdef TIME_COMPARISON

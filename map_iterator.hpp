@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 15:24:42 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:44:38 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "CustomTree.hpp"
 #include "utils.hpp"
+#include "reverse_iterator.hpp"
+
 
 #define ADD 1
 #define SUBSTRACT -1

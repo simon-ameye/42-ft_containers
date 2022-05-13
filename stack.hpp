@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:29:51 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/06 19:50:55 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:54:27 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define STACK_HPP
 
 #include "utils.hpp"
-#include "vector_reverse_iterator.hpp"
 #include "vector_iterator.hpp"
 #include "vector.hpp"
 
