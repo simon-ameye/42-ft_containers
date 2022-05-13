@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 14:07:42 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:24:58 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #define SUBSTRACT -1
 
 #include "vector_reverse_iterator.hpp"
+#include "utils.hpp"
+
 
 namespace ft
 {
@@ -25,17 +27,14 @@ namespace ft
 	{
 		public:
 			/* *******************ALIASES******************* */
-			typedef long int										difference_type;
-			typedef T												value_type;
-			typedef size_t											size_type;
-			typedef T*												elemPtr;
+			typedef long int													difference_type;
+			typedef T															value_type;
+			typedef size_t														size_type;
+			typedef T*															elemPtr;
 			typedef typename FalseXTrueY<Const, T&, const T&>::type				reference;
 			typedef typename FalseXTrueY<Const, T*, const T*>::type				pointer;
-			typedef std::random_access_iterator_tag					iterator_category;
+			typedef std::random_access_iterator_tag								iterator_category;
 
-			/* *******************ATTRIBUTES******************* */
-		protected:
-			elemPtr _val;
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
@@ -43,14 +42,15 @@ namespace ft
 			vector_iterator(elemPtr val = 0) : _val(val) {}
 
 			/* --------------------copy constructor-------------------- */
-			vector_iterator(const vector_iterator< T, true>& copy)
+
+			vector_iterator(const vector_iterator< T, false >& copy)
 			{
-				_val = copy.getElemPtr();
+				this->_val = copy.getElemPtr();
 			}
 
-			vector_iterator(const vector_iterator< T, false>& copy)
+			vector_iterator(const vector_iterator< ft::enable_if< Const, T >, true >& copy)
 			{
-				_val = copy.getElemPtr();
+				this->_val = copy.getElemPtr();
 			}
 
 			/* --------------------destructor-------------------- */
@@ -95,12 +95,12 @@ namespace ft
 				return (res);
 			}
 
-			bool operator==(const vector_iterator& it) const	{ return (it._val == _val); }
-			bool operator!=(const vector_iterator& it) const	{ return (it._val != _val); }
-			bool operator<(const vector_iterator& it) const		{ return (it._val > this->_val); }
-			bool operator>(const vector_iterator& it) const		{ return (it._val < this->_val); }
-			bool operator<=(const vector_iterator& it) const	{ return (it._val >= this->_val); }
-			bool operator>=(const vector_iterator& it) const	{ return (it._val <= this->_val); }
+			bool operator==(const vector_iterator<T, true> & it) const	{ return (it.getElemPtr() == this->_val); }
+			bool operator!=(const vector_iterator<T, true> & it) const	{ return (it.getElemPtr() != this->_val); }
+			bool operator< (const vector_iterator<T, true> & it) const	{ return (it.getElemPtr() >  this->_val); }
+			bool operator> (const vector_iterator<T, true> & it) const	{ return (it.getElemPtr() <  this->_val); }
+			bool operator<=(const vector_iterator<T, true> & it) const	{ return (it.getElemPtr() >= this->_val); }
+			bool operator>=(const vector_iterator<T, true> & it) const	{ return (it.getElemPtr() <= this->_val); }
 
 			vector_iterator& operator+=(int nb)
 			{
@@ -164,6 +164,10 @@ namespace ft
 					for (long i = 0; i > mov; i--)
 						--iterator;
 			}
+
+			/* *******************ATTRIBUTES******************* */
+		protected:
+			elemPtr _val;
 	};
 }
 

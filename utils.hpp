@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 16:53:43 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 14:49:08 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ namespace ft
 	/* ****************************************** */
 	/*                 Iterator traits            */
 	/* ****************************************** */
+
+	class random_access_iterator_tag { };
+	class bidirectional_iterator_tag { };
+	class forward_iterator_tag { };
+	class input_iterator_tag { };
+	class output_iterator_tag { };
 
 	/*	adapted type traits to fix fill/range constuctors	*/
 	struct type_false	{};
@@ -162,11 +168,11 @@ namespace ft
 	/*                   ENABLE IF                */
 	/* ****************************************** */
 	//enable_if has a public member typedef type, equal to int; otherwise, there is no member typedef.
-	template<bool B>
+	template<bool B, class T = void>
 	struct enable_if {};
-
-	template<>
-	struct enable_if<true> { typedef int type; };
+	
+	template<class T>
+	struct enable_if<true, T> { typedef T type; };
 
 	/* ****************************************** */
 	/*                 IS INTEGRAL                */
@@ -211,22 +217,6 @@ namespace ft
 	/* ****************************************** */
 	/*     lexicographical_compare                */
 	/* ****************************************** */
-/*
-	template<class T, class U>
-	bool lexicographical_compare(T first1, T last1, U first2, U last2)
-	{
-		while (first1 != last1) {
-
-			if (first2 == last2 || *first2 < *first1) return false;
-			else if (*first1 < *first2) return true;
-
-			++first1;
-			++first2;
-
-		}
-		return first2 != last2;
-	}
-*/
 
 	template <class T1, class T2>
 	struct _less_twotypes	: std::binary_function<T1, T2, bool> {

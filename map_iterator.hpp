@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 17:32:53 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:24:42 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define MAP_ITERATOR_HPP
 
 #include "CustomTree.hpp"
+#include "utils.hpp"
 
 #define ADD 1
 #define SUBSTRACT -1
@@ -51,7 +52,7 @@ namespace ft
 				_node = copy.getElemPtr();
 			}
 
-			map_iterator(const map_iterator< value_type, Key, Compare, Alloc, true> & copy)
+			map_iterator(const map_iterator< ft::enable_if< Const, value_type >, Key, Compare, Alloc, true> & copy)
 			{
 				_node = copy.getElemPtr();
 			}

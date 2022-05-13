@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 16:06:45 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 14:17:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ namespace ft
 
 			/* --------------------copy constructor-------------------- */
 			//for construction as vector<int> foo (copy)
+			
 			vector(const vector& x) :
 			_alloc(x._alloc), _size(x._size), _capacity(x._capacity)
 			{
@@ -92,7 +93,7 @@ namespace ft
 						i.second != x.end(); ++i.first, ++i.second)
 					_alloc.construct(&_vector[i.first], *i.second);
 			}
-
+			
 			~vector()
 			{
 				for (iterator it = begin(); it != end(); ++it)
@@ -337,8 +338,8 @@ namespace ft
 			{
 				if (lhs.size() != rhs.size())
 					return false;
-				iterator lit;
-				iterator rit;
+				const_iterator lit;
+				const_iterator rit;
 				lit = lhs.begin();
 				rit = rhs.begin();
 				while (lit != lhs.end())

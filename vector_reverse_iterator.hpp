@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:30:26 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 14:10:06 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:37:54 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define SUBSTRACT -1
 
 #include "vector_iterator.hpp"
+#include "utils.hpp"
 
 namespace ft
 {
@@ -25,15 +26,13 @@ namespace ft
 	{
 		public:
 			/* *******************ALIASES******************* */
-			typedef long int										difference_type;
-			typedef T												value_type;
-			typedef size_t											size_type;
-			typedef T*												elemPtr;
+			typedef long int													difference_type;
+			typedef T															value_type;
+			typedef size_t														size_type;
+			typedef T*															elemPtr;
 			typedef typename FalseXTrueY<Const, T&, const T&>::type				reference;
 			typedef typename FalseXTrueY<Const, T*, const T*>::type				pointer;
-			typedef std::random_access_iterator_tag					iterator_category;
-
-			/* *******************ATTRIBUTES******************* */
+			typedef std::random_access_iterator_tag								iterator_category;
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
@@ -43,13 +42,12 @@ namespace ft
 				this->_val = val;
 			}
 
-			/* --------------------copy constructor-------------------- */
-			vector_reverse_iterator(const vector_iterator< T, true >& copy)
+			vector_reverse_iterator(const vector_iterator< T, false >& copy)
 			{
 				this->_val = copy.getElemPtr();
 			}
 
-			vector_reverse_iterator(const vector_iterator< T, false >& copy)
+			vector_reverse_iterator(const vector_iterator< T, true >& copy)
 			{
 				this->_val = copy.getElemPtr();
 			}
@@ -83,10 +81,10 @@ namespace ft
 				return (res);
 			}
 
-			bool operator<(const vector_reverse_iterator& it) const		{ return (it._val < this->_val); }
-			bool operator>(const vector_reverse_iterator& it) const		{ return (it._val > this->_val); }
-			bool operator<=(const vector_reverse_iterator& it) const	{ return (it._val <= this->_val); }
-			bool operator>=(const vector_reverse_iterator& it) const	{ return (it._val >= this->_val); }
+			bool operator< (const vector_reverse_iterator<T, true> & it) const	{ return (it.getElemPtr() <  this->_val); }
+			bool operator> (const vector_reverse_iterator<T, true> & it) const	{ return (it.getElemPtr() >  this->_val); }
+			bool operator<=(const vector_reverse_iterator<T, true> & it) const	{ return (it.getElemPtr() <= this->_val); }
+			bool operator>=(const vector_reverse_iterator<T, true> & it) const	{ return (it.getElemPtr() >= this->_val); }
 
 			vector_reverse_iterator& operator+=(int nb)
 			{
@@ -115,7 +113,6 @@ namespace ft
 				this->move(nb, ADD, it);
 				return (it);
 			}
-
 
 			difference_type operator-(vector_reverse_iterator it) const
 			{

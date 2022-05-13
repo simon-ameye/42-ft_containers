@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:06:03 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 20:59:59 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:49:12 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "map_iterator.hpp"
 #include "CustomTree.hpp"
+#include "utils.hpp"
+
 
 namespace ft
 {
@@ -31,6 +33,7 @@ namespace ft
 		private:
 			typedef ft::CustomTree<value_type, Key, Compare>									tree_type;
 			typedef typename tree_type::Node													N;
+			typedef typename ft::map_iterator< Value_type, Key, Compare, Alloc, false>				iterator_type;
 
 		public:
 			typedef std::bidirectional_iterator_tag		iterator_category;
@@ -44,12 +47,12 @@ namespace ft
 			}
 
 			/* --------------------copy constructor-------------------- */
-			map_reverse_iterator(const map_iterator< value_type, Key, Compare, Alloc, false> & copy)
+			map_reverse_iterator(const map_reverse_iterator< value_type, Key, Compare, Alloc, false> & copy)
 			{
 				this->_node = copy.getElemPtr();
 			}
 
-			map_reverse_iterator(const map_iterator< value_type, Key, Compare, Alloc, true> & copy)
+			map_reverse_iterator(const map_reverse_iterator< value_type, Key, Compare, Alloc, true> & copy)	
 			{
 				this->_node = copy.getElemPtr();
 			}
@@ -84,6 +87,11 @@ namespace ft
 				map_reverse_iterator res(*this);
 				--(*this);
 				return (res);
+			}
+
+			iterator_type base() const
+			{
+				return (iterator_type(this->_node));
 			}
 	};
 	

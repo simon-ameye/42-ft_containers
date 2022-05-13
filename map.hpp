@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/12 20:51:20 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:11:46 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,8 +271,8 @@ namespace ft
 
 			const_iterator lower_bound (const key_type& k) const
 			{
-				iterator beg = this->begin();
-				iterator end = this->end();
+				const_iterator beg = this->begin();
+				const_iterator end = this->end();
 
 				while (beg != end)
 				{
@@ -299,8 +299,8 @@ namespace ft
 
 			const_iterator upper_bound (const key_type& k) const
 			{
-				iterator beg = this->begin();
-				iterator end = this->end();
+				const_iterator beg = this->begin();
+				const_iterator end = this->end();
 
 				while (beg != end)
 				{
