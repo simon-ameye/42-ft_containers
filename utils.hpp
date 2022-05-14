@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 14:49:08 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:49:22 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,20 @@ namespace ft
 	struct type_false	{};
 	struct type_true	{};
 	template <class T>
-				struct type_is_integer                     : public type_false {};
-	template <>	struct type_is_integer<bool>               : public type_true {};
-	template <>	struct type_is_integer<char>               : public type_true {};
-	template <>	struct type_is_integer<signed char>        : public type_true {};
-	template <>	struct type_is_integer<unsigned char>      : public type_true {};
-	template <>	struct type_is_integer<wchar_t>            : public type_true {};
-	template <>	struct type_is_integer<short>              : public type_true {};
-	template <>	struct type_is_integer<unsigned short>     : public type_true {};
-	template <>	struct type_is_integer<int>                : public type_true {};
-	template <>	struct type_is_integer<unsigned int>       : public type_true {};
-	template <>	struct type_is_integer<long>               : public type_true {};
-	template <>	struct type_is_integer<unsigned long>      : public type_true {};
-	template <>	struct type_is_integer<long long>          : public type_true {};
-	template <>	struct type_is_integer<unsigned long long> : public type_true {};
-
-	/*	simplified type check to fix random access iterator conversion	*/
-	template <class, class>
-	struct type_check_if_same	{};
-	template <class Same>
-	struct type_check_if_same<Same, Same>	{ typedef Same _type; };
+				struct type_is_integer						: public type_false {};
+	template <>	struct type_is_integer<bool>				: public type_true {};
+	template <>	struct type_is_integer<char>				: public type_true {};
+	template <>	struct type_is_integer<signed char>			: public type_true {};
+	template <>	struct type_is_integer<unsigned char>		: public type_true {};
+	template <>	struct type_is_integer<wchar_t>				: public type_true {};
+	template <>	struct type_is_integer<short>				: public type_true {};
+	template <>	struct type_is_integer<unsigned short>		: public type_true {};
+	template <>	struct type_is_integer<int>					: public type_true {};
+	template <>	struct type_is_integer<unsigned int>		: public type_true {};
+	template <>	struct type_is_integer<long>				: public type_true {};
+	template <>	struct type_is_integer<unsigned long>		: public type_true {};
+	template <>	struct type_is_integer<long long>			: public type_true {};
+	template <>	struct type_is_integer<unsigned long long>	: public type_true {};
 
 	/*	adapted iterator traits in case someone says it's use of stl	*/
 	template <class Iterator>
@@ -88,7 +82,6 @@ namespace ft
 	/* ****************************************** */
 	/*                    PAIR                    */
 	/* ****************************************** */
-
 	template <typename T1, typename T2>
 	class pair
 	{
@@ -157,7 +150,6 @@ namespace ft
 	/* ****************************************** */
 	/*               MAKE PAIR                    */
 	/* ****************************************** */
-
 	template< class T1, class T2 >
 	pair<T1,T2> make_pair( T1 t, T2 u )
 	{
@@ -177,7 +169,6 @@ namespace ft
 	/* ****************************************** */
 	/*                 IS INTEGRAL                */
 	/* ****************************************** */
-
 	template <typename T>
 	struct is_integral { static const bool value = false; };
 
@@ -217,7 +208,6 @@ namespace ft
 	/* ****************************************** */
 	/*     lexicographical_compare                */
 	/* ****************************************** */
-
 	template <class T1, class T2>
 	struct _less_twotypes	: std::binary_function<T1, T2, bool> {
 		bool	operator()(const T1& x, const T2& y) const
@@ -238,7 +228,6 @@ namespace ft
 		return (first2 != last2);
 	}
 
-
 	template <class InputIterator1, class InputIterator2>
 	bool	lexicographical_compare(InputIterator1 first1, InputIterator1 last1,
 									InputIterator2 first2, InputIterator2 last2)
@@ -251,7 +240,6 @@ namespace ft
 	/* ****************************************** */
 	/*                 EQUAL                      */
 	/* ****************************************** */
-
 	template <class U, class X>
 	bool equal(U lit, U lend, X rit, X rend)
 	{
@@ -262,7 +250,6 @@ namespace ft
 		}
 		return (rit == rend);
 	}
-
 
 	/* ****************************************** */
 	/*                 FalseXTrueY                */
@@ -277,8 +264,6 @@ namespace ft
 	template <class X, class Y>
 	struct FalseXTrueY<true, X, Y>
 	{ typedef Y type; };
-
-
 
 }
 #endif

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 17:44:38 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:18:32 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,16 @@ namespace ft
 		public:
 			typedef typename Alloc::difference_type		difference_type;
 			typedef Value_type			value_type;
-			//typedef typename Alloc::pointer				pointer;
-			//typedef typename Alloc::reference			reference;
 
 		private:
 			typedef ft::CustomTree<value_type, Key, Compare>									tree_type;
 			typedef typename tree_type::Node													N;
-
 		public:
-			typedef std::bidirectional_iterator_tag		iterator_category;
+			typedef ft::bidirectional_iterator_tag		iterator_category;
 			typedef typename FalseXTrueY<Const, value_type&, const value_type&>::type								reference;
 			typedef typename FalseXTrueY<Const, value_type*, const value_type*>::type								pointer;
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
-
-		
 			/* --------------------default constructor-------------------- */
 			map_iterator(N* node = NULL) : _node(node) {}
 

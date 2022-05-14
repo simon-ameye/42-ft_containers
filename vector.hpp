@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 18:27:39 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:09:47 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ namespace ft
 			typedef typename ft::vector_iterator< T, false>			iterator;
 			typedef typename ft::vector_iterator< T, true >			const_iterator;
 
-			//typedef typename ft::vector_reverse_iterator< T, false>		reverse_iterator;
-			//typedef typename ft::vector_reverse_iterator< T, true >		const_reverse_iterator;
 			typedef ft::reverse_iterator<iterator>					reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
@@ -53,7 +51,6 @@ namespace ft
 			_alloc(alloc), _size(0), _capacity(0)
 			{
 				_vector = _alloc.allocate(_capacity);
-				//std::cout << "Vector default constructor call" << std::endl;
 			}
 
 			/* --------------------fill constructor-------------------- */

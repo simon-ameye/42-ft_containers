@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/11 16:07:09 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:14:49 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,7 @@ namespace ft
 						tmp = _erase(_leftRotate(root), key);
 					else //only one chile, rotation imposed
 						tmp = _erase(_rightRotate(root), key);
+					return (tmp);
 				}
 				root->height = 1 + _max(_height(root->left), _height(root->right));
 				return (tmp);
@@ -329,10 +330,10 @@ namespace ft
 				myfile << "        <table border=\"1\" cellborder=\"0\" cellspacing=\"1\">" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "key " << root->_val.first << "</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "map \"";
-				if (root->_val.second)
+				//if (root->_val.second)
 					myfile << root->_val.second;
-				else
-					myfile << "NULL";
+				//else
+					//myfile << "NULL";
 				myfile << "\"</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "type " << root->type << "</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "height " << root->height << "</b></td></tr>" << std::endl;
