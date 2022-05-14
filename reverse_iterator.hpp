@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:55:07 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 19:42:04 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/14 16:24:52 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,14 +371,14 @@ namespace ft
 	template <class Iterator>
 	typename reverse_iterator<Iterator>::difference_type operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 	{
-		return (lhs.base() - rhs.base());
+		return (lhs.base().getElemPtr() - rhs.base().getElemPtr());
 	}
 
 	/* For reverser_iterator - const_reverse_iterator */
 	template <class Iterator_L, class Iterator_R>
 	typename reverse_iterator<Iterator_L>::difference_type operator- (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
 	{
-		return (lhs.base() - rhs.base());
+		return (rhs.base().getElemPtr() - lhs.base().getElemPtr());
 	}
 
 }
