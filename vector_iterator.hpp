@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/14 17:16:02 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/16 17:26:43 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,15 @@ namespace ft
 
 			/* *******************GETTER******************* */
 		public:
-			elemPtr getElemPtr() const			{ return _val; }
+			elemPtr getElemPtr() const
+			{
+				return _val;
+			}
+
+			vector_iterator base(void) //NOT SURE
+			{
+				return (_val);
+			}
 
 			/* *******************OPPERATOR OVERLOAD******************* */
 		public:
@@ -76,7 +84,7 @@ namespace ft
 			reference operator[](int nb) const
 			{
 				vector_iterator tmp(*this);
-				move(nb, ADD, tmp);
+				tmp += nb;
 				return (*tmp);
 			}
 
@@ -103,7 +111,7 @@ namespace ft
 
 			vector_iterator& operator+=(int nb)
 			{
-				move(nb, ADD, *this);
+				_val += nb;
 				return (*this);
 			}
 
@@ -111,13 +119,13 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				move(nb, ADD, it);
+				it._val += nb;
 				return (it);
 			}
 
 			vector_iterator& operator-=(int nb)
 			{
-				move(nb, SUBSTRACT, *this);
+				_val -= nb;
 				return (*this);
 			}
 
@@ -125,7 +133,7 @@ namespace ft
 			{
 				vector_iterator it(*this);
 				
-				move(nb, SUBSTRACT, it);
+				it._val -= nb;
 				return (it);
 			}
 
@@ -148,33 +156,10 @@ namespace ft
 				return (newIt -= nb);
 			}
 
-			/* *******************PRIVATE FUNCTIONS******************* */
-		protected :
-			/* --------------------useful function-------------------- */
-			void move(long nb, int sign, vector_iterator &iterator) const
-			{
-				long mov = sign * nb;
-				if (mov >= 0)
-				{
-					for (long i = 0; i < mov; i++)
-						++iterator;
-				}
-				else
-					for (long i = 0; i > mov; i--)
-						--iterator;
-			}
-
 			/* *******************ATTRIBUTES******************* */
 		protected:
 			elemPtr _val;
 	};
-
-	///* For iterator - const_iterator */
-	//template <class Iterator_L, class Iterator_R>
-	//int operator- (const Iterator_L & lhs, const Iterator_R & rhs)
-	//{
-	//	return (rhs.getElemPtr() - lhs.getElemPtr());
-	//}
 
 }
 

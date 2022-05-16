@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:55:07 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/14 19:34:56 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/16 18:45:59 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ namespace ft
 			iterator_type base() const
 			{ return (_iterator); }
 
+			reverse_iterator operator=(const reverse_iterator lhs)
+			{
+				if (*this != lhs)
+					_iterator = lhs.base();
+				return (*this);
+			}
+
 			reference operator*() const
 			{
 				iterator_type tmp = _iterator;
@@ -71,7 +78,10 @@ namespace ft
 				return (*this);
 			}
 
-			reverse_iterator operator- (difference_type n) const { return (reverse_iterator(_iterator + n)); }
+			reverse_iterator operator- (difference_type n) const
+			{
+				return (reverse_iterator(_iterator + n));
+			}
 
 			reverse_iterator& operator--()
 			{

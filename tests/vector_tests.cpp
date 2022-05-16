@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/13 18:24:53 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/16 18:38:51 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,10 +331,10 @@ void test_vector_sandbox(void)
 	std::cout << std::endl;
 }
 
-#ifdef TIME_COMPARISON
 #include <time.h>
 void test_vector_exec_time(void)
 {
+	#ifdef TIME_COMPARISON
 	const clock_t begin_time = clock();
 
 	NAMESPACE::vector<int> v1(70000);
@@ -353,8 +353,8 @@ void test_vector_exec_time(void)
 	v1.resize(70);
 	v1.resize(20000);
 	std::cout << "elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
+	#endif
 }
-#endif
 
 //reverse_it
 
