@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/14 19:14:49 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 15:53:25 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,11 @@ namespace ft
 			{
 				N *passed_begin = minKeyNode();
 				N *passed_end = maxKeyNode();
-				_clear(_root);
+				_root = _clear(_root);
 				passed_begin->right = passed_end;
 				passed_end->parent = passed_begin;
+				passed_begin->parent = NULL;
+
 				_root = passed_begin;
 			}
 
@@ -112,22 +114,26 @@ namespace ft
 
 		/* *******************USEFUL PRIVATE FUNCTIONS******************* */
 		private:
-			void _clear(N* root)
+			N* _clear(N* root)
 			{
-				if (root->left)
-					_clear(root->left);
-				if (root->right)
-					_clear(root->right);
+				if (!root)
+					return (NULL);
+				root->left = _clear(root->left);
+				root->right = _clear(root->right);
 				if (root->type == 0)
+				{
 					_delNode(root);
+					return (NULL);
+				}
+				return (root);
 			}
 
 			void _delete(N* root)
 			{
-				if (root->left)
-					_delete(root->left);
-				if (root->right)
-					_delete(root->right);
+				if (!root)
+					return ;
+				_delete(root->left);
+				_delete(root->right);
 				_delNode(root);
 			}
 
@@ -213,7 +219,7 @@ namespace ft
 					node->right->parent = node;
 				}
 				else
-					return node; // DONT FORGET TO RAISE ERROR
+					throw std::invalid_argument("duplicate key added");
 				node->height = 1 + _max(_height(node->left), _height(node->right));
 				int balance = _getBalance(node);
 				if (balance > 1 && nval < *node->left)
@@ -330,10 +336,10 @@ namespace ft
 				myfile << "        <table border=\"1\" cellborder=\"0\" cellspacing=\"1\">" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "key " << root->_val.first << "</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "map \"";
-				//if (root->_val.second)
+				if (root->_val.second)
 					myfile << root->_val.second;
-				//else
-					//myfile << "NULL";
+				else
+					myfile << "NULL";
 				myfile << "\"</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "type " << root->type << "</b></td></tr>" << std::endl;
 				myfile << "            <tr><td align=\"left\"><b>" << "height " << root->height << "</b></td></tr>" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/16 17:26:43 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 11:31:52 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 namespace ft
 {
-	template<typename T, bool Const>
+	template<typename T, bool Const = false>
 	class vector_iterator
 	{
 		public:

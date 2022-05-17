@@ -6,13 +6,13 @@
 #    By: sameye <sameye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/18 16:53:51 by sameye            #+#    #+#              #
-#    Updated: 2022/05/16 17:34:37 by sameye           ###   ########.fr        #
+#    Updated: 2022/05/17 13:48:51 by sameye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ################	COMPILER		#################
 
-CC			=		c++ -Wall -Wextra -Werror -std=c++98
+CC			=		c++ -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 
 ################	DIRECTORIES		#################
 

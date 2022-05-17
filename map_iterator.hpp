@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:41:34 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/14 17:18:32 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 12:27:50 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 namespace ft
 {
-	template < class Value_type, class Key, class Compare, class Alloc, bool Const>
+	template < class Value_type, class Key, class Compare, class Alloc, bool Const = false>
 	class map_iterator
 	{
 			/* *******************ALIASES******************* */

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:50:37 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/16 18:36:25 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 13:40:55 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #ifndef TEST_UTILS_HPP
 #define TEST_UTILS_HPP
 
-#define TIME_COMPARISON
+//#define TIME_COMPARISON
 
 template <typename T>
 void	print_data(T const &vct)

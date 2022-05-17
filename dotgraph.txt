@@ -1,0 +1,25 @@
+#########DOT GRAPH FOR https://dreampuf.github.io/############
+digraph G {
+    node [shape=plaintext fontname="Sans serif" fontsize="8"];
+    key1 [ label=<
+        <table border="1" cellborder="0" cellspacing="1">
+            <tr><td align="left"><b>key </b></td></tr>
+            <tr><td align="left"><b>map "NULL"</b></td></tr>
+            <tr><td align="left"><b>type 1</b></td></tr>
+            <tr><td align="left"><b>height 1</b></td></tr>
+            <tr><td align="left"><font color="darkgreen">parent NULL</font></td></tr>
+        </table>>];
+    "key1"->"LNULL1" [ label="l" fontsize="7" ];
+    "key1"->"key2" [ label="r" fontsize="7" ];
+    key2 [ label=<
+        <table border="1" cellborder="0" cellspacing="1">
+            <tr><td align="left"><b>key </b></td></tr>
+            <tr><td align="left"><b>map "NULL"</b></td></tr>
+            <tr><td align="left"><b>type 2</b></td></tr>
+            <tr><td align="left"><b>height 3</b></td></tr>
+            <tr><td align="left"><font color="darkgreen">parent </font></td></tr>
+        </table>>];
+    "key2"->"LNULL2" [ label="l" fontsize="7" ];
+    "key2"->"RNULL2" [ label="r" fontsize="7" ];
+}
+##############################################################
