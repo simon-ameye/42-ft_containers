@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 17:01:58 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 17:05:11 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,16 @@ namespace ft
 			typedef Alloc											allocator_type; //allocator
 			typedef long int										difference_type; //difference between two iterators
 			typedef size_t											size_type; //size
-	
 			typedef T&												reference; //reference on element (for returned values)
 			typedef const T&										const_reference; //const reference on element (for returned values)
 			typedef T*												pointer; //pointer on element
 			typedef const T*										const_pointer; //const pointer on element
-			
 			typedef typename ft::vector_iterator< T, false>			iterator;
 			typedef typename ft::vector_iterator< T, true >			const_iterator;
-
 			typedef ft::reverse_iterator<iterator>					reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
 			/* *******************CONSTRUCTORS******************* */
-			
 			/* --------------------default constructor-------------------- */
 			//when no argument provided, optional allocator
 			explicit
@@ -394,5 +390,4 @@ namespace ft
 			}
 	};
 }
-
 #endif

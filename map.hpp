@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/14 16:13:21 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 17:12:02 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,14 @@ namespace ft
 		typedef typename allocator_type::const_reference								const_reference;
 		typedef typename allocator_type::pointer										pointer;
 		typedef typename allocator_type::const_pointer									const_pointer;
+		typedef ft::map_iterator< value_type, Key, Compare, Alloc, false>				iterator;
+		typedef ft::map_iterator< value_type, Key, Compare, Alloc, true>				const_iterator;
+		typedef ft::reverse_iterator<iterator>											reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>									const_reverse_iterator;
 		typedef typename allocator_type::difference_type								difference_type;
 		typedef std::size_t																size_type;
 
-		typedef ft::map_iterator			< value_type, Key, Compare, Alloc, false>			iterator;
-		//typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, false>			reverse_iterator;
-		typedef ft::map_iterator			< value_type, Key, Compare, Alloc, true>			const_iterator;
-		//typedef ft::map_reverse_iterator	< value_type, Key, Compare, Alloc, true>			const_reverse_iterator;
-
-		typedef ft::reverse_iterator<iterator>											reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>									const_reverse_iterator;
-
 		private:
-		
 		class value_compare_class
 		{
 			friend class map<key_type, mapped_type, key_compare, Alloc>;
@@ -65,11 +60,11 @@ namespace ft
 		};
 	
 		public:
-		typedef value_compare_class			value_compare;
+		typedef value_compare_class														value_compare;
 
-		public:
-		typedef ft::CustomTree<value_type, Key, Compare>		tree_type;
-		typedef typename tree_type::Node							node_type;
+		private:
+		typedef ft::CustomTree<value_type, Key, Compare>								tree_type;
+		typedef typename tree_type::Node												node_type;
 
 			/* *******************CONSTRUCTORS******************* */
 		public:
@@ -392,8 +387,4 @@ namespace ft
 	{	return (!(lhs < rhs));	}
 
 }
-
-
-
-
 #endif
