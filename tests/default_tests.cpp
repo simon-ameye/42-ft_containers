@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 17:33:52 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/16 18:43:36 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 10:49:27 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ public:
 };
 
 int default_tests(int argc, char** argv) {
-	std::cout << "Famoso default 42 test" << std::endl;
+	std::cout << "Famoso default 42 test" << std::endl << std::flush;
 	#ifdef TIME_COMPARISON
 	const clock_t begin_time = clock();
 	#endif
@@ -71,6 +71,7 @@ int default_tests(int argc, char** argv) {
 		std::cerr << "Count value:" << COUNT << std::endl;
 		return 1;
 	}
+
 	const int seed = atoi(argv[1]);
 	srand(seed);
 

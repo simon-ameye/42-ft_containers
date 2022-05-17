@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/16 18:46:27 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 10:47:18 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,15 @@ void test_default(void)
 {
 	std::cout << "##########################################DEFAULT##########################################" << std::endl;
 	char str[] = "10";
-	char *ptr = &str[0];
-	char **av = &ptr;
+	char *ptr[2];
+	ptr[1] = str;
+	char **av = ptr;
 	default_tests(2, av);
 }
 
 int main (void)
 {
-	//test_default();
+	test_default();
 	test_vector();
 	test_map();
 }
