@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 17:33:52 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 10:49:27 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 16:05:23 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@
 
 #include <stdlib.h>
 
-#define MAX_RAM 4294967296
+//#define MAX_RAM 4294967296
+#define MAX_RAM 2294967296
+
 #define BUFFER_SIZE 4096
 struct Buffer
 {

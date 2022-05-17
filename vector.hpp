@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/14 17:09:47 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 17:01:58 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include "utils.hpp"
 #include "reverse_iterator.hpp"
 #include "vector_iterator.hpp"
-#include <cmath> // for size calculation
+#include <cmath>
 # include <limits>
 
 namespace ft
 {
-	template < class T, class Alloc = std::allocator <T> > // Alloc is optional
+	template < class T, class Alloc = std::allocator <T> >
 	class vector
 	{
 		public :
@@ -104,7 +104,6 @@ namespace ft
 			{
 				vector tmp(x);
 				swap(tmp);
-				//this->_capacity = this->_size;
 				return *this;
 			}
 
@@ -132,7 +131,6 @@ namespace ft
 			size_type		size() const					{ return _size; }
 
 			/* --------------------get max size-------------------- */
-			//size_type		max_size() const				{return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;}
 			size_type		max_size() const				{return std::numeric_limits<difference_type>::max() / 2 / (sizeof(value_type) / 2 ?: 1);}
 
 			/* --------------------resize-------------------- */
@@ -164,7 +162,7 @@ namespace ft
 				if (n > _capacity)
 					reallocateVec(n);
 			}
-			//assign ne marche : assign (0, 21) => la size doit repasser a 0, avec un range d'iterator aussi
+
 		public:
 			/* *******************ACCESS ELEMENTS******************* */
 			/* --------------------access-------------------- */
@@ -204,7 +202,6 @@ namespace ft
 			void assign (InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
 			{
 				clear();
-				//size_type n = static_cast<size_type>(last - first);
 				InputIterator tmp = first;
 				size_type n = 0;
 				while (tmp++ != last) //VERY LOOOOONG
@@ -356,7 +353,6 @@ namespace ft
 			friend bool operator>(const vector& lhs, const vector& rhs)		{ return rhs < lhs; }
 			friend bool operator<=(const vector& lhs, const vector& rhs)	{ return !(rhs < lhs); }
 			friend bool operator>=(const vector& lhs, const vector& rhs)	{ return !(lhs < rhs); }
-			friend void swap (vector& x, vector& y)							{ x.swap(y); }
 
 		private:
 			/* *******************NON MEMBER FUNCTIONS OVERLOAD******************* */

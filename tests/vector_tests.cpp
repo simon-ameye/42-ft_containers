@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 15:59:41 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/17 16:22:15 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ void test_vector_various(void)
 		v[2] = 2;
 		v[3] = 3;
 		std::cout << "TEST DE REVERSE ITERATOR2" << std::endl << std::flush;
-		NAMESPACE::vector<int>::iterator it = v.begin()++;
+		NAMESPACE::vector<int>::iterator it = ++v.begin();
 		std::cout << "*it" << *it << std::endl << std::flush;
 		NAMESPACE::vector<int>::reverse_iterator rit(it);
 		std::cout << "*rit" << *rit << std::endl;

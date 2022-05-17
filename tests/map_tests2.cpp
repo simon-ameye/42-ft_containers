@@ -202,28 +202,27 @@ int		map_custom_2(void)
 		print(mymap);
 		std::cout << "# double clear" << std::endl;
 		mymap.clear();
-		mymap.print_tree();
 
 		print(mymap);
 		mymap.clear();
 		print(mymap);
 		mymap["lol"];
 		print(mymap);
-		mymap.insert(pair<std::string, int>("xD", 123));
+		mymap.insert(NAMESPACE::pair<std::string, int>("xD", 123));
 		print(mymap);
-		mymap.insert(mymap.end(), pair<std::string, int>("uch", 442));
+		mymap.insert(mymap.end(), NAMESPACE::pair<std::string, int>("uch", 442));
 		print(mymap);
-		mymap.insert(mymap.begin(), pair<std::string, int>("uch", 22));
+		mymap.insert(mymap.begin(), NAMESPACE::pair<std::string, int>("uch", 22));
 		print(mymap);
-		mymap.insert(mymap.end(), pair<std::string, int>("uch", 23));
+		mymap.insert(mymap.end(), NAMESPACE::pair<std::string, int>("uch", 23));
 		print(mymap);
-		mymap.insert(pair<std::string, int>("uch", 23));
+		mymap.insert(NAMESPACE::pair<std::string, int>("uch", 23));
 		print(mymap);
 		mymap["lol"] = 8;
 
 
 		print(mymap);
-		map<std::string, int> map2;
+		NAMESPACE::map<std::string, int> map2;
 
 		print(mymap);
 		print(map2);
