@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:50:37 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 16:35:00 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 17:33:23 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define TEST_UTILS_HPP
 
 //COMMENT IF YOU DONT WANT TO TEST SPEED
-#define TIME_COMPARISON
+//#define TIME_COMPARISON
 
 template <typename T>
 void	print_data(T const &vct)

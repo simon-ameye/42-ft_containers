@@ -6,16 +6,27 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 16:45:29 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 17:12:51 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "test_utils.hpp"
+#include "default_tests.hpp"
 #include "vector_tests.hpp"
 #include "map_tests.hpp"
-#include "default_tests.hpp"
-#include "test_utils.hpp"
+#include "stack_tests.hpp"
 
 #include <iostream>
+
+void test_default(void)
+{
+	std::cout << "##########################################DEFAULT##########################################" << std::endl;
+	char str[] = "10";
+	char *ptr[2];
+	ptr[1] = str;
+	char **av = ptr;
+	default_tests(2, av);
+}
 
 void test_vector(void)
 {
@@ -45,18 +56,15 @@ void test_vector(void)
 void test_map(void)
 {
 	std::cout << "##########################################MAP##########################################" << std::endl;
-	std::cout << "------------------assign------------------" << std::endl;
+	std::cout << "------------------various------------------" << std::endl;
 	test_map_assign();
 }
 
-void test_default(void)
+void test_stack(void)
 {
-	std::cout << "##########################################DEFAULT##########################################" << std::endl;
-	char str[] = "10";
-	char *ptr[2];
-	ptr[1] = str;
-	char **av = ptr;
-	default_tests(2, av);
+	std::cout << "##########################################STACK##########################################" << std::endl;
+	std::cout << "------------------various------------------" << std::endl;
+	test_stack_assign();
 }
 
 int main (void)
@@ -64,4 +72,5 @@ int main (void)
 	test_default();
 	test_vector();
 	test_map();
+	test_stack();
 }

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_tests.hpp                                      :+:      :+:    :+:   */
+/*   stack_tests.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 17:33:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 17:10:35 by sameye           ###   ########.fr       */
+/*   Created: 2022/05/18 16:47:49 by sameye            #+#    #+#             */
+/*   Updated: 2022/05/18 17:15:25 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_TESTS_HPP
-#define MAP_TESTS_HPP
+#ifndef STACK_TESTS_HPP
+#define STACK_TESTS_HPP
 
 #ifndef NAMESPACE
 #define NAMESPACE ft
 #endif
 
-void test_map_assign(void);
+void test_stack_assign(void);
 
 #endif

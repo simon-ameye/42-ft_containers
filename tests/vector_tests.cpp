@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 16:45:50 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 17:23:04 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,6 @@ void test_vector_exec_time(void)
 	v1.erase(v1.end() - 60, v1.end());
 	v1.resize(70);
 	v1.resize(20000);
-	std::cout << "elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
+	std::cout << "VECTOR elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
 	#endif
 }

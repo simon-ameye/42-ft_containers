@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 16:46:01 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 17:42:54 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,9 +233,20 @@ void test_map_assign(void)
 		std::cout << "/content" << std::endl;
 		std::cout << (--mp.end())->first << std::endl;
 	}
+
+	{
+		unsigned long int size_test = 7000;
+		NAMESPACE::map<int, int> mspeedtest;
+		for (unsigned long int i = 0; i < size_test; ++i)
+			mspeedtest[i] = (size_test - i);
+		for (unsigned long int i = 0; i < size_test; ++i)
+			mspeedtest.erase(i);
+		for (unsigned long int i = 0; i < size_test; ++i)
+			mspeedtest[i] = 42;
+	}
 	
 	#ifdef TIME_COMPARISON
-	std::cout << "elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
+	std::cout << "MAP elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
 	#endif
 	
 }
