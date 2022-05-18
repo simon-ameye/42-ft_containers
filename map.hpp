@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:40:42 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 17:12:02 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 16:31:39 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ namespace ft
 		public:
 		typedef Key																		key_type;
 		typedef T																		mapped_type;
-		typedef ft::pair<key_type, mapped_type>											value_type; //UNABLE TO MAKE IT CONST AS REQUIRED
+		typedef ft::pair<key_type, mapped_type>											value_type;
 		typedef Compare																	key_compare;
 		typedef Alloc																	allocator_type;
 		typedef typename allocator_type::reference										reference;
@@ -55,7 +55,7 @@ namespace ft
 
 				bool operator()(const value_type & x, const value_type & y) const
 				{
-					return (comp(x.first, y.first)); //see std::map::value_comp
+					return (comp(x.first, y.first));
 				}
 		};
 	
@@ -128,7 +128,6 @@ namespace ft
 
 			size_type		max_size() const
 			{
-				//return static_cast<size_type>(pow(2.0, 64.0) / static_cast<double>(sizeof(value_type))) - 1;
 				return (this->_alloc.max_size());
 			}
 
@@ -326,8 +325,8 @@ namespace ft
 				return (allocator_type());
 			}
 
-			/* *******************DEV******************* */ //TO REMOVE
-		public:
+			/* *******************DEV******************* */
+		private:
 			void print_tree(void) //TO DELETE
 			{
 				_tree.print_tree();
@@ -337,8 +336,6 @@ namespace ft
 			{
 				_tree.pre0rder();
 			}
-
-
 
 			/* *******************PRIVATE VARIABLES******************* */
 		private:
@@ -385,6 +382,5 @@ namespace ft
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator>= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
 	{	return (!(lhs < rhs));	}
-
 }
 #endif

@@ -6,15 +6,14 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 16:22:19 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 16:45:29 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector_tests.hpp"
 #include "map_tests.hpp"
-#include "map_tests2.hpp"
 #include "default_tests.hpp"
-#include "test_utils/test_utils.hpp"
+#include "test_utils.hpp"
 
 #include <iostream>
 
@@ -48,8 +47,6 @@ void test_map(void)
 	std::cout << "##########################################MAP##########################################" << std::endl;
 	std::cout << "------------------assign------------------" << std::endl;
 	test_map_assign();
-	map_custom_2();
-	
 }
 
 void test_default(void)

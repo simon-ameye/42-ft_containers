@@ -6,7 +6,7 @@
 #    By: sameye <sameye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/18 16:53:51 by sameye            #+#    #+#              #
-#    Updated: 2022/05/17 13:48:51 by sameye           ###   ########.fr        #
+#    Updated: 2022/05/18 16:30:23 by sameye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ INCLUDE		=		-I iterators \
 SRCS		=		main.cpp \
 					vector_tests.cpp \
 					map_tests.cpp \
-					map_tests2.cpp \
 					default_tests.cpp
 
 

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/16 17:36:11 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 16:46:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,21 @@
 #include <map>
 #include <list>
 #include <iterator> 
+#include <time.h>
 
 #include "../map.hpp"
 #include "../vector.hpp"
 #include "../map_iterator.hpp"
-#include "test_utils/test_utils.hpp"
 
-#include "test_utils/test_utils.hpp"
+#include "test_utils.hpp"
 #include "map_tests.hpp"
 
 void test_map_assign(void)
 {
+	#ifdef TIME_COMPARISON
+	const clock_t begin_time = clock();
+	#endif
+
 	std::cout << "insert in order" << std::endl;
 	NAMESPACE::map<int, int> m1;
 	m1.insert(NAMESPACE::make_pair(1, 1));
@@ -50,16 +54,10 @@ void test_map_assign(void)
 	m2.insert(NAMESPACE::make_pair(6, 3));
 	
 	//m2.print_tree();
-
 	m2.insert(NAMESPACE::make_pair(0, 4));
 	std::cout << "marker4" << std::endl << std::flush;
 	std::cout << "res " << m2[8] << m2[2] << m2[6] << m2[0] << std::endl;
 	std::cout << "marker5" << std::endl << std::flush;
-
-
-
-
-
 	
 	std::cout << "erase in disorder" << std::endl;
 	NAMESPACE::map<int, char> m3;
@@ -71,7 +69,6 @@ void test_map_assign(void)
 	//m3.print_tree();
 	m3.erase(6);
 	std::cout << "res " << m3[8] << m3[0] << std::endl;
-
 
 	std::cout << "big trees" << std::endl;
 	std::cout << "increasing integers" << std::endl;
@@ -174,7 +171,6 @@ void test_map_assign(void)
 	std::cout << "c => " << m10.find('c')->second << '\n';
 	std::cout << "d => " << m10.find('d')->second << '\n';
 
-
 	std::cout << "lower & upper bound" << std::endl;
 	NAMESPACE::map<char,int> m11;
 	m11['a']=1;
@@ -237,5 +233,9 @@ void test_map_assign(void)
 		std::cout << "/content" << std::endl;
 		std::cout << (--mp.end())->first << std::endl;
 	}
+	
+	#ifdef TIME_COMPARISON
+	std::cout << "elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
+	#endif
 	
 }

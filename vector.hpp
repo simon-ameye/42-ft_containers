@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 14:57:31 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 16:44:12 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,27 +276,7 @@ namespace ft
 					_alloc.construct(&(*newPosition++), val);
 				_size += n;
 			}
-			
-		/*
-		void insert(iterator pos, size_type count, const value_type &value)
-		{
-			size_type index = &(*pos) - _vector;
-			if (!count)
-				return;
-			reserve(_len + count);
-			std::allocator<T> alloc;
 
-			for (ptrdiff_t i = _len - 1; i >= (ptrdiff_t)index; i--)
-			{
-				alloc.construct(&_arr[i + count], _arr[i]);
-				alloc.destroy(&_arr[i]);
-			}
-
-			for (size_type i = index; i < index + count; i++)
-				alloc.construct(&_arr[i], value);
-			_len += count;
-		}
-		*/
 			/* --------------------iterator range insert-------------------- */
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last, 

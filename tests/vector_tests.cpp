@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 16:22:15 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 16:45:50 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 
 #include "../vector.hpp"
 #include "../vector_iterator.hpp"
-#include "test_utils/test_utils.hpp"
 
-#include "test_utils/test_utils.hpp"
+#include "test_utils.hpp"
 #include "vector_tests.hpp"
 
 void test_vector_assign(void)
