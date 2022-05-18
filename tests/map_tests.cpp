@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:32:44 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 17:42:54 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 17:44:06 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,5 +248,4 @@ void test_map_assign(void)
 	#ifdef TIME_COMPARISON
 	std::cout << "MAP elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
 	#endif
-	
 }
