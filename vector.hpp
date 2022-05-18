@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 17:05:11 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/18 14:57:31 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,6 @@ namespace ft
 				return *this;
 			}
 
-		private:
-			/* *******************VARIABLES******************* */
-			Alloc				_alloc; //copy of allocator
-			pointer				_vector; //pointer on first element
-			size_type			_size; //actual size
-			size_type			_capacity; //capacity, max size available
-
 		public:
 			/* *******************ITERATORS******************* */
 			iterator				begin()					{ return iterator(_vector); }
@@ -131,6 +124,7 @@ namespace ft
 
 			/* --------------------resize-------------------- */
 			//resize and fill with 0 or specified value
+			/*
 			void resize (size_type n, value_type val = value_type())
 			{
 				if (n > _capacity) //if capacity is too small, realocate
@@ -139,6 +133,23 @@ namespace ft
 					push_back(val);
 				while (n < _size) //or remove some elements
 					pop_back();
+			}
+			*/
+			
+			void	resize (size_type n, value_type val = value_type())
+			{
+				if (n > this->max_size())
+					throw (std::length_error("vector::resize"));
+				else if (n < _size)
+				{
+					while (_size > n)
+					{
+						--_size;
+						_alloc.destroy(_vector + _size);
+					}
+				}
+				else
+					this->insert(iterator(_vector + _size), n - _size, val);
 			}
 
 			/* --------------------get capacity-------------------- */
@@ -154,7 +165,7 @@ namespace ft
 			void			reserve (size_type n)
 			{
 				if (n > max_size())
-					throw std::length_error("vector");
+					throw std::length_error("vector::reserve");
 				if (n > _capacity)
 					reallocateVec(n);
 			}
@@ -250,8 +261,11 @@ namespace ft
 			}
 
 			/* --------------------range insert-------------------- */
+			
 			void insert (iterator position, size_type n, const value_type& val)
 			{
+				if (!n)
+					return;
 				difference_type index = position - begin();
 				if (_size + n > _capacity)
 					reallocateVec(_capacity + n);
@@ -262,7 +276,27 @@ namespace ft
 					_alloc.construct(&(*newPosition++), val);
 				_size += n;
 			}
+			
+		/*
+		void insert(iterator pos, size_type count, const value_type &value)
+		{
+			size_type index = &(*pos) - _vector;
+			if (!count)
+				return;
+			reserve(_len + count);
+			std::allocator<T> alloc;
 
+			for (ptrdiff_t i = _len - 1; i >= (ptrdiff_t)index; i--)
+			{
+				alloc.construct(&_arr[i + count], _arr[i]);
+				alloc.destroy(&_arr[i]);
+			}
+
+			for (size_type i = index; i < index + count; i++)
+				alloc.construct(&_arr[i], value);
+			_len += count;
+		}
+		*/
 			/* --------------------iterator range insert-------------------- */
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last, 
@@ -388,6 +422,13 @@ namespace ft
 						_alloc.construct(&(*(first)), *last);
 				}
 			}
+
+		private:
+			/* *******************VARIABLES******************* */
+			Alloc				_alloc; //copy of allocator
+			pointer				_vector; //pointer on first element
+			size_type			_size; //actual size
+			size_type			_capacity; //capacity, max size available
 	};
 }
 #endif
