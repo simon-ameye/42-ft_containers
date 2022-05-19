@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/14 17:49:22 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 11:33:33 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ namespace ft
 		typedef T				value_type;
 		typedef T*				pointer;
 		typedef T&				reference;
-		typedef std::random_access_iterator_tag	iterator_category;
+		typedef ft::random_access_iterator_tag	iterator_category;
 	};
 
 	template <class T>
@@ -76,7 +76,7 @@ namespace ft
 		typedef T				value_type;
 		typedef const T*		pointer;
 		typedef const T&		reference;
-		typedef std::random_access_iterator_tag	iterator_category;
+		typedef ft::random_access_iterator_tag	iterator_category;
 	};
 
 	/* ****************************************** */

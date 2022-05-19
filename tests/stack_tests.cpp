@@ -6,13 +6,15 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:47:46 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 17:21:21 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:22:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <stack>
 #include <list>
+#include <vector>
+#include <deque>
 #include <iterator> 
 #include <time.h>
 #include <iomanip>
@@ -71,6 +73,13 @@ void test_stack_assign(void)
 	std::cout << (s1 >= s3) << std::endl;
 	std::cout << (s1 == s3) << std::endl;
 	std::cout << (s1 != s3) << std::endl;
+
+	NAMESPACE::stack<int, std::vector<int> > t1;
+	t1.push(55);
+	NAMESPACE::stack<int, std::deque<int> > t2;
+	t2.push(55);
+	NAMESPACE::stack<int, std::list<int> > t3;
+	t3.push(55);
 
 	#ifdef TIME_COMPARISON
 	std::cout << "STACK elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;

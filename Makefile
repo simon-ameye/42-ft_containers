@@ -6,7 +6,7 @@
 #    By: sameye <sameye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/18 16:53:51 by sameye            #+#    #+#              #
-#    Updated: 2022/05/18 17:33:59 by sameye           ###   ########.fr        #
+#    Updated: 2022/05/19 11:25:17 by sameye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ SRCS		=		main.cpp \
 					default_tests.cpp \
 					vector_tests.cpp \
 					map_tests.cpp \
-					stack_tests.cpp
-
+					stack_tests.cpp \
+					traits_tests.cpp
 
 SOURCES		=		$(addprefix $(SRCS_DIR)/,$(SRCS))
 

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:01:54 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 17:12:51 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 11:24:05 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "vector_tests.hpp"
 #include "map_tests.hpp"
 #include "stack_tests.hpp"
+#include "traits_tests.hpp"
 
 #include <iostream>
 
@@ -67,10 +68,19 @@ void test_stack(void)
 	test_stack_assign();
 }
 
+void test_traits(void)
+{
+	std::cout << "##########################################TRAITS##########################################" << std::endl;
+	std::cout << "------------------various------------------" << std::endl;
+	test_traits_main();
+}
+
 int main (void)
 {
 	test_default();
 	test_vector();
 	test_map();
 	test_stack();
+	test_traits();
+
 }

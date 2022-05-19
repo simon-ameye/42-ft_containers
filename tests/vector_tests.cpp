@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:38:23 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 17:23:04 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:05:01 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,7 @@ void test_vector_various(void)
 	}
 
 	{
+		std::cout << "ITERATOR COMPARISON" << std::endl;
 		const int size = 5;
 		NAMESPACE::vector<int> vct(size);
 		NAMESPACE::vector<int>::reverse_iterator it = vct.rbegin();
@@ -291,12 +292,22 @@ void test_vector_various(void)
 
 		std::cout << "const_ite +=/-=: " << *(ite += 2) << " | " << *(ite -= 2) << std::endl;
 
-		std::cout << "(it == const_it): " << (ite == it) << std::endl;
+		std::cout << (ite <= it) << std::endl;
+		std::cout << (it <= ite) << std::endl;
+		std::cout << (ite < it) << std::endl;
+		std::cout << (it < ite) << std::endl;
+		std::cout << (ite > it) << std::endl;
+		std::cout << (it > ite) << std::endl;
+		std::cout << (ite >= it) << std::endl;
+		std::cout << (it >= ite) << std::endl;
+		std::cout << (ite == it) << std::endl;
+		std::cout << (it == ite) << std::endl;
+		std::cout << (ite != it) << std::endl;
+		std::cout << (it != ite) << std::endl;
+
 		std::cout << "(const_ite - it): " << (ite - it) << std::endl;
 		std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
 	}
-
-
 
 	{
 		std::cout << "TEST DE REVERSE ITERATOR" << std::endl;
