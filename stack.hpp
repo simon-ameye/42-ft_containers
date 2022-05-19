@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:29:51 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/16 18:14:02 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:37:28 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ namespace ft
 		const value_type& top() const { return (this->c.back()); }
 		void push (const value_type& val) { this->c.push_back(val); }
 		void pop() { this->c.pop_back(); }
-
 
 		/* *******************ALLOWING NON MEMBER FUNCTIONS TO ACCESS _CONTAINER******************* */
 		template <class Tn, class ContainerN>

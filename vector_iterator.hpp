@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:07:01 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 11:31:52 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:36:48 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ namespace ft
 			typedef typename FalseXTrueY<Const, T&, const T&>::type				reference;
 			typedef typename FalseXTrueY<Const, T*, const T*>::type				pointer;
 			typedef ft::random_access_iterator_tag								iterator_category;
-
 
 			/* *******************CONSTRUCTORS & DESTRUCTORS******************* */
 		public:
@@ -160,7 +159,6 @@ namespace ft
 		protected:
 			elemPtr _val;
 	};
-
 }
 
 #endif

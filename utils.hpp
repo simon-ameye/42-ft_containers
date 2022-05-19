@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:12 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/19 11:33:33 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:37:18 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 namespace ft
 {
-
 	/* ****************************************** */
 	/*                 Iterator traits            */
 	/* ****************************************** */
@@ -29,7 +28,6 @@ namespace ft
 	class input_iterator_tag { };
 	class output_iterator_tag { };
 
-	/*	adapted type traits to fix fill/range constuctors	*/
 	struct type_false	{};
 	struct type_true	{};
 	template <class T>
@@ -116,7 +114,6 @@ namespace ft
 			/* *******************VARIABLES******************* */
 			T1 first;
 			T2 second;
-			
 	};
 
 	/* *******************relational operators for pairs******************* */
@@ -145,7 +142,6 @@ namespace ft
 	template <class T1, class T2>
 	bool		operator>=(const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2>& rhs)
 	{	return (!(lhs < rhs));	}
-	
 
 	/* ****************************************** */
 	/*               MAKE PAIR                    */
@@ -264,6 +260,5 @@ namespace ft
 	template <class X, class Y>
 	struct FalseXTrueY<true, X, Y>
 	{ typedef Y type; };
-
 }
 #endif

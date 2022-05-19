@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 17:33:52 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 17:21:44 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:40:26 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,9 @@ int default_tests(int argc, char** argv) {
 	}
 	std::cout << std::endl;
 
-
 	#ifdef TIME_COMPARISON
 	std::cout << "DEFAULT elapsed time : " << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "s" << std::endl;
 	#endif
 
-	
 	return (0);
 }

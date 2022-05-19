@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:05:19 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/18 16:44:12 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:36:13 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,20 +121,6 @@ namespace ft
 
 			/* --------------------get max size-------------------- */
 			size_type		max_size() const				{return std::numeric_limits<difference_type>::max() / 2 / (sizeof(value_type) / 2 ?: 1);}
-
-			/* --------------------resize-------------------- */
-			//resize and fill with 0 or specified value
-			/*
-			void resize (size_type n, value_type val = value_type())
-			{
-				if (n > _capacity) //if capacity is too small, realocate
-					reallocateVec(n);
-				while (n > _size) //then, fill with val
-					push_back(val);
-				while (n < _size) //or remove some elements
-					pop_back();
-			}
-			*/
 			
 			void	resize (size_type n, value_type val = value_type())
 			{
@@ -211,7 +197,7 @@ namespace ft
 				clear();
 				InputIterator tmp = first;
 				size_type n = 0;
-				while (tmp++ != last) //VERY LOOOOONG
+				while (tmp++ != last)
 					n++;
 				_alloc.deallocate(_vector, _capacity);
 				_capacity = n;

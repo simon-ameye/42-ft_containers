@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:55:07 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/16 18:45:59 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:37:58 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ namespace ft
 	class reverse_iterator
 	{
 		public:
-
 			typedef Iterator														iterator_type;
 			typedef typename ft::iterator_traits<Iterator>::iterator_category		iterator_category;
 			typedef typename ft::iterator_traits<Iterator>::value_type				value_type;

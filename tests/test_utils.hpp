@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:50:37 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/19 12:58:03 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:39:38 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	print_data(T const &vct)
 {
 	std::cout << "size: "		<< vct.size();
 	std::cout << " capacity: "	<< (vct.capacity() >= vct.size() ? "OK" : "KO");
-	//std::cout << " max_size: "	<< vct.max_size();
 	std::cout << std::endl;
 }
 

@@ -6,7 +6,7 @@
 /*   By: sameye <sameye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:24:09 by sameye            #+#    #+#             */
-/*   Updated: 2022/05/17 15:53:25 by sameye           ###   ########.fr       */
+/*   Updated: 2022/05/19 13:38:50 by sameye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ namespace ft
 				_root = _insert(_root, val);
 			}
 
-			N* at(Key key) const //a robust version of at that returns a NULL if not found
+			N* at(Key key) const
 			{
 				return (_at(_root, key));
 			}
